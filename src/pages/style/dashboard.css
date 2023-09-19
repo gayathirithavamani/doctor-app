@@ -1,0 +1,56 @@
+.ant-skeleton-image {
+    width: 380px !important;
+    height: 380px !important;
+}
+
+.chart-lable{    
+    padding: 5px;
+    text-align: center;
+    color: #fff;
+    align-items: center;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+
+}
+.yesLable{
+    background: green;
+
+}
+.noLable{
+    background: red;
+}
+.refLable{
+    background-color: orange;
+}
+.lable-container{
+    margin-top: 17%;
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    width: 20px;
+    height: 45px;
+    margin-left: 30px;
+}
+
+table, td, th {  
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 15px;
+  }
+
+  .chart-container{
+    display: flex;
+    justify-content: center;
+  }
+  .lable-container ul{
+    border: none !important;
+  }
