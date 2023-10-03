@@ -4,6 +4,7 @@ import "../style/dashboard.css";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { Row, Col, Card } from "antd";
+import DateRangeIcon from "@mui/icons-material/DateRange";
 
 function DashboardView() {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,11 +18,51 @@ function DashboardView() {
   const [result, setResult] = useState([]);
   const [tableResult, setTableResult] = useState([]);
 
+  const [yesValueShow, setYesValueShow] = useState(true);
+  const [noValueShow, setNoValueShow] = useState(true);
+  const [refusedValueShow, setRefusedValueShow] = useState(true);
+
+  // const tableDataClick = (clickValue) => {
+  //   setClickChartValue(clickValue);
+  //   setTableDataShow(true);
+  //   const value = result.filter((i) => i.imm_FLU_Y === clickValue);
+  //   setTableResult(value);
+  // };
+
   const tableDataClick = (clickValue) => {
     setClickChartValue(clickValue);
+    // console.log("hhhh", clickValue);
+
     setTableDataShow(true);
-    const value = result.filter((i) => i.imm_FLU_Y === clickValue);
-    setTableResult(value);
+    if (clickValue == "Yes") {
+      setYesValueShow(true);
+      setRefusedValueShow(false);
+      setNoValueShow(false);
+    }
+    if (clickValue == "No") {
+      setYesValueShow(false);
+      setRefusedValueShow(false);
+      setNoValueShow(true);
+    }
+    if (clickValue == "Refused") {
+      setYesValueShow(false);
+      setRefusedValueShow(true);
+      setNoValueShow(false);
+    }
+    if (clickValue == "data") {
+      setYesValueShow(true);
+      setRefusedValueShow(true);
+      setNoValueShow(true);
+    }
+    if (clickValue == "data") {
+      setTableResult(result);
+    } else {
+      const value = result.filter((i) => i.imm_FLU_Y === clickValue);
+      setTableResult(value);
+    }
+
+    // const value = result.filter((i) => i.imm_PNEUMO_Y === clickValue);
+    // setTableResult(value);
   };
 
   useEffect(() => {
@@ -58,7 +99,7 @@ function DashboardView() {
     is3D: true,
     legend: { position: "bottom", alignment: "center" },
     pieSliceText: "value",
-    fontSize: 14,
+    fontSize: 10,
     chartArea: { width: 400, height: 300 },
     pieHole: 0.25,
     pieStartAngle: 0,
@@ -80,103 +121,97 @@ function DashboardView() {
       <h1>welcome to grid</h1>
       <Row gutter={28}>
         <>
-          <Col xxl={12} lg={12} xs={24}>
-            <Card title="INFLUNZA" bordered={false}>
-              <div className="chart-container">
-                <Chart
-                  chartType="PieChart"
-                  data={
-                    (data = [
-                      ["Task", "Hours per Day"],
-                      ["Yes", yesValue],
-                      ["No", noValue],
-                      ["Refused", refusedValue],
-                    ])
-                  }
-                  options={options}
-                  width={"100%"}
-                  height={"400px"}
-                />
-                <div className="lable-container">
-                  <span
-                    onClick={() => tableDataClick("Yes")}
-                    className="chart-lable yesLable"
-                  >
-                    Yes
-                  </span>
-                  <span
-                    onClick={() => tableDataClick("No")}
-                    className="chart-lable noLable"
-                  >
-                    No
-                  </span>
-                  <span
-                    onClick={() => tableDataClick("Refused")}
-                    className="chart-lable refLable"
-                  >
-                    Refused
-                  </span>
-                </div>
+          <Col xxl={6} lg={6} xs={12}>
+            {/* <Card title="INFLUNZA" bordered={false}> */}
+            <div className="chart-container">
+              <Chart
+                chartType="PieChart"
+                data={
+                  (data = [
+                    ["Task", "Hours per Day"],
+                    ["Yes", yesValue],
+                    ["No", noValue],
+                    ["Refused", refusedValue],
+                  ])
+                }
+                options={options}
+                width={"100%"}
+                height={"400px"}
+              />
+              <div className="lable-container">
+                <span
+                  onClick={() => tableDataClick("data")}
+                  className="chart-lable yesLable"
+                >
+                  <DateRangeIcon />
+                </span>
+                <span
+                  onClick={() => tableDataClick("Yes")}
+                  className="chart-lable yesLable"
+                >
+                  Yes
+                </span>
+                <span
+                  onClick={() => tableDataClick("No")}
+                  className="chart-lable noLable"
+                >
+                  No
+                </span>
+                <span
+                  onClick={() => tableDataClick("Refused")}
+                  className="chart-lable refLable"
+                >
+                  Refused
+                </span>
               </div>
-            </Card>
+            </div>
+            {/* </Card> */}
           </Col>
 
-          <Col xxl={8} lg={8} xs={24}>
-            <Card title="PNEUMOCOCCAL DATA LIST" bordered={false}>
-              <div className="tableWrapper table-responsive ">
-                <table>
-                  {/* <tr>
+          <div className="tableWrapper table-responsive ">
+            <table className="smaller-table">
+              {/* <tr>
                     <th>PATIENT NAME</th>
                     <th>{clickChartValue}</th>
                   </tr> */}
-                  <tr>
-                    <th>PATIENT NAME</th>
-                    <th>Yes</th>
+              <tr>
+                <th>PATIENT NAME</th>
+                {yesValueShow ? <th>Yes</th> : null}
+                {noValueShow ? <th>No</th> : null}
+                {refusedValueShow ? <th>Refused</th> : null}
+                {/* <th>Yes</th>
                     <th>No</th>
-                    <th>Refused</th>
-                    {/* <th>{clickChartValue}</th> */}
-                  </tr>
+                    <th>Refused</th> */}
+                {/* <th>{clickChartValue}</th> */}
+              </tr>
 
-                  {tableResult.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.patientname}</td>
-                      <td>
-                        {item.imm_FLU_Y === "Yes" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
-                      <td>
-                        {item.imm_FLU_Y === "No" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
-                      <td>
-                        {item.imm_FLU_Y === "Refused" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
-                    </tr>
-                  ))}
+              {tableResult.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.patientname}</td>
+                  {yesValueShow ? (
+                    <td>
+                      {item.imm_FLU_Y === "Yes" ? <CheckIcon /> : <CloseIcon />}
+                    </td>
+                  ) : null}
+                  {noValueShow ? (
+                    <td>
+                      {item.imm_FLU_Y === "No" ? <CheckIcon /> : <CloseIcon />}
+                    </td>
+                  ) : null}
+                  {refusedValueShow ? (
+                    <td>
+                      {item.imm_FLU_Y === "Refused" ? (
+                        <CheckIcon />
+                      ) : (
+                        <CloseIcon />
+                      )}
+                    </td>
+                  ) : null}
+                </tr>
+              ))}
+            </table>
+          </div>
 
-                  {/* {tableTesult.map((item, i) => {
-                    return (
-                      <tr key={i}>
-                        <td>{item.patientname}</td>
-
-                        <td>&#10003;</td>
-                      </tr>
-                    );
-                  })} */}
-                </table>
-              </div>
-            </Card>
-          </Col>
           {/* ) : null} */}
         </>
       </Row>

@@ -198,7 +198,7 @@ const Dashboard = () => {
     <Row gutter={28}>
       {isLoading ? (
         <>
-          <Col xxl={8} lg={8} xs={24}>
+          <Col xxl={6} lg={6} xs={12}>
             <Card title="PNEUMOCOCCAL" bordered={false}>
               <Skeleton.Node active={true}>
                 <PieChartOutlined
@@ -211,7 +211,7 @@ const Dashboard = () => {
               </Skeleton.Node>
             </Card>
           </Col>
-          <Col xxl={8} lg={8} xs={24}>
+          <Col xxl={6} lg={6} xs={12}>
             <Card title="INFLUENZA" bordered={false}>
               <Skeleton.Node active={true}>
                 <PieChartOutlined
@@ -224,7 +224,7 @@ const Dashboard = () => {
               </Skeleton.Node>
             </Card>
           </Col>
-          <Col xxl={8} lg={8} xs={24}>
+          <Col xxl={6} lg={6} xs={12}>
             <Card title="Donut Chart (3D) Loading ..." bordered={false}>
               <Skeleton.Node active={true}>
                 <PieChartOutlined
@@ -237,7 +237,7 @@ const Dashboard = () => {
               </Skeleton.Node>
             </Card>
           </Col>
-          <Col xxl={8} lg={8} xs={24}>
+          <Col xxl={6} lg={6} xs={12}>
             <Card title="Donut Chart (3D) Loading ..." bordered={false}>
               <Skeleton.Node active={true}>
                 <PieChartOutlined
@@ -251,7 +251,7 @@ const Dashboard = () => {
               </Skeleton.Node>
             </Card>
           </Col>
-          <Col xxl={8} lg={8} xs={24}>
+          <Col xxl={6} lg={6} xs={12} style={{ marginTop: "20px" }}>
             <Card title="Donut Chart (3D) Loading ..." bordered={false}>
               <Skeleton.Node active={true}>
                 <PieChartOutlined
@@ -269,11 +269,11 @@ const Dashboard = () => {
         </>
       ) : (
         <>
-          <Col xxl={8} lg={8} xs={24}>
+          <Col xxl={6} lg={6} xs={12}>
             <Card title="PNEUMOCOCCAL" bordered={false}>
               <Link to="/dashboardView">
                 <AppsIcon
-                  style={{ position: "absolute", left: "340px", top: "20px" }}
+                  style={{ position: "absolute", left: "230px", top: "17px" }}
                 />
               </Link>
 
@@ -294,11 +294,11 @@ const Dashboard = () => {
             </Card>
           </Col>
 
-          <Col xxl={8} lg={8} xs={24}>
+          <Col xxl={6} lg={6} xs={12}>
             <Card title="INFLUENZA" bordered={false}>
               <Link to="/dashboardDonut">
                 <AppsIcon
-                  style={{ position: "absolute", left: "340px", top: "20px" }}
+                  style={{ position: "absolute", left: "230px", top: "17px" }}
                 />
               </Link>
               <Chart
@@ -318,11 +318,11 @@ const Dashboard = () => {
             </Card>
           </Col>
 
-          <Col xxl={8} lg={8} xs={24}>
+          <Col xxl={6} lg={6} xs={12}>
             <Card title="COVID VACCINE 1" bordered={false}>
               <Link to="/dashboardCovid">
                 <AppsIcon
-                  style={{ position: "absolute", left: "340px", top: "20px" }}
+                  style={{ position: "absolute", left: "230px", top: "17px" }}
                 />
               </Link>
               <Chart
@@ -342,11 +342,11 @@ const Dashboard = () => {
             </Card>
           </Col>
 
-          <Col xxl={8} lg={8} xs={24}>
+          <Col xxl={6} lg={6} xs={12}>
             <Card title="COVID VACCINE 2" bordered={false}>
               <Link to="/dashboardCovid2">
                 <AppsIcon
-                  style={{ position: "absolute", left: "340px", top: "20px" }}
+                  style={{ position: "absolute", left: "230px", top: "17px" }}
                 />
               </Link>
               <Chart
@@ -366,11 +366,11 @@ const Dashboard = () => {
             </Card>
           </Col>
 
-          <Col xxl={8} lg={8} xs={24}>
+          <Col xxl={6} lg={6} xs={12} style={{ marginTop: "20px" }}>
             <Card title="COVID BOOSTER" bordered={false}>
               <Link to="/dashboardBooster">
                 <AppsIcon
-                  style={{ position: "absolute", left: "340px", top: "20px" }}
+                  style={{ position: "absolute", left: "230px", top: "17px" }}
                 />
               </Link>
               <Chart

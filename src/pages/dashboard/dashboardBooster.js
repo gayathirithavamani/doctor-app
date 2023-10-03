@@ -1,19 +1,10 @@
-// import React from 'react'
-
-// function DashboardBooster () {
-//   return (
-//     <div>Welcome to dashboardBooster!.........</div>
-//   )
-// }
-
-// export default DashboardBooster;
-
 import React, { useEffect, useState } from "react";
 import Chart from "react-google-charts";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import "../style/dashboard.css";
 import { Row, Col, Card } from "antd";
+import DateRangeIcon from "@mui/icons-material/DateRange";
 
 let data2 = [
   ["Task", "Hours per Day"],
@@ -51,11 +42,44 @@ function DashboardBooster() {
   const [result, setResult] = useState([]);
   const [tableResult, setTableResult] = useState([]);
 
+  const [yesValueShow, setYesValueShow] = useState(true);
+  const [noValueShow, setNoValueShow] = useState(true);
+  const [refusedValueShow, setRefusedValueShow] = useState(true);
+
   const tableDataClick = (clickValue) => {
     setClickChartValue(clickValue);
+    // console.log("hhhh", clickValue);
+
     setTableDataShow(true);
-    const value = result.filter((i) => i.imm_COVID_Y3 === clickValue);
-    setTableResult(value);
+    if (clickValue == "Yes") {
+      setYesValueShow(true);
+      setRefusedValueShow(false);
+      setNoValueShow(false);
+    }
+    if (clickValue == "No") {
+      setYesValueShow(false);
+      setRefusedValueShow(false);
+      setNoValueShow(true);
+    }
+    if (clickValue == "Refused") {
+      setYesValueShow(false);
+      setRefusedValueShow(true);
+      setNoValueShow(false);
+    }
+    if (clickValue == "data") {
+      setYesValueShow(true);
+      setRefusedValueShow(true);
+      setNoValueShow(true);
+    }
+    if (clickValue == "data") {
+      setTableResult(result);
+    } else {
+      const value = result.filter((i) => i.imm_COVID_Y3 === clickValue);
+      setTableResult(value);
+    }
+
+    // const value = result.filter((i) => i.imm_PNEUMO_Y === clickValue);
+    // setTableResult(value);
   };
 
   useEffect(() => {
@@ -111,6 +135,12 @@ function DashboardBooster() {
                 />
                 <div className="lable-container">
                   <span
+                    onClick={() => tableDataClick("data")}
+                    className="chart-lable yesLable"
+                  >
+                    <DateRangeIcon />
+                  </span>
+                  <span
                     onClick={() => tableDataClick("Yes")}
                     className="chart-lable yesLable"
                   >
@@ -137,42 +167,44 @@ function DashboardBooster() {
             <Card title="COVID BOOSTER DATA LIST" bordered={false}>
               <div className="tableWrapper table-responsive ">
                 <table>
-                  {/* <tr>
-                    <th>PATIENT NAME</th>
-                    <th>{clickChartValue}</th>
-                  </tr> */}
+              
                   <tr>
                     <th>PATIENT NAME</th>
-                    <th>Yes</th>
-                    <th>No</th>
-                    <th>Refused</th>
-                    {/* <th>{clickChartValue}</th> */}
+                    {yesValueShow ? <th>Yes</th> : null}
+                    {noValueShow ? <th>No</th> : null}
+                    {refusedValueShow ? <th>Refused</th> : null}
                   </tr>
 
                   {tableResult.map((item) => (
                     <tr key={item.id}>
                       <td>{item.patientname}</td>
-                      <td>
-                        {item.imm_COVID_Y3 === "Yes" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
-                      <td>
-                        {item.imm_COVID_Y3 === "No" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
-                      <td>
-                        {item.imm_COVID_Y3 === "Refused" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
+                      {yesValueShow ? (
+                        <td>
+                          {item.imm_COVID_Y3 === "Yes" ? (
+                            <CheckIcon />
+                          ) : (
+                            <CloseIcon />
+                          )}
+                        </td>
+                      ) : null}
+                      {noValueShow ? (
+                        <td>
+                          {item.imm_COVID_Y3 === "No" ? (
+                            <CheckIcon />
+                          ) : (
+                            <CloseIcon />
+                          )}
+                        </td>
+                      ) : null}
+                      {refusedValueShow ? (
+                        <td>
+                          {item.imm_COVID_Y3 === "Refused" ? (
+                            <CheckIcon />
+                          ) : (
+                            <CloseIcon />
+                          )}
+                        </td>
+                      ) : null}
                     </tr>
                   ))}
 

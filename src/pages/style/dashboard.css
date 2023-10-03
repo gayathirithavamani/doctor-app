@@ -1,56 +1,87 @@
 .ant-skeleton-image {
-    width: 380px !important;
-    height: 380px !important;
+  width: 380px !important;
+  height: 380px !important;
 }
 
-.chart-lable{    
-    padding: 5px;
-    text-align: center;
-    color: #fff;
-    align-items: center;
-    border-radius: 5px;
-    margin: 5px;
-    cursor: pointer;
+.chart-lable {
+  /* padding: 5px;
+  text-align: center;
+  color: #131212;
+  align-items: center;
+  border-radius: 40px;
+  margin: 5px;
+  cursor: pointer;
+  height: 20px;
+  width: 32px;
+  font-size: 9px;
+  justify-content: center; */
+  padding: 5px;
+  text-align: center;
+  color: #131212;
+  align-items: center;
+  border-radius: 40px;
+  margin: 5px;
+  cursor: pointer;
+  height: 20px;
+  width: 32px;
+  font-size: 9px;
+  display: flex; /* Add flex display */
+  align-items: center; /* Vertically center content */
+  justify-content: center; /* Horizontally center content */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: -19px;
+}
+.yesLable {
+  background: green;
+}
+.noLable {
+  background: red;
+}
+.refLable {
+  background-color: orange;
+}
+.lable-container {
+  margin-top: 17%;
+  text-align: center;
+  display: grid;
+  justify-content: center;
+  width: 20px;
+  height: 45px;
+  margin-left: 30px;
+}
 
-}
-.yesLable{
-    background: green;
-
-}
-.noLable{
-    background: red;
-}
-.refLable{
-    background-color: orange;
-}
-.lable-container{
-    margin-top: 17%;
-    text-align: center;
-    display: grid;
-    justify-content: center;
-    width: 20px;
-    height: 45px;
-    margin-left: 30px;
+table,
+td,
+th {
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
-table, td, th {  
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-  
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  th, td {
-    padding: 15px;
-  }
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
 
-  .chart-container{
-    display: flex;
-    justify-content: center;
-  }
-  .lable-container ul{
-    border: none !important;
-  }
+th {
+  padding: 15px;
+}
+td {
+  /* padding:10px; */
+  text-align: center;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+}
+.lable-container ul {
+  border: none !important;
+}
+
+.smaller-table {
+  width: 50%; /* Adjust the width as needed */
+  font-size: 10px; /* Adjust the font size as needed */
+  height: 30px;
+  border-collapse: collapse;
+}

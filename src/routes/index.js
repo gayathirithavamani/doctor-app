@@ -14,7 +14,7 @@ import DashboardDonut from "../pages/dashboard/dashboardDonut";
 import DashboardCovid from "../pages/dashboard/dashboardCovid";
 import DashboardCovid2 from "../pages/dashboard/dashboardCovid2";
 import DashboardBooster from "../pages/dashboard/dashboardBooster";
-
+import BarChart from "../pages/populations/CanvasJSChart";
 const HomeRoutes = () => {
   return (
     <Router>
@@ -27,6 +27,7 @@ const HomeRoutes = () => {
         <Route path="/dashboardCovid" element={<DashboardCovid />} />
         <Route path="/dashboardCovid2" element={<DashboardCovid2 />} />
         <Route path="/dashboardBooster" element={<DashboardBooster />} />
+        <Route path="/populationView" element={<BarChart />} />
       </Routes>
     </Router>
   );

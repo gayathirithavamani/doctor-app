@@ -1,21 +1,10 @@
-// import React from 'react'
-
-// function DashboardCovid2 () {
-//   return (
-//     <div>
-//       welcome to covid vaccine 2!........
-//     </div>
-//   )
-// }
-
-// export default DashboardCovid2
-
 import React, { useEffect, useState } from "react";
 import Chart from "react-google-charts";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import "../style/dashboard.css";
 import { Row, Col, Card } from "antd";
+import DateRangeIcon from "@mui/icons-material/DateRange";
 
 let data2 = [
   ["Task", "Hours per Day"],
@@ -52,14 +41,40 @@ function DashboardCovid2() {
   const [clickChartValue, setClickChartValue] = useState("");
   const [result, setResult] = useState([]);
   const [tableResult, setTableResult] = useState([]);
+  const [yesValueShow, setYesValueShow] = useState(true);
+  const [noValueShow, setNoValueShow] = useState(true);
+  const [refusedValueShow, setRefusedValueShow] = useState(true);
 
   const tableDataClick = (clickValue) => {
     setClickChartValue(clickValue);
-    setTableDataShow(true);
-    const value = result.filter((i) => i.imm_COVID_Y2 === clickValue);
-    setTableResult(value);
-  };
+  
 
+    setTableDataShow(true);
+    if (clickValue == "Yes") {
+      setYesValueShow(true);
+      setRefusedValueShow(false);
+      setNoValueShow(false);
+    }
+    if (clickValue == "No") {
+      setYesValueShow(false);
+      setRefusedValueShow(false);
+      setNoValueShow(true);
+    }
+
+    if (clickValue == "data") {
+      setYesValueShow(true);
+      setRefusedValueShow(true);
+      setNoValueShow(true);
+    }
+    if (clickValue == "data") {
+      setTableResult(result);
+    } else {
+      const value = result.filter((i) => i.imm_COVID_Y2 === clickValue);
+      setTableResult(value);
+    }
+
+ 
+  };
   useEffect(() => {
     fetch("http://localhost:9090/findall ")
       .then((response) => response.json())
@@ -68,25 +83,23 @@ function DashboardCovid2() {
         setResult(data);
         const yesValue3 = data.filter((i) => i.imm_COVID_Y2 === "Yes");
         const noValue3 = data.filter((i) => i.imm_COVID_Y2 === "No");
-        const refusedValue3 = data.filter((i) => i.imm_COVID_Y2 === "Refused");
+
         setTableResult(data);
         setYesValue3(yesValue3.length);
         setNoValue3(noValue3.length);
-        setRefusedValue3(refusedValue3.length);
+
         console.log(yesValue3);
         console.log(noValue3);
-        console.log(refusedValue3);
 
         data = [
           ["Task", "Hours per Day"],
           ["Yes", yesValue3.length],
           ["No", noValue3.length],
-          //   ["Refused", refusedValue3.length],
         ];
         setIsLoading(false);
       });
 
-    // console.log(data);
+    
   }, []);
 
   return (
@@ -104,7 +117,6 @@ function DashboardCovid2() {
                       ["Task", "Hours per Day"],
                       ["Yes", yesValue3],
                       ["No", noValue3],
-                      //   ["Refused", refusedValue3],
                     ])
                   }
                   options={options1}
@@ -112,6 +124,12 @@ function DashboardCovid2() {
                   height={"400px"}
                 />
                 <div className="lable-container">
+                  <span
+                    onClick={() => tableDataClick("data")}
+                    className="chart-lable yesLable"
+                  >
+                    <DateRangeIcon />
+                  </span>
                   <span
                     onClick={() => tableDataClick("Yes")}
                     className="chart-lable yesLable"
@@ -124,12 +142,6 @@ function DashboardCovid2() {
                   >
                     No
                   </span>
-                  {/* <span
-                    onClick={() => tableDataClick("Refused")}
-                    className="chart-lable refLable"
-                  >
-                    Refused
-                  </span> */}
                 </div>
               </div>
             </Card>
@@ -139,54 +151,35 @@ function DashboardCovid2() {
             <Card title="COVID VACCINE 2 DATA LIST" bordered={false}>
               <div className="tableWrapper table-responsive ">
                 <table>
-                  {/* <tr>
-                    <th>PATIENT NAME</th>
-                    <th>{clickChartValue}</th>
-                  </tr> */}
                   <tr>
                     <th>PATIENT NAME</th>
-                    <th>Yes</th>
-                    <th>No</th>
-                    {/* <th>Refused</th> */}
-                    {/* <th>{clickChartValue}</th> */}
+                    {yesValueShow ? <th>Yes</th> : null}
+                    {noValueShow ? <th>No</th> : null}
                   </tr>
 
                   {tableResult.map((item) => (
                     <tr key={item.id}>
                       <td>{item.patientname}</td>
-                      <td>
-                        {item.imm_COVID_Y2 === "Yes" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
-                      <td>
-                        {item.imm_COVID_Y2 === "No" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
-                      {/* <td>
-                        {item.imm_COVID_Y2 === "Refused" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td> */}
+                      {yesValueShow ? (
+                        <td>
+                          {item.imm_COVID_Y2 === "Yes" ? (
+                            <CheckIcon />
+                          ) : (
+                            <CloseIcon />
+                          )}
+                        </td>
+                      ) : null}
+                      {noValueShow ? (
+                        <td>
+                          {item.imm_COVID_Y2 === "No" ? (
+                            <CheckIcon />
+                          ) : (
+                            <CloseIcon />
+                          )}
+                        </td>
+                      ) : null}
                     </tr>
                   ))}
-
-                  {/* {tableTesult.map((item, i) => {
-                    return (
-                      <tr key={i}>
-                        <td>{item.patientname}</td>
-                        <td>{clickChartValue}</td>
-          
-                      </tr>
-                    );
-                  })} */}
                 </table>
               </div>
             </Card>
