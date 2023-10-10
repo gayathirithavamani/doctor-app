@@ -1,71 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import BarChart from "../../components/bar-chart";
+import HighchartsComponent from "./stackedChart";
 
-const customColors = [
-  "#4f81c5",
-  "#4f81c5",
-  "#4f81c5",
-  "#4f81c5",
-  "#4f81c5",
-  "#4f81c5",
-  "#4f81c5",
-  "#4f81c5",
-  "#4f81c5",
-  "#4f81c5",
-  "#4f81c5",
-  "#4f81c5",
-  "#4f81c5",
-];
+const customColors = ["#4f81c5"];
 
-function App() {
+function Percentage() {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dementiaValue, setDementiaValue] = useState([]);
   const [diagnosisCounts, setDiagnosisCounts] = useState([]);
   const [percentagevalue, setPercentageValue] = useState([]); // Store diagnosis counts in an object
-
-  const options = {
-    chart: {
-      type: "bar",
-    },
-    title: {
-      text: "PATIENT POPULATION BY DX",
-    },
-    xAxis: {
-      categories: dementiaValue,
-    },
-    yAxis: {
-      type: "category",
-      tickInterval: 5,
-    },
-    legend: {
-      enabled: false,
-    },
-    plotOptions: {
-      series: {
-        pointPadding: 0.4,
-        borderWidth: 0,
-        dataLabels: {
-          enabled: true,
-          format: "{point.y:1f}",
-        },
-        pointWidth: 10,
-      },
-    },
-    tooltip: {
-      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-      pointFormat:
-        '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
-    },
-    colors: customColors, // Set custom colors for the bars
-    series: [
-      {
-        colorByPoint: true,
-        data: diagnosisCounts,
-      },
-    ],
-  };
 
   useEffect(() => {
     // You can perform any necessary side effects here
@@ -102,10 +48,12 @@ function App() {
         const totalPatients = data.length; // Calculate total patients
         console.log(`Total number of patients: ${totalPatients}`);
         // console.log(diagnosisCounts);
+
         const percentageData = listArray.map((item) => ({
           name: item.name,
-          y: ((item.y / totalPatients) * 100).toFixed(2),
+          y: Number(((item.y / totalPatients) * 100).toFixed(2)),
         }));
+
         console.log(percentageData);
         setPercentageValue(percentageData);
         setIsLoading(false);
@@ -113,14 +61,30 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        containerProps={{ style: { width: "800px", height: "600px" } }}
-      />
+    <div style={{ display: "flex", width: "100%" }}>
+      <div style={{ width: "50%" }}>
+        <div style={{marginBottom:"20px"}}>
+          <BarChart
+            seriesData={diagnosisCounts}
+            xAxisValue={dementiaValue}
+            format={"{point.y:1f}"}
+            title={"PATIENT POPULATION BY DX"}
+          />
+        </div>
+        <div>
+          <BarChart
+            seriesData={percentagevalue}
+            xAxisValue={dementiaValue}
+            format={"{point.y:1f}%"}
+            title={"% OF DX CONDITION"}
+          />
+        </div>
+      </div>
+      <div style={{ width: "50%", height: "100%" }}>
+     <HighchartsComponent tableView={false}/>
+      </div>
     </div>
   );
 }
 
-export default App;
+export default Percentage;

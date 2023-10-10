@@ -1,63 +1,54 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-google-charts";
 import "../style/dashboard.css";
+import { Row, Col, Card } from "antd";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import { Row, Col, Card } from "antd";
 import DateRangeIcon from "@mui/icons-material/DateRange";
+import { Link } from "react-router-dom";
 
-function DashboardView() {
+import AlbumIcon from "@mui/icons-material/Album";
+
+function Adv2() {
   const [isLoading, setIsLoading] = useState(true);
-
   const [yesValue, setYesValue] = useState();
+
   const [noValue, setNoValue] = useState();
-  const [refusedValue, setRefusedValue] = useState();
 
   const [tableDataShow, setTableDataShow] = useState(false);
   const [clickChartValue, setClickChartValue] = useState("");
   const [result, setResult] = useState([]);
   const [tableResult, setTableResult] = useState([]);
-
   const [yesValueShow, setYesValueShow] = useState(true);
   const [noValueShow, setNoValueShow] = useState(true);
-  const [refusedValueShow, setRefusedValueShow] = useState(true);
-
-  
 
   const tableDataClick = (clickValue) => {
     setClickChartValue(clickValue);
-    // console.log("hhhh", clickValue);
 
     setTableDataShow(true);
+
     if (clickValue == "Yes") {
       setYesValueShow(true);
-      setRefusedValueShow(false);
+
       setNoValueShow(false);
     }
     if (clickValue == "No") {
       setYesValueShow(false);
-      setRefusedValueShow(false);
+
       setNoValueShow(true);
     }
-    if (clickValue == "Refused") {
-      setYesValueShow(false);
-      setRefusedValueShow(true);
-      setNoValueShow(false);
-    }
+
     if (clickValue == "data") {
       setYesValueShow(true);
-      setRefusedValueShow(true);
+
       setNoValueShow(true);
     }
     if (clickValue == "data") {
       setTableResult(result);
     } else {
-      const value = result.filter((i) => i.imm_FLU_Y === clickValue);
+      const value = result.filter((i) => i.adv_DIR4 === clickValue);
       setTableResult(value);
     }
-
-    // const value = result.filter((i) => i.imm_PNEUMO_Y === clickValue);
-    // setTableResult(value);
   };
 
   useEffect(() => {
@@ -66,27 +57,23 @@ function DashboardView() {
       .then((data) => {
         console.log(data);
         setResult(data);
-        const yesValue = data.filter((i) => i.imm_FLU_Y === "Yes");
-        const noValue = data.filter((i) => i.imm_FLU_Y === "No");
-        const refusedValue = data.filter((i) => i.imm_FLU_Y === "Refused");
+        const yesValue = data.filter((i) => i.adv_DIR4 === "Yes");
+        const noValue = data.filter((i) => i.adv_DIR4 === "No");
+
         setTableResult(data);
         setYesValue(yesValue.length);
         setNoValue(noValue.length);
-        setRefusedValue(refusedValue.length);
+
         console.log(yesValue);
         console.log(noValue);
-        console.log(refusedValue);
 
         data = [
           ["Task", "Hours per Day"],
           ["Yes", yesValue.length],
           ["No", noValue.length],
-          ["Refused", refusedValue.length],
         ];
         setIsLoading(false);
       });
-
-    // console.log(data);
   }, []);
 
   const options = {
@@ -117,7 +104,6 @@ function DashboardView() {
       <Row gutter={28}>
         <>
           <Col xxl={6} lg={6} xs={12}>
-            {/* <Card title="INFLUNZA" bordered={false}> */}
             <div className="chart-container">
               <Chart
                 chartType="PieChart"
@@ -126,7 +112,6 @@ function DashboardView() {
                     ["Task", "Hours per Day"],
                     ["Yes", yesValue],
                     ["No", noValue],
-                    ["Refused", refusedValue],
                   ])
                 }
                 options={options}
@@ -147,35 +132,25 @@ function DashboardView() {
                 >
                   Yes
                 </span>
+
                 <span
                   onClick={() => tableDataClick("No")}
                   className="chart-lable noLable"
                 >
                   No
                 </span>
-                <span
-                  onClick={() => tableDataClick("Refused")}
-                  className="chart-lable refLable"
-                >
-                  Refused
-                </span>
               </div>
             </div>
             {/* </Card> */}
           </Col>
 
-          <div className="tableWrapper table-responsive ">
+          <div className="tableWrapper table-responsive">
             <table className="smaller-table">
               <thead>
                 <tr>
                   <th>PATIENT NAME</th>
-                  {yesValueShow ? <th>Yes</th> : null}
-                  {noValueShow ? <th>No</th> : null}
-                  {refusedValueShow ? <th>Refused</th> : null}
-                  {/* <th>Yes</th>
-                    <th>No</th>
-                    <th>Refused</th> */}
-                  {/* <th>{clickChartValue}</th> */}
+                  {yesValueShow && <th>Yes</th>}
+                  {noValueShow && <th>No</th>}
                 </tr>
               </thead>
               <tbody>
@@ -184,7 +159,7 @@ function DashboardView() {
                     <td>{item.patientname}</td>
                     {yesValueShow ? (
                       <td>
-                        {item.imm_FLU_Y === "Yes" ? (
+                        {item.adv_DIR4 === "Yes" ? (
                           <CheckIcon />
                         ) : (
                           <CloseIcon />
@@ -193,20 +168,7 @@ function DashboardView() {
                     ) : null}
                     {noValueShow ? (
                       <td>
-                        {item.imm_FLU_Y === "No" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
-                    ) : null}
-                    {refusedValueShow ? (
-                      <td>
-                        {item.imm_FLU_Y === "Refused" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
+                        {item.adv_DIR4 === "No" ? <CheckIcon /> : <CloseIcon />}
                       </td>
                     ) : null}
                   </tr>
@@ -214,11 +176,9 @@ function DashboardView() {
               </tbody>
             </table>
           </div>
-
-          {/* ) : null} */}
         </>
       </Row>
     </div>
   );
 }
-export default DashboardView;
+export default Adv2;

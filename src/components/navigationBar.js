@@ -21,25 +21,15 @@ function getItem(label, key, icon, children) {
 const items = [
   getItem('Pie Chart', '1', <PieChartOutlined />),
   getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Profile', '3'),
-    getItem('Setting', '4'),
-    getItem('Account Manage', '5'),
+    getItem('POPULATION', '3'),
+    getItem('IMMUNIZATION', '4'),
+    getItem('ASSESSMENT', '5'),
   ]),
 ];
 
-const data = [
-  ["Task", "Hours per Day"],
-  ["Work", 11],
-  ["Eat", 2],
-  ["Commute", 2],
-  ["Watch TV", 2],
-  ["Sleep", 7],
-];
 
-const options = {
-  title: "My Daily Activities",
-  is3D: true,
-};
+
+
 const App = () => {
   const [collapsed, setCollapsed] = useState(true);
   const {
@@ -82,13 +72,7 @@ const App = () => {
               background: colorBgContainer,
             }}
           >
-            <Chart
-          chartType="PieChart"
-          data={data}
-          options={options}
-          width={"100%"}
-          height={"400px"}
-        />
+          
           </div>
         </Content>
         {/* <Footer

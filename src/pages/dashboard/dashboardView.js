@@ -5,10 +5,14 @@ import { Row, Col, Card } from "antd";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import DateRangeIcon from "@mui/icons-material/DateRange";
+import { Link } from "react-router-dom";
+
+import AlbumIcon from "@mui/icons-material/Album";
 
 function DashboardView() {
   const [isLoading, setIsLoading] = useState(true);
   const [yesValue, setYesValue] = useState();
+
   const [noValue, setNoValue] = useState();
   const [refusedValue, setRefusedValue] = useState();
   const [tableDataShow, setTableDataShow] = useState(false);
@@ -23,6 +27,7 @@ function DashboardView() {
     setClickChartValue(clickValue);
 
     setTableDataShow(true);
+
     if (clickValue == "Yes") {
       setYesValueShow(true);
       setRefusedValueShow(false);
@@ -106,8 +111,8 @@ function DashboardView() {
       <Row gutter={28}>
         <>
           <Col xxl={6} lg={6} xs={12}>
-            {/* <Card title="PNEUMOCOCCAL" bordered={false}> */}
             <div className="chart-container">
+            
               <Chart
                 chartType="PieChart"
                 data={
@@ -200,8 +205,6 @@ function DashboardView() {
               </tbody>
             </table>
           </div>
-
-          {/* ) : null} */}
         </>
       </Row>
     </div>

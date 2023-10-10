@@ -47,7 +47,6 @@ function DashboardCovid2() {
 
   const tableDataClick = (clickValue) => {
     setClickChartValue(clickValue);
-  
 
     setTableDataShow(true);
     if (clickValue == "Yes") {
@@ -72,8 +71,6 @@ function DashboardCovid2() {
       const value = result.filter((i) => i.imm_COVID_Y2 === clickValue);
       setTableResult(value);
     }
-
- 
   };
   useEffect(() => {
     fetch("http://localhost:9090/findall ")
@@ -98,8 +95,6 @@ function DashboardCovid2() {
         ];
         setIsLoading(false);
       });
-
-    
   }, []);
 
   return (
@@ -107,84 +102,83 @@ function DashboardCovid2() {
       <h1>welcome to grid</h1>
       <Row gutter={28}>
         <>
-          <Col xxl={12} lg={12} xs={24}>
-            <Card title="COVID VACCINE 1" bordered={false}>
-              <div className="chart-container">
-                <Chart
-                  chartType="PieChart"
-                  data={
-                    (data2 = [
-                      ["Task", "Hours per Day"],
-                      ["Yes", yesValue3],
-                      ["No", noValue3],
-                    ])
-                  }
-                  options={options1}
-                  width={"100%"}
-                  height={"400px"}
-                />
-                <div className="lable-container">
-                  <span
-                    onClick={() => tableDataClick("data")}
-                    className="chart-lable yesLable"
-                  >
-                    <DateRangeIcon />
-                  </span>
-                  <span
-                    onClick={() => tableDataClick("Yes")}
-                    className="chart-lable yesLable"
-                  >
-                    Yes
-                  </span>
-                  <span
-                    onClick={() => tableDataClick("No")}
-                    className="chart-lable noLable"
-                  >
-                    No
-                  </span>
-                </div>
+          <Col xxl={6} lg={6} xs={12}>
+            <div className="chart-container">
+              <Chart
+                chartType="PieChart"
+                data={
+                  (data2 = [
+                    ["Task", "Hours per Day"],
+                    ["Yes", yesValue3],
+                    ["No", noValue3],
+                  ])
+                }
+                options={options1}
+                width={"100%"}
+                height={"400px"}
+                margin-top={"30px"}
+              />
+              <div className="lable-container">
+                <span
+                  onClick={() => tableDataClick("data")}
+                  className="chart-lable yesLable"
+                >
+                  <DateRangeIcon />
+                </span>
+                <span
+                  onClick={() => tableDataClick("Yes")}
+                  className="chart-lable yesLable"
+                >
+                  Yes
+                </span>
+                <span
+                  onClick={() => tableDataClick("No")}
+                  className="chart-lable noLable"
+                >
+                  No
+                </span>
               </div>
-            </Card>
+            </div>
           </Col>
 
-          <Col xxl={8} lg={8} xs={24}>
-            <Card title="COVID VACCINE 2 DATA LIST" bordered={false}>
-              <div className="tableWrapper table-responsive ">
-                <table>
-                  <tr>
-                    <th>PATIENT NAME</th>
-                    {yesValueShow ? <th>Yes</th> : null}
-                    {noValueShow ? <th>No</th> : null}
+          <div className="tableWrapper table-responsive ">
+            <table className="smaller-table">
+              <thead>
+                <tr>
+                  <th>PATIENT NAME</th>
+                  {yesValueShow ? <th>Yes</th> : null}
+                  {noValueShow ? <th>No</th> : null}
+                </tr>
+              </thead>
+              <tbody>
+                {tableResult.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.patientname}</td>
+                    {yesValueShow && (
+                      <td>
+                        {item.imm_COVID_Y2 === "Yes" ? (
+                          <CheckIcon />
+                        ) : (
+                          <CloseIcon />
+                        )}
+                      </td>
+                    ) }
+                    {noValueShow && (
+                      <td>
+                        {item.imm_COVID_Y2 === "No" ? (
+                          <CheckIcon />
+                        ) : (
+                          <CloseIcon />
+                        )}
+                      </td>
+                    ) }
                   </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-                  {tableResult.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.patientname}</td>
-                      {yesValueShow ? (
-                        <td>
-                          {item.imm_COVID_Y2 === "Yes" ? (
-                            <CheckIcon />
-                          ) : (
-                            <CloseIcon />
-                          )}
-                        </td>
-                      ) : null}
-                      {noValueShow ? (
-                        <td>
-                          {item.imm_COVID_Y2 === "No" ? (
-                            <CheckIcon />
-                          ) : (
-                            <CloseIcon />
-                          )}
-                        </td>
-                      ) : null}
-                    </tr>
-                  ))}
-                </table>
-              </div>
-            </Card>
-          </Col>
-          {/* ) : null} */}
+        
         </>
       </Row>
     </div>

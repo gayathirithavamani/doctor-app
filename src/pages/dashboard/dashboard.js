@@ -7,40 +7,6 @@ import { Link } from "react-router-dom";
 
 import AppsIcon from "@mui/icons-material/Apps";
 
-let data = [
-  ["Task", "Hours per Day"],
-  ["Yes", 11],
-  ["No", 2],
-  ["Refused", 2],
-];
-
-let data1 = [
-  ["Task", "Hours per Day"],
-  ["Yes", 11],
-  ["No", 2],
-  ["Refused", 2],
-];
-
-let data2 = [
-  ["Task", "Hours per Day"],
-  ["Yes", 11],
-  ["No", 2],
-  ["Refused", 2],
-];
-
-let data3 = [
-  ["Task", "Hours per Day"],
-  ["Yes", 11],
-  ["No", 2],
-  ["Refused", 2],
-];
-
-let data4 = [
-  ["Task", "Hours per Day"],
-  ["Yes", 11],
-  ["No", 2],
-  ["Refused", 2],
-];
 
 const options = {
   title: null,
@@ -82,13 +48,7 @@ const options1 = {
   },
 };
 
-const options3dfalse = {
-  title: null,
-  legend: { position: "bottom", alignment: "center" },
-  pieSliceText: "value",
-  fontSize: 14,
-  chartArea: { width: 400, height: 300 },
-};
+
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -158,40 +118,10 @@ const Dashboard = () => {
         console.log(noValue4.length);
         console.log(refusedValue4.length);
 
-        data = [
-          ["Task", "Hours per Day"],
-          ["Yes", yesValue.length],
-          ["No", noValue.length],
-          ["Refused", refusedValue.length],
-        ];
-        data1 = [
-          ["Task", "Hours per Day"],
-          ["Yes", yesValue1.length],
-          ["No", noValue1.length],
-          ["Refused", refusedValue1.length],
-        ];
-        data2 = [
-          ["Task", "Hours per Day"],
-          ["Yes", yesValue2.length],
-          ["No", noValue2.length],
-          ["Refused", refusedValue2.length],
-        ];
-        data3 = [
-          ["Task", "Hours per Day"],
-          ["Yes", yesValue3.length],
-          ["No", noValue3.length],
-          ["Refused", refusedValue3.length],
-        ];
-        data4 = [
-          ["Task", "Hours per Day"],
-          ["Yes", yesValue4.length],
-          ["No", noValue4.length],
-          ["Refused", refusedValue4.length],
-        ];
         setIsLoading(false);
       });
 
-    // console.log(data);
+    
   }, []);
 
   return (
@@ -279,14 +209,12 @@ const Dashboard = () => {
 
               <Chart
                 chartType="PieChart"
-                data={
-                  (data = [
-                    ["Task", "Hours per Day"],
-                    ["Yes", yesValue],
-                    ["No", noValue],
-                    ["Refused", refusedValue],
-                  ])
-                }
+                data={[
+                  ["Task", "Hours per Day"],
+                  ["Yes", yesValue],
+                  ["No", noValue],
+                  ["Refused", refusedValue],
+                ]}
                 options={options}
                 width={"100%"}
                 height={"400px"}
@@ -303,14 +231,12 @@ const Dashboard = () => {
               </Link>
               <Chart
                 chartType="PieChart"
-                data={
-                  (data1 = [
-                    ["Task", "Hours per Day"],
-                    ["Yes", yesValue1],
-                    ["No", noValue1],
-                    ["Refused", refusedValue1],
-                  ])
-                }
+                data={[
+                  ["Task", "Hours per Day"],
+                  ["Yes", yesValue1],
+                  ["No", noValue1],
+                  ["Refused", refusedValue1],
+                ]}
                 options={options}
                 width={"100%"}
                 height={"400px"}
@@ -329,14 +255,12 @@ const Dashboard = () => {
                 chartType="PieChart"
                 width="100%"
                 height="400px"
-                data={
-                  (data2 = [
-                    ["Task", "Hours per Day"],
-                    ["Yes", yesValue2],
-                    ["No", noValue2],
-                    ["Refused", refusedValue2],
-                  ])
-                }
+                data={[
+                  ["Task", "Hours per Day"],
+                  ["Yes", yesValue2],
+                  ["No", noValue2],
+                  ["Refused", refusedValue2],
+                ]}
                 options={options1}
               />
             </Card>
@@ -353,14 +277,12 @@ const Dashboard = () => {
                 chartType="PieChart"
                 width="100%"
                 height="400px"
-                data={
-                  (data2 = [
-                    ["Task", "Hours per Day"],
-                    ["Yes", yesValue3],
-                    ["No", noValue3],
-                    ["Refused", refusedValue3],
-                  ])
-                }
+                data={[
+                  ["Task", "Hours per Day"],
+                  ["Yes", yesValue3],
+                  ["No", noValue3],
+                  ["Refused", refusedValue3],
+                ]}
                 options={options1}
               />
             </Card>
@@ -377,14 +299,12 @@ const Dashboard = () => {
                 chartType="PieChart"
                 width="100%"
                 height="400px"
-                data={
-                  (data2 = [
-                    ["Task", "Hours per Day"],
-                    ["Yes", yesValue4],
-                    ["No", noValue4],
-                    ["Refused", refusedValue4],
-                  ])
-                }
+                data={[
+                  ["Task", "Hours per Day"],
+                  ["Yes", yesValue4],
+                  ["No", noValue4],
+                  ["Refused", refusedValue4],
+                ]}
                 options={options1}
               />
             </Card>
