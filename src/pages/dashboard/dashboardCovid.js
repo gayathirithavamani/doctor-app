@@ -5,6 +5,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import "../style/dashboard.css";
 import { Row, Col, Card } from "antd";
 import DateRangeIcon from "@mui/icons-material/DateRange";
+import { Link } from "react-router-dom";
+import PieChartIcon from "@mui/icons-material/PieChart";
 
 let data2 = [
   ["Task", "Hours per Day"],
@@ -122,7 +124,7 @@ function DashboardCovid() {
       <Row gutter={28}>
         <>
           <Col xxl={6} lg={6} xs={12}>
-            <div className="chart-container">
+            <div className="chart-container" style={{ display: "flex" }}>
               <Chart
                 chartType="PieChart"
                 data={
@@ -138,6 +140,11 @@ function DashboardCovid() {
                 height={"400px"}
                 margin-top={"30px"}
               />
+              <Link to="/dashboard">
+                <PieChartIcon
+                  style={{ position: "relative", right: "45px", top: "17px" }}
+                />
+              </Link>
               <div className="lable-container">
                 <span
                   onClick={() => tableDataClick("data")}

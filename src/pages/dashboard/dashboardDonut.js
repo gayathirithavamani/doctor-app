@@ -5,7 +5,8 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { Row, Col, Card } from "antd";
 import DateRangeIcon from "@mui/icons-material/DateRange";
-
+import { Link } from "react-router-dom";
+import PieChartIcon from "@mui/icons-material/PieChart";
 function DashboardView() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,8 +22,6 @@ function DashboardView() {
   const [yesValueShow, setYesValueShow] = useState(true);
   const [noValueShow, setNoValueShow] = useState(true);
   const [refusedValueShow, setRefusedValueShow] = useState(true);
-
-  
 
   const tableDataClick = (clickValue) => {
     setClickChartValue(clickValue);
@@ -118,7 +117,7 @@ function DashboardView() {
         <>
           <Col xxl={6} lg={6} xs={12}>
             {/* <Card title="INFLUNZA" bordered={false}> */}
-            <div className="chart-container">
+            <div className="chart-container" style={{ display: "flex" }}>
               <Chart
                 chartType="PieChart"
                 data={
@@ -134,6 +133,11 @@ function DashboardView() {
                 height={"400px"}
                 margin-top={"30px"}
               />
+              <Link to="/dashboard">
+                <PieChartIcon
+                  style={{ position: "relative", right: "45px", top: "17px" }}
+                />
+              </Link>
               <div className="lable-container">
                 <span
                   onClick={() => tableDataClick("data")}

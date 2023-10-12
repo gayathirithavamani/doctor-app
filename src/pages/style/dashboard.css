@@ -85,3 +85,8 @@ td {
   height: 30px;
   border-collapse: collapse;
 }
+
+.ant-card-body{
+    padding: 0px !important
+
+  }

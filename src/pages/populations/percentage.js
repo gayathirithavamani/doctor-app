@@ -58,6 +58,8 @@ function Percentage() {
         setPercentageValue(percentageData);
         setIsLoading(false);
       });
+
+      // result.find((item) => item.id === selectedId)
   }, []);
 
   return (

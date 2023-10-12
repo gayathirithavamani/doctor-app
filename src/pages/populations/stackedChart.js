@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import AddchartIcon from "@mui/icons-material/Addchart";
+import { Link } from "react-router-dom";
 
 const HighchartsComponent = (props) => {
   const [result, setResult] = useState([]);
@@ -15,9 +16,10 @@ const HighchartsComponent = (props) => {
   const [zeroArr, setZeroArrValue] = useState();
   const [tableResult, setTableResult] = useState([]);
   const [showChart, setShowChart] = useState(true); // Add this state variable
+  const [toggleValue, setToggleValue] = useState();
 
   const tableContainerStyle = {
-    width: "100%", // Set your desired width here
+    width: "200%", // Set your desired width here
   };
 
   const tableStyle = {
@@ -179,11 +181,11 @@ const HighchartsComponent = (props) => {
           {/* Icon in the top left corner */}
 
           <HighchartsReact highcharts={Highcharts} options={options} />
-          <link to="/">
+          <Link to="/stackedView">
             <div style={{ position: "relative", top: "10px", right: "30px" }}>
               <AddchartIcon />
             </div>
-          </link>
+          </Link>
         </div>
 
         {/* Table */}

@@ -11,15 +11,36 @@ import {
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { Chart } from "react-google-charts";
+import { Link } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
-function getItem(label, key, icon, children) {
+function getItem(label,key, icon, children, ) {
   return {
+    // label,
+    // path,
     key,
     icon,
     children,
     label,
   };
+}
+
+function Navbar() {
+  return (
+    <Header
+      style={{
+        backgroundColor: "#222", // Set the background color
+        height: "60px", // Set the height
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center", // Center items vertically and horizontally
+      }}
+    >
+      <h1 style={{ color: "white" }}>
+        ADVANCED REHAB & HEALTHCARE OF LIVE OAK
+      </h1>
+    </Header>
+  );
 }
 const items = [
   getItem("Pie Chart", "1", <PieChartOutlined />),
@@ -49,12 +70,14 @@ const MainLayout = () => {
     <Layout
       style={{
         minHeight: "100vh",
+        backgroundColor: "rgb(34, 34, 34)",
       }}
     >
       <Sider
         collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
+        style={{ backgroundColor: "rgb(34, 34, 34)" }}
       >
         <div className="demo-logo-vertical" />
         <Menu
@@ -63,8 +86,25 @@ const MainLayout = () => {
           defaultSelectedKeys={["1"]}
           mode="inline"
           items={items}
+          style={{ backgroundColor: "rgb(34, 34, 34)" }}
         />
+
+        {/* {items.map((item) => {
+          
+            return item.children && (
+              item.children.length>0 && item.children.map(data=>{
+                console.log(data.path)
+                return(
+                  <Menu.Item key={data.key}>
+                  <Link to={data.path}>{data.label}</Link>
+                </Menu.Item>
+                )
+              })
+            ) 
+          })}
+        </Menu> */}
       </Sider>
+
       <Layout>
         {/* <Header
           style={{
@@ -72,6 +112,7 @@ const MainLayout = () => {
             background: colorBgContainer,
           }}
         /> */}
+        <Navbar /> {/* Add the Navbar component here */}
         <Content>
           <Content style={{ margin: "10px 10px 0", height: "100%" }}>
             <div

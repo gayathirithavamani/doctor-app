@@ -6,8 +6,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import { Link } from "react-router-dom";
-
-import AlbumIcon from "@mui/icons-material/Album";
+import PieChartIcon from "@mui/icons-material/PieChart";
 
 function Adv2() {
   const [isLoading, setIsLoading] = useState(true);
@@ -104,7 +103,7 @@ function Adv2() {
       <Row gutter={28}>
         <>
           <Col xxl={6} lg={6} xs={12}>
-            <div className="chart-container">
+            <div className="chart-container" style={{ display: "flex" }}>
               <Chart
                 chartType="PieChart"
                 data={
@@ -119,6 +118,11 @@ function Adv2() {
                 height={"400px"}
                 margin-top={"30px"}
               />
+              <Link to="/assessmentView">
+                <PieChartIcon
+                  style={{ position: "relative", right: "45px", top: "17px" }}
+                />
+              </Link>
               <div className="lable-container">
                 <span
                   onClick={() => tableDataClick("data")}

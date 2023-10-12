@@ -1,42 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-google-charts";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
 import "../style/dashboard.css";
 import { Row, Col, Card } from "antd";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import { Link } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
-let data2 = [
-  ["Task", "Hours per Day"],
-  ["Yes", 11],
-  ["No", 2],
-  //   ["Refused", 2],
-  // CSS-style declaration
-];
-
-const options1 = {
-  title: null,
-  is3D: false,
-  legend: { position: "bottom", alignment: "center" },
-  pieSliceText: "value",
-  fontSize: 14,
-  chartArea: { width: 400, height: 300 },
-  pieHole: 0.25,
-  pieStartAngle: 0,
-  animation: {
-    startup: true,
-    duration: 2000,
-    easing: "out",
-  },
-};
-
-function DashboardCovid2() {
+function Cat2() {
   const [isLoading, setIsLoading] = useState(true);
+  const [yesValue, setYesValue] = useState();
 
-  const [yesValue3, setYesValue3] = useState();
-  const [noValue3, setNoValue3] = useState();
-  const [refusedValue3, setRefusedValue3] = useState();
+  const [noValue, setNoValue] = useState();
 
   const [tableDataShow, setTableDataShow] = useState(false);
   const [clickChartValue, setClickChartValue] = useState("");
@@ -44,59 +19,82 @@ function DashboardCovid2() {
   const [tableResult, setTableResult] = useState([]);
   const [yesValueShow, setYesValueShow] = useState(true);
   const [noValueShow, setNoValueShow] = useState(true);
-  const [refusedValueShow, setRefusedValueShow] = useState(true);
 
   const tableDataClick = (clickValue) => {
     setClickChartValue(clickValue);
 
     setTableDataShow(true);
+
     if (clickValue == "Yes") {
       setYesValueShow(true);
-      setRefusedValueShow(false);
+
       setNoValueShow(false);
     }
     if (clickValue == "No") {
       setYesValueShow(false);
-      setRefusedValueShow(false);
+
       setNoValueShow(true);
     }
 
     if (clickValue == "data") {
       setYesValueShow(true);
-      setRefusedValueShow(true);
+
       setNoValueShow(true);
     }
     if (clickValue == "data") {
       setTableResult(result);
     } else {
-      const value = result.filter((i) => i.imm_COVID_Y2 === clickValue);
+      const value = result.filter((i) => i.cat2 === clickValue);
       setTableResult(value);
     }
   };
+
   useEffect(() => {
     fetch("http://localhost:9090/findall ")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setResult(data);
-        const yesValue3 = data.filter((i) => i.imm_COVID_Y2 === "Yes");
-        const noValue3 = data.filter((i) => i.imm_COVID_Y2 === "No");
+        const yesValue = data.filter((i) => i.cat2 === "Suprapublic");
+        const noValue = data.filter((i) => i.cat2 === "Foley");
 
         setTableResult(data);
-        setYesValue3(yesValue3.length);
-        setNoValue3(noValue3.length);
+        setYesValue(yesValue.length);
+        setNoValue(noValue.length);
 
-        console.log(yesValue3);
-        console.log(noValue3);
+        console.log(yesValue);
+        console.log(noValue);
 
         data = [
           ["Task", "Hours per Day"],
-          ["Yes", yesValue3.length],
-          ["No", noValue3.length],
+          ["Yes", yesValue.length],
+          ["No", noValue.length],
         ];
         setIsLoading(false);
       });
   }, []);
+
+  const options = {
+    title: null,
+    is3D: true,
+    legend: { position: "bottom", alignment: "center" },
+    pieSliceText: "value",
+    fontSize: 10,
+    chartArea: { width: 400, height: 300 },
+    pieHole: 0.25,
+    pieStartAngle: 0,
+    animation: {
+      startup: true,
+      duration: 2000,
+      easing: "out",
+    },
+  };
+  let data = [
+    ["Task", "Hours per Day"],
+    ["Yes", 11],
+    ["No", 2],
+    ["Refused", 2],
+  ];
 
   return (
     <div>
@@ -108,18 +106,18 @@ function DashboardCovid2() {
               <Chart
                 chartType="PieChart"
                 data={
-                  (data2 = [
+                  (data = [
                     ["Task", "Hours per Day"],
-                    ["Yes", yesValue3],
-                    ["No", noValue3],
+                    ["Suprapublic", yesValue],
+                    ["Foley", noValue],
                   ])
                 }
-                options={options1}
+                options={options}
                 width={"100%"}
                 height={"400px"}
                 margin-top={"30px"}
               />
-              <Link to="/dashboard">
+              <Link to="/assessmentView">
                 <PieChartIcon
                   style={{ position: "relative", right: "45px", top: "17px" }}
                 />
@@ -137,6 +135,7 @@ function DashboardCovid2() {
                 >
                   Yes
                 </span>
+
                 <span
                   onClick={() => tableDataClick("No")}
                   className="chart-lable noLable"
@@ -145,39 +144,36 @@ function DashboardCovid2() {
                 </span>
               </div>
             </div>
+            {/* </Card> */}
           </Col>
 
-          <div className="tableWrapper table-responsive ">
+          <div className="tableWrapper table-responsive">
             <table className="smaller-table">
               <thead>
                 <tr>
                   <th>PATIENT NAME</th>
-                  {yesValueShow ? <th>Yes</th> : null}
-                  {noValueShow ? <th>No</th> : null}
+                  {yesValueShow && <th>Yes</th>}
+                  {noValueShow && <th>No</th>}
                 </tr>
               </thead>
               <tbody>
                 {tableResult.map((item) => (
                   <tr key={item.id}>
                     <td>{item.patientname}</td>
-                    {yesValueShow && (
+                    {yesValueShow ? (
                       <td>
-                        {item.imm_COVID_Y2 === "Yes" ? (
+                        {item.cat1 === "Suprapublic" ? (
                           <CheckIcon />
                         ) : (
                           <CloseIcon />
                         )}
                       </td>
-                    )}
-                    {noValueShow && (
+                    ) : null}
+                    {noValueShow ? (
                       <td>
-                        {item.imm_COVID_Y2 === "No" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
+                        {item.cat1 === "Foley" ? <CheckIcon /> : <CloseIcon />}
                       </td>
-                    )}
+                    ) : null}
                   </tr>
                 ))}
               </tbody>
@@ -188,4 +184,4 @@ function DashboardCovid2() {
     </div>
   );
 }
-export default DashboardCovid2;
+export default Cat2;
