@@ -6,18 +6,32 @@ const BarChart = ({ seriesData, xAxisValue, format, title }) => {
   const options = {
     chart: {
       type: "bar",
+      backgroundColor: "black",
     },
     title: {
-      //   text: "% OF DX CONDITION",
       text: title,
+      style: {
+        color: "white", // Set the font color for the title
+      },
     },
     xAxis: {
       categories: xAxisValue,
+      labels: {
+        style: {
+          color: "white", // Set the font color for the X-axis labels
+        },
+      },
     },
     yAxis: {
-      type: "category",
+      type: "",
       tickInterval: 5,
+      labels: {
+        style: {
+          color: "white", // Set the font color for the Y-axis tick labels
+        },
+      },
     },
+
     legend: {
       enabled: false,
     },

@@ -14,7 +14,7 @@ import { Chart } from "react-google-charts";
 import { Link } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
-function getItem(label,key, icon, children, ) {
+function getItem(label, key, icon, children) {
   return {
     // label,
     // path,
@@ -25,7 +25,7 @@ function getItem(label,key, icon, children, ) {
   };
 }
 
-function Navbar() {
+function Navbar({ formattedDate }) {
   return (
     <Header
       style={{
@@ -39,6 +39,7 @@ function Navbar() {
       <h1 style={{ color: "white" }}>
         ADVANCED REHAB & HEALTHCARE OF LIVE OAK
       </h1>
+      <div style={{ marginLeft: "20px", color: "white" }}>{formattedDate}</div>
     </Header>
   );
 }
@@ -88,21 +89,6 @@ const MainLayout = () => {
           items={items}
           style={{ backgroundColor: "rgb(34, 34, 34)" }}
         />
-
-        {/* {items.map((item) => {
-          
-            return item.children && (
-              item.children.length>0 && item.children.map(data=>{
-                console.log(data.path)
-                return(
-                  <Menu.Item key={data.key}>
-                  <Link to={data.path}>{data.label}</Link>
-                </Menu.Item>
-                )
-              })
-            ) 
-          })}
-        </Menu> */}
       </Sider>
 
       <Layout>

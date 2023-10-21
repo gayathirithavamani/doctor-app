@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import AddchartIcon from "@mui/icons-material/Addchart";
+
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import TableRowsIcon from "@mui/icons-material/TableRows";
 
 const HighchartsComponent = (props) => {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dementiaValue, setDementiaValue] = useState([]);
-  const [stabilizedValue, setStabilizedValue] = useState([]);
+  // const [stabilizedValue, setStabilizedValue] = useState([]);
   const [noChangeArr, setNoChangeValue] = useState();
   const [improvedArrArr, setImprovedArrValue] = useState();
   const [worsenedArrArr, setWorsenedArrValue] = useState();
@@ -16,7 +18,7 @@ const HighchartsComponent = (props) => {
   const [zeroArr, setZeroArrValue] = useState();
   const [tableResult, setTableResult] = useState([]);
   const [showChart, setShowChart] = useState(true); // Add this state variable
-  const [toggleValue, setToggleValue] = useState();
+  // const [toggleValue, setToggleValue] = useState();
 
   const tableContainerStyle = {
     width: "200%", // Set your desired width here
@@ -29,23 +31,39 @@ const HighchartsComponent = (props) => {
   const options = {
     chart: {
       type: "bar",
-      width: 500, // Set the width here
-      height: 400, // Set the height here
+      width: 490, // Set the width here
+      height: 350, // Set the height here
+      backgroundColor: "#222",
     },
     title: {
       text: "CONDITION CARE GAP",
+      style: {
+        color: "white", // Set the font color for the title text
+      },
     },
     xAxis: {
       categories: dementiaValue,
+      labels: {
+        style: {
+          color: "white", // Set the font color for the categories
+        },
+      },
     },
     yAxis: {
       min: 0,
-      title: {
-        text: "Goals",
+      title: "",
+      labels: {
+        style: {
+          color: "white", // Set the font color for the Y-axis title
+        },
       },
     },
+
     legend: {
       reversed: true,
+      itemStyle: {
+        color: "white", // Set the font color for the legends
+      },
     },
     plotOptions: {
       series: {
@@ -53,8 +71,10 @@ const HighchartsComponent = (props) => {
         dataLabels: {
           enabled: true,
           style: {
-            fontSize: "10px", // Set the font size to a smaller value
+            fontSize: "7px",
+            color: "white",
           },
+          
         },
       },
     },
@@ -62,22 +82,57 @@ const HighchartsComponent = (props) => {
       {
         name: " Stabilized",
         data: stabilizedArr,
+        dataLabels: {
+          enabled: true,
+          style: {
+            color: "white", // Set the font color for this series name
+          },
+        },
       },
+      // {
+      //   name: " Stabilized",
+      //   data: stabilizedArr,
+
+      // },
       {
         name: "Worsened",
         data: worsenedArrArr,
+        dataLabels: {
+          enabled: true,
+          style: {
+            color: "white", // Set the font color for this series name
+          },
+        },
       },
       {
         name: "Improved",
         data: improvedArrArr,
+        dataLabels: {
+          enabled: true,
+          style: {
+            color: "white", // Set the font color for this series name
+          },
+        },
       },
       {
         name: "NoChange",
         data: noChangeArr,
+        nameLabels: {
+          enabled: true,
+          style: {
+            color: "red", // Set the font color for this series name
+          },
+        },
       },
       {
         name: "0",
         data: zeroArr,
+        dataLabels: {
+          enabled: true,
+          style: {
+            color: "white", // Set the font color for this series name
+          },
+        },
       },
     ],
   };
@@ -97,11 +152,11 @@ const HighchartsComponent = (props) => {
     fetch("http://localhost:9090/findall")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setResult(data);
         setTableResult(data);
         const caregap = [];
-        // Loop through the retrieved data
+
         data.forEach((item, index) => {
           const bulletPoints = splitCaregapsIntoBulletPoints(item.caregaps);
 
@@ -109,7 +164,7 @@ const HighchartsComponent = (props) => {
             console.log(`• ${point}`);
           });
 
-          console.log(bulletPoints);
+          // console.log(bulletPoints);
         });
 
         const diagnosListArray = data.map((item) => item.diagnos_LIST);
@@ -118,6 +173,7 @@ const HighchartsComponent = (props) => {
         const diagnosListArray1 = data.map(
           (item) => item.patient_CONDITION_DIAG_1
         );
+        // console.log(diagnosListArray + "hii");
 
         let uniqueChars1 = [...new Set(diagnosListArray1)];
 
@@ -171,21 +227,42 @@ const HighchartsComponent = (props) => {
         setIsLoading(false);
       });
   }, []);
+  const path = window.location.pathname;
+  console.log(path);
+
+  const navigate = useNavigate();
+
+  // Your component code
+
+  const handleNavigate = () => {
+    const newPath =
+      path === "/percentageView" ? "/stackedView" : "/percentageView";
+    navigate(newPath);
+  };
 
   return (
     <div>
       <div style={{ display: "flex" }}>
         {/* Chart */}
 
-        <div style={{ display: "flex" }}>
-          {/* Icon in the top left corner */}
+        <div className="outer " style={{ display: "flex" }}>
+          <div className="chart-container">
+            <HighchartsReact highcharts={Highcharts} options={options} />
+          </div>
+          <div style={{ position: "relative", top: "10px", right: "30px" }}>
+            <TableRowsIcon
+              style={{ color: "yellow", cursor: "pointer" }}
+              onClick={handleNavigate}
+            />
+          </div>
 
-          <HighchartsReact highcharts={Highcharts} options={options} />
-          <Link to="/stackedView">
+          {/* <Link
+            to={path === "/percentageView" ? "/stackedView" : "/percentageView"}
+          >
             <div style={{ position: "relative", top: "10px", right: "30px" }}>
               <AddchartIcon />
             </div>
-          </Link>
+          </Link> */}
         </div>
 
         {/* Table */}

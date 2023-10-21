@@ -1,32 +1,34 @@
 import React, { useEffect, useState } from "react";
-import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
 import BarChart from "../../components/bar-chart";
 import HighchartsComponent from "./stackedChart";
-
-const customColors = ["#4f81c5"];
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import "../style/dashboard.css";
 
 function Percentage() {
-  const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dementiaValue, setDementiaValue] = useState([]);
   const [diagnosisCounts, setDiagnosisCounts] = useState([]);
-  const [percentagevalue, setPercentageValue] = useState([]); // Store diagnosis counts in an object
+  const [percentagevalue, setPercentageValue] = useState([]);
+  const [single, setSingle] = useState();
+  const [result, setResult] = useState([]);
+  const [filtered, setFiltered] = useState(result);
+  const [isDescriptionVisible, setDescriptionVisible] = useState(true);
 
+  function splitCaregapsIntoBulletPoints(caregaps) {
+    if (!caregaps) return [];
+    return caregaps.split(",").map((caregap) => caregap.trim());
+  }
   useEffect(() => {
-    // You can perform any necessary side effects here
     fetch("http://localhost:9090/findall")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setResult(data);
-
+        setFiltered(data);
         var listArray = [];
         data.map((item) => {
           const existingItemIndex = listArray.findIndex(
             (i) => i.name === item.diagnos_LIST
           );
-          console.log(existingItemIndex);
 
           if (existingItemIndex === -1) {
             listArray.push({
@@ -37,35 +39,43 @@ function Percentage() {
           }
         });
 
-        console.log(listArray);
         setDiagnosisCounts(listArray);
 
         const diagnosListArray = data.map((item) => item.diagnos_LIST);
         let uniqueChars = [...new Set(diagnosListArray)];
         setDementiaValue(uniqueChars);
-        console.log(uniqueChars);
 
-        const totalPatients = data.length; // Calculate total patients
-        console.log(`Total number of patients: ${totalPatients}`);
-        // console.log(diagnosisCounts);
+        const totalPatients = data.length;
 
         const percentageData = listArray.map((item) => ({
           name: item.name,
           y: Number(((item.y / totalPatients) * 100).toFixed(2)),
         }));
 
-        console.log(percentageData);
         setPercentageValue(percentageData);
         setIsLoading(false);
       });
-
-      // result.find((item) => item.id === selectedId)
   }, []);
+  const handleFilteredData = (btn) => {
+    if (btn === "all") {
+      setFiltered(result);
+    } else {
+      const improvedList1 = result.filter(
+        (i) => i.patient_CONDITION_DIAG_1 === btn && i.patientname
+      );
+      setFiltered(improvedList1);
+    }
+  };
+
+  function handleClick(info) {
+    const data = result.find((item) => item.id === info.id);
+    setSingle(data);
+  }
 
   return (
     <div style={{ display: "flex", width: "100%" }}>
-      <div style={{ width: "50%" }}>
-        <div style={{marginBottom:"20px"}}>
+      <div style={{ width: "40%", height: "40%" }}>
+        <div className="background" style={{ marginBottom: "20px" }}>
           <BarChart
             seriesData={diagnosisCounts}
             xAxisValue={dementiaValue}
@@ -73,7 +83,7 @@ function Percentage() {
             title={"PATIENT POPULATION BY DX"}
           />
         </div>
-        <div>
+        <div className="background">
           <BarChart
             seriesData={percentagevalue}
             xAxisValue={dementiaValue}
@@ -82,8 +92,134 @@ function Percentage() {
           />
         </div>
       </div>
-      <div style={{ width: "50%", height: "100%" }}>
-     <HighchartsComponent tableView={false}/>
+      <div style={{ width: "60%", height: "100%" }}>
+        <HighchartsComponent className="stackedHeight" tableView={false} />
+
+        {single && isDescriptionVisible && (
+          <div
+            className="description"
+            style={{
+              maxHeight: "200px",
+              overflowY: "auto",
+              lineHeight: "1",
+              color: "white",
+            }}
+          >
+            {single && single.patientname && (
+              <p>
+                <strong>Patient Name:</strong> {single.patientname}
+              </p>
+            )}
+            {single &&
+              single.caregaps &&
+              splitCaregapsIntoBulletPoints(single.caregaps).map(
+                (point, index) => <p key={index}>• {point}</p>
+              )}
+          </div>
+        )}
+      </div>
+
+      <div style={{ height: "895px" }}>
+        <div>
+          <div
+            style={{
+              width: "100%",
+              alignItems: "end",
+              display: "flex",
+              justifyContent: "end",
+            }}
+            className="button"
+          >
+            <FilterAltIcon style={{ cursor: "pointer" }} />
+          </div>
+          <li style={{ listStyleType: "none" }}>
+            <button className="button">f 70+</button>
+          </li>
+          <li style={{ listStyleType: "none" }}>
+            <button className="button">Blank</button>
+          </li>
+        </div>
+        <div style={{ height: "25%", overflowY: "scroll" }}>
+          <div
+            style={{
+              width: "100%",
+              alignItems: "end",
+              display: "flex",
+              justifyContent: "end",
+            }}
+            className="button"
+            onClick={() => handleFilteredData("all")}
+          >
+            <FilterAltIcon style={{ cursor: "pointer" }} />
+          </div>
+          <li style={{ listStyleType: "none" }}>
+            <button className="button" onClick={() => handleFilteredData(null)}>
+              0
+            </button>
+          </li>
+          <li style={{ listStyleType: "none" }}>
+            <button
+              className="button"
+              onClick={() => handleFilteredData("Improved")}
+            >
+              Improved
+            </button>
+          </li>
+          <li style={{ listStyleType: "none" }}>
+            <button
+              className="button"
+              onClick={() => handleFilteredData("No change")}
+            >
+              No Change
+            </button>
+          </li>
+          <li style={{ listStyleType: "none" }}>
+            <button
+              className="button"
+              onClick={() => handleFilteredData("Worsened")}
+            >
+              Worsened
+            </button>
+          </li>
+        </div>
+
+        <div
+          style={{
+            width: "100%",
+            alignItems: "end",
+            display: "flex",
+            justifyContent: "end",
+          }}
+        >
+          <FilterAltIcon
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setDescriptionVisible(!isDescriptionVisible); // Toggle visibility
+            }}
+          />
+        </div>
+        <div style={{ overflowY: "auto", maxHeight: "400px" }}>
+          {filtered.map((item) => {
+            return (
+              <div
+                key={item.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <li style={{ listStyleType: "none" }}>
+                  <button
+                    style={{ width: "100px", height: "30px", fontSize: "9px" }}
+                    onClick={() => handleClick(item)}
+                  >
+                    {item.patientname}
+                  </button>
+                </li>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

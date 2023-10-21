@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-google-charts";
-import "../style/dashboard.css";
+// import "../style/dashboard.css";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { Row, Col, Card } from "antd";

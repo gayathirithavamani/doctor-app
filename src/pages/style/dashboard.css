@@ -34,28 +34,44 @@
 }
 .yesLable {
   background: green;
+  color: #fff !important;
+  width: 40px;
+  height: 20px;
 }
 .noLable {
   background: red;
+  color: #fff !important;
+  width: 40px;
+  height: 20px;
 }
 .refLable {
-  background-color: orange;
+  background-color: rgb(204, 134, 5);
+  color: #fff !important;
+  width: 40px;
+  height: 20px;
+}
+.fullLable {
+  background: rgb(76, 110, 160);
+  color: #fff !important;
+  width: 40px;
+  height: 30px;
 }
 .lable-container {
-  margin-top: 17%;
+  /* margin-top: 17%; */
   text-align: center;
   display: grid;
   justify-content: center;
   width: 20px;
   height: 45px;
-  margin-left: 30px;
+
+  /* margin-left: 30px; */
 }
 
 table,
 td,
 th {
-  border: 1px solid #ddd;
-  text-align: left;
+  border: 1px solid #000000;
+  text-align: center;
 }
 
 table {
@@ -64,13 +80,13 @@ table {
 }
 
 th {
+  border: 1px solid #000000;
   padding: 15px;
 }
 td {
-  /* padding:10px; */
+  border: 1px solid #000000;
   text-align: center;
 }
-
 .chart-container {
   display: flex;
   justify-content: center;
@@ -86,7 +102,102 @@ td {
   border-collapse: collapse;
 }
 
-.ant-card-body{
-    padding: 0px !important
+.ant-card-body {
+  padding: 0px !important;
+}
+.height {
+  height: 250px !important;
+  width: 360px !important;
+  background-color: aqua;
+  text-align: center;
+}
 
-  }
+.color svg rect {
+  border: 1px solid red;
+  fill: #222 !important;
+
+  width: 353px !important ;
+  height: 800px !important;
+}
+/* 
+#reactgooglegraph-1 div:nth-child(1),
+#reactgooglegraph-4 div:nth-child(1),
+#reactgooglegraph-3 div:nth-child(1),
+#reactgooglegraph-2 div:nth-child(1),
+#reactgooglegraph-5 div:nth-child(1) {
+  width: 340px !important;
+
+  height: 250px !important;
+  margin: 0 5px !important;
+} */
+[id^="reactgooglegraph-"] {
+  margin: 0 5px !important;
+  width: 340px !important;
+  height: 250px !important;
+}
+
+.background div:nth-child(1) {
+  /* border: 1px solid red; */
+  width: 437px !important;
+  height: 300px !important;
+}
+.button {
+  width: 100px;
+  height: 30px;
+  font-size: 9px;
+}
+/* .AddchartIcon:active {
+  
+  border: 2px solid red;
+} */
+
+.description {
+  height: 200px;
+  width: 490px;
+  color: white;
+  background-color: rgb(72, 9, 245);
+}
+
+.highcharts-legend-item
+  .highcharts-bar-series
+  .highcharts-color-1
+  .highcharts-series-1
+  text {
+  fill: #fff;
+}
+
+.chart-container {
+  position: relative;
+}
+
+.icon-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.icon {
+  color: #fff;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.custom-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.custom-table th,
+.custom-table td {
+  border: 1px solid #000;
+  padding: 8px;
+  text-align: center;
+}
+
+.custom-table th {
+  background-color: #f2f2f2; /* Header background color */
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Alternate row background color */
+}

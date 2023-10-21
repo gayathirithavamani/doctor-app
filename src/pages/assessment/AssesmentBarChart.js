@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import { Row, Col, Skeleton, Card } from "antd";
 import { PieChartOutlined } from "@ant-design/icons";
-import "../style/dashboard.css";
+import "../style/dashboardView.css";
 import { Link } from "react-router-dom";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AppsIcon from "@mui/icons-material/Apps";
@@ -13,22 +13,6 @@ import AppsIcon from "@mui/icons-material/Apps";
 //   ["No", 2],
 //   ["Refused", 2],
 // ];
-
-const options = {
-  title: null,
-  is3D: true,
-  legend: { position: "bottom", alignment: "center" },
-  pieSliceText: "value",
-  fontSize: 14,
-  chartArea: { width: 400, height: 300 },
-  pieHole: 0.25,
-  pieStartAngle: 0,
-  animation: {
-    startup: true,
-    duration: 2000,
-    easing: "out",
-  },
-};
 
 const AssessmentBarView = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -65,7 +49,93 @@ const AssessmentBarView = () => {
   const [values, setValues] = useState([]);
   const [suprapublic, setSuprapublic] = useState();
   const [foley, setFoley] = useState();
-  const [blank, setBlank] = useState();
+
+  const chartName = [
+    {
+      id: 1,
+      name: "ADVANCED DIRECTIVE(S)",
+    },
+    {
+      id: 2,
+      name: "ADVANCED DIRECTIVE(S) TYPES",
+    },
+    {
+      id: 3,
+      name: "ADV CARE PLAN",
+    },
+    {
+      id: 4,
+      name: "ADV DOCTORS ORDERS",
+    },
+    // {
+    //   id: 5,
+    //   name: "CATHETER",
+    // },
+    // {
+    //   id: 6,
+    //   name: "CATHETER TYPES",
+    // },
+    // {
+    //   id: 7,
+    //   name: "CATHETER CARE PLAN",
+    // },
+    // {
+    //   id: 8,
+    //   name: "CATHETER INDICATION",
+    // },
+    // {
+    //   id: 9,
+    //   name: "FALL RISK ASSESSMENT",
+    // },
+    // {
+    //   id: 10,
+    //   name: "FALL RISK CARE PLAN",
+    // },
+    // {
+    //   id: 11,
+    //   name: "SKIN RISK ASSESSMENT",
+    // },
+    // {
+    //   id: 12,
+    //   name: "SKIN RISK CATEGORY",
+    // },
+    // {
+    //   id: 13,
+    //   name: "SKIN RISK SCORE",
+    // },
+    // {
+    //   id: 14,
+    //   name: "SKIN RISK CARE PLAN",
+    // },
+  ];
+
+  const chartOptions = chartName.map((item) => ({
+    title: item.name,
+    path: item.path,
+    is3D: true,
+    legend: {
+      position: "right",
+      maxLines: 1,
+      textStyle: {
+        color: "white",
+      },
+    },
+    pieSliceText: "value",
+    fontSize: 9,
+    chartArea: { width: 250, height: 150 },
+    pieHole: 0.2,
+    pieStartAngle: 0,
+    titleTextStyle: {
+      fontSize: 16,
+      color: "white",
+    },
+    animation: {
+      startup: true,
+      duration: 2000,
+      easing: "out",
+    },
+  }));
+
   // const cardTitles = [
   //   "ADVANCED DIRECTIVES(S)",
   //   "ADVANCED DIRECTIVES(S)",
@@ -110,34 +180,10 @@ const AssessmentBarView = () => {
         console.log(data);
         setValues(data);
 
-        const blank = data.filter(
-          (i) =>
-            i.adv_DIR1 &&
-            i.adv_DIR3 &&
-            i.adv_DIR5 &&
-            i.adv_DIR4 &&
-            i.cat1 &&
-            i.cat2 &&
-            i.cat4 &&
-            i.cat5 &&
-            i.fall_RISK_1 &&
-            i.fall_RISK_2 &&
-            i.skin_RISK_1 &&
-            i.skin_RISK_2 &&
-            i.skin_RISK_3 &&
-            i.skin_RISK_5 === null
-        );
-
-        setBlank(blank.length);
-
         const yesValue = data.filter((i) => i.adv_DIR1 === "Yes");
         const noValue = data.filter((i) => i.adv_DIR1 === "No");
         setYesValue(yesValue.length);
         setNoValue(noValue.length);
-        const yesValue1 = data.filter((i) => i.adv_DIR3 === "Full Code");
-        const noValue1 = data.filter((i) => i.adv_DIR3 === "DNR");
-        setYesValue1(yesValue1.length);
-        setNoValue1(noValue1.length);
         const yesValue2 = data.filter((i) => i.adv_DIR5 === "Yes");
         const noValue2 = data.filter((i) => i.adv_DIR5 === "No");
         setYesValue2(yesValue2.length);
@@ -170,16 +216,22 @@ const AssessmentBarView = () => {
         const noValue9 = data.filter((i) => i.skin_RISK_1 === "No");
         setYesValue9(yesValue9.length);
         setNoValue9(noValue9.length);
-        const yesValue10 = data.filter((i) => i.skin_RISK_2 === "Braden");
-        const noValue10 = data.filter((i) => i.skin_RISK_2 === null);
-        const nValue10 = data.filter((i) => i.skin_RISK_2 === "n/a");
-        setYesValue10(yesValue10.length);
-        setNoValue10(noValue10.length);
-        setNValue10(nValue10.length);
         const yesValue11 = data.filter((i) => i.skin_RISK_5 === "Yes");
         const noValue11 = data.filter((i) => i.skin_RISK_5 === "No");
         setYesValue11(yesValue11.length);
         setNoValue11(noValue11.length);
+
+        const yesValue10 = data.filter((i) => i.skin_RISK_2 === "Braden");
+        const noValue10 = data.filter((i) => i.skin_RISK_2 === "n/a");
+        const nValue10 = data.filter((i) => i.skin_RISK_2 === null);
+        setYesValue10(yesValue10.length);
+        setNoValue10(noValue10.length);
+        setNValue10(nValue10.length);
+        const yesValue1 = data.filter((i) => i.adv_DIR3 === "Full Code");
+        const noValue1 = data.filter((i) => i.adv_DIR3 === "DNR");
+        setYesValue1(yesValue1.length);
+        setNoValue1(noValue1.length);
+
         const skinValue1 = data.filter((i) => i.skin_RISK_3 === "n/a");
         const skinValue2 = data.filter(
           (i) => i.skin_RISK_3 === "Very High Risk"
@@ -195,7 +247,6 @@ const AssessmentBarView = () => {
         const suprapublic = data.filter((i) => i.cat2 === "Suprapublic");
         const foley = data.filter((i) => i.cat2 === "Foley");
 
-        console.log(blank.length + "hii");
         setSuprapublic(suprapublic.length);
         setFoley(foley.length);
         setIsLoading(false);
@@ -209,445 +260,104 @@ const AssessmentBarView = () => {
   }
 
   return (
-    <div style={{ display: "flex" }}>
-      <div>
-        <Row gutter={16}>
-          <Col span={8}>
-            {""}
-            <Card title="ADVANCED DIRECTIVES(S)" bordered={false}>
+    <div style={{ width: "100%", display: "flex", height: "100%" }}>
+      <div style={{ width: "90%", height: "100%", display: "flex" }}>
+        {chartOptions.map((options, index) => {
+          return (
+            <div
+              className="chart-container"
+              // style={{
+              //   width: "200px",
+              //   height: "200px",
+              //   margin: "40px",
+              //   padding: "10px",
+              //   border: "1px solid #b80c0c",
+              // }}
+              key={index}
+            >
               <Chart
+                className="color"
                 chartType="PieChart"
                 data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.adv_DIR1, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Yes", yesValue],
-                        ["No", noValue],
-                        ["blank", blank],
-                      ]
+                  options.title === "ADVANCED DIRECTIVE(S)"
+                    ? single
+                      ? [
+                          ["Task", "Hours per Day"],
+                          [single.adv_DIR1, "1"],
+                        ]
+                      : [
+                          ["Task", "Hours per Day"],
+                          ["Yes", yesValue],
+                          ["No", noValue],
+                        ]
+                    : options.title === "ADVANCED DIRECTIVE(S) TYPES"
+                    ? single
+                      ? [
+                          ["Task", "Hours per Day"],
+                          [single.adv_DIR3, "1"],
+                        ]
+                      : [
+                          ["Task", "Hours per Day"],
+                          ["Full Code", yesValue1],
+                          ["DNR", noValue1],
+                        ]
+                    : options.title === "ADV CARE PLAN"
+                    ? single
+                      ? [
+                          ["Task", "Hours per Day"],
+                          [single.adv_DIR5, "1"],
+                        ]
+                      : [
+                          ["Task", "Hours per Day"],
+                          ["Yes", yesValue2],
+                          ["No", noValue2],
+                        ]
+                    : options.title === "ADV DOCTORS ORDERS"
+                    ? single
+                      ? [
+                          ["Task", "Hours per Day"],
+                          [single.adv_DIR4, "1"],
+                        ]
+                      : [
+                          ["Task", "Hours per Day"],
+                          ["Yes", yesValue3],
+                          ["No", noValue3],
+                        ]
+                    : ""
                 }
                 options={options}
-                width={"100%"}
-                height={"400px"}
               />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="ADVANCED DIRECTIVES(S) TYPES" bordered={false}>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.adv_DIR3, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Full Code", yesValue1],
-                        ["DNR", noValue1],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="ADV CARE PLAN" bordered={false}>
-              <Link to="/adv1">
-                <AppsIcon
-                  style={{
-                    position: "absolute",
-                    left: "320px",
-                    top: "17px",
-                  }}
-                />
-              </Link>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.adv_DIR5, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Yes", yesValue2],
-                        ["No", noValue2],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="ADV DOCTOR ORDERS" bordered={false}>
-              <Link to="/adv2">
-                <AppsIcon
-                  style={{
-                    position: "absolute",
-                    left: "320px",
-                    top: "17px",
-                  }}
-                />
-              </Link>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.adv_DIR4, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Yes", yesValue3],
-                        ["No", noValue3],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="CATHETER" bordered={false}>
-              <Link to="/cat1">
-                <AppsIcon
-                  style={{
-                    position: "absolute",
-                    left: "320px",
-                    top: "17px",
-                  }}
-                />
-              </Link>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.cat1, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Yes", yesValue4],
-                        ["No", noValue4],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-
-          <Col span={8}>
-            <Card title="CATHETER TYPE" bordered={false}>
-              <Link to="/cat2">
-                <AppsIcon
-                  style={{
-                    position: "absolute",
-                    left: "320px",
-                    top: "17px",
-                  }}
-                />
-              </Link>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.cat2, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Suprapublic", suprapublic],
-                        ["Foley", foley],
-                        ["Blank", blank],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="CATHETER CARE PLAN" bordered={false}>
-              <Link to="/cat3">
-                <AppsIcon
-                  style={{
-                    position: "absolute",
-                    left: "320px",
-                    top: "17px",
-                  }}
-                />
-              </Link>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.cat4, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Yes", yesValue5],
-                        ["No", noValue5],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="CATHETER INDICATION" bordered={false}>
-              <Link
-                to="/cat4
-              "
-              >
-                <AppsIcon
-                  style={{
-                    position: "absolute",
-                    left: "320px",
-                    top: "17px",
-                  }}
-                />
-              </Link>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.cat5, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Yes", yesValue6],
-                        ["No", noValue6],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="FALL RISK ASSESMENT" bordered={false}>
-              <Link to="/fall1">
-                <AppsIcon
-                  style={{
-                    position: "absolute",
-                    left: "320px",
-                    top: "17px",
-                  }}
-                />
-              </Link>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.fall_RISK_1, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Yes", yesValue7],
-                        ["No", noValue7],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="FALL RISK CARE PLAN" bordered={false}>
-              <Link to="/fall2">
-                <AppsIcon
-                  style={{
-                    position: "absolute",
-                    left: "320px",
-                    top: "17px",
-                  }}
-                />
-              </Link>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.fall_RISK_2, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Yes", yesValue8],
-                        ["No", noValue8],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="SKIN RISK ASSESSMENT" bordered={false}>
-              <Link to="/skin1">
-                <AppsIcon
-                  style={{
-                    position: "absolute",
-                    left: "320px",
-                    top: "17px",
-                  }}
-                />
-              </Link>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.skin_RISK_1, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Yes", yesValue9],
-                        ["No", noValue9],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="SKIN RISK CATEGORY" bordered={false}>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.skin_RISK_2, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Braden", yesValue10],
-                        ["n/a", noValue10],
-                        ["0", nValue10],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="SKIN RISK SCORE" bordered={false}>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.skin_RISK_3, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["0", skinValue1],
-                        ["Very High Risk", skinValue2],
-                        ["At Risk", skinValue3],
-                        ["Moderate Risk", skinValue4],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-          <Col span={8}>
-            <Card title="SKIN RISK CARE PLAN" bordered={false}>
-              <Link to="/skin4">
-                <AppsIcon
-                  style={{
-                    position: "absolute",
-                    left: "320px",
-                    top: "17px",
-                  }}
-                />
-              </Link>
-              <Chart
-                chartType="PieChart"
-                data={
-                  single
-                    ? [
-                        ["Task", "Hours per Day"],
-                        [single.skin_RISK_5, "1"],
-                      ]
-                    : [
-                        ["Task", "Hours per Day"],
-                        ["Yes", yesValue11],
-                        ["No", noValue11],
-                        ["blank", blank],
-                      ]
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-              />
-            </Card>
-          </Col>
-        </Row>
+              <div style={{ position: "absolute", left: "100px", top: "10px" }}>
+                <Link to={options.path}>
+                  <AppsIcon />
+                </Link>
+              </div>
+            </div>
+          );
+        })}
       </div>
-      <div style={{ height: "895px" }}>
-        <div style={{ height: "25%" }}></div>
-        <div style={{ overflowY: "scroll" }}>
-          <div style={{ width: "100%" }}>
-            <FilterAltIcon
-              onClick={() => {
-                setSingle();
-              }}
-              style={{
-                cursor: "pointer",
-              }}
-            />
-          </div>
+      <div style={{ width: "10%", height: "100%" }}>
+        <div style={{ height: "100px" }}></div>
+        <div
+          style={{
+            width: "100%",
+            alignItems: "end",
+            display: "flex",
+            justifyContent: "end",
+          }}
+        >
+          {/* <GradingIcon
+            onClick={() => {
+              setIsMultiSelect(!isMultiSelect);
+            }}
+          /> */}
+          <FilterAltIcon
+            onClick={() => {
+              setSingle();
+            }}
+          />
+        </div>
+        <div style={{ height: "280px", overflowY: "scroll" }}>
           {values.map((item) => {
             return (
               <div
@@ -659,8 +369,32 @@ const AssessmentBarView = () => {
               >
                 <li style={{ listStyleType: "none" }}>
                   <button
-                    style={{ width: "100px", height: "30px", fontSize: "9px" }}
-                    onClick={() => handleClick(item.id)}
+                    style={{
+                      width: "100px",
+                      height: "30px",
+                      fontSize: "9px",
+                    }}
+                    // onClick={() => {
+                    //   if (!isMultiSelect) {
+                    //     handleClick(item);
+                    //   } else {
+                    //     setSingle();
+                    //     if (
+                    //       selectedNames.length > 0 &&
+                    //       selectedNames.some(
+                    //         (selectedItem) => selectedItem.id === item.id
+                    //       )
+                    //     ) {
+                    //       setSelectedNames((prev) =>
+                    //         prev.filter(
+                    //           (selectedItem) => selectedItem.id !== item.id
+                    //         )
+                    //       );
+                    //     } else {
+                    //       setSelectedNames((prev) => [...prev, item]);
+                    //     }
+                    //   }
+                    // }}
                   >
                     {item.patientname}
                   </button>
@@ -673,4 +407,5 @@ const AssessmentBarView = () => {
     </div>
   );
 };
+
 export default AssessmentBarView;
