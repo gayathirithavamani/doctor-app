@@ -6,6 +6,7 @@ import "../style/dashboardView.css";
 import { Link } from "react-router-dom";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AppsIcon from "@mui/icons-material/Apps";
+import GradingIcon from "@mui/icons-material/Grading";
 
 // let data = [
 //   ["Task", "Hours per Day"],
@@ -49,6 +50,52 @@ const AssessmentBarView = () => {
   const [values, setValues] = useState([]);
   const [suprapublic, setSuprapublic] = useState();
   const [foley, setFoley] = useState();
+  const [selectedNames, setSelectedNames] = useState([]);
+  const [isMultiSelect, setIsMultiSelect] = useState(false);
+  const [selectYes, setSelectYes] = useState();
+  const [selectNo, setSelectNo] = useState();
+
+  const [selectYes1, setSelectYes1] = useState();
+  const [selectNo1, setSelectNo1] = useState();
+
+  const [selectYes2, setSelectYes2] = useState();
+  const [selectNo2, setSelectNo2] = useState();
+
+  const [selectYes3, setSelectYes3] = useState();
+  const [selectNo3, setSelectNo3] = useState();
+
+  const [selectYes4, setSelectYes4] = useState();
+  const [selectNo4, setSelectNo4] = useState();
+
+  const [selectYes5, setSelectYes5] = useState();
+  const [selectNo5, setSelectNo5] = useState();
+
+  const [selectYes6, setSelectYes6] = useState();
+  const [selectNo6, setSelectNo6] = useState();
+
+  const [selectYes7, setSelectYes7] = useState();
+  const [selectNo7, setSelectNo7] = useState();
+
+  const [selectYes8, setSelectYes8] = useState();
+  const [selectNo8, setSelectNo8] = useState();
+
+  const [selectYes9, setSelectYes9] = useState();
+  const [selectNo9, setSelectNo9] = useState();
+
+  const [selectYes10, setSelectYes10] = useState();
+  const [selectNo10, setSelectNo10] = useState();
+  const [selectNValue10, setSelectNValue10] = useState();
+
+  const [selectYes11, setSelectYes11] = useState();
+  const [selectNo11, setSelectNo11] = useState();
+
+  const [selectSkinValue1, setSelectSkinValue1] = useState();
+  const [selectSkinValue2, setSelectSkinValue2] = useState();
+  const [selectSkinValue3, setSelectSkinValue3] = useState();
+  const [selectSkinValue4, setSelectSkinValue4] = useState();
+
+  const [selectSuprapublicValue, setSelectSuprapublicValue] = useState();
+  const [selectFoleyValue, setSelectFoleyValue] = useState();
 
   const chartName = [
     {
@@ -136,43 +183,6 @@ const AssessmentBarView = () => {
     },
   }));
 
-  // const cardTitles = [
-  //   "ADVANCED DIRECTIVES(S)",
-  //   "ADVANCED DIRECTIVES(S)",
-  //   "ADV CARE PLAN Loading",
-  //   "ADV DOCTORS ORDERS Loading",
-  //   "CATHETER Loading",
-  //   "CATHETER TYPE Loading",
-  //   "CATHETER CARE PLAN Loading",
-  //   "CATHETER INDICATION Loading",
-  //   "FALL RISK ASSESSMENT Loading",
-  //   "FALL RISK CARE PLAN Loading",
-  //   "SKIN RISK ASSESSMENT",
-  //   "SKIN RISK CATEGORY ",
-  //   "SKIN RISK SCORE",
-  //   "SKIN RISK CARE PLAN",
-  // ];
-
-  // const RenderCards = () => {
-  //   return cardTitles.map((title, index) => (
-  //     <Col xxl={6} lg={6} xs={12} style={{ marginTop: "20px" }} key={index}>
-  //       <Card title={title} bordered={false}>
-  //         <Skeleton.Node active={true}>
-  //           <PieChartOutlined
-  //             style={{
-  //               fontSize: 90,
-  //               color: "#bfbfbf",
-  //               justifyContent: "center",
-  //               padding: "50px",
-  //               margin: "20px",
-  //             }}
-  //           />
-  //         </Skeleton.Node>
-  //       </Card>
-  //     </Col>
-  //   ));
-  // };
-
   useEffect(() => {
     fetch("http://localhost:9090/findall ")
       .then((response) => response.json())
@@ -184,6 +194,11 @@ const AssessmentBarView = () => {
         const noValue = data.filter((i) => i.adv_DIR1 === "No");
         setYesValue(yesValue.length);
         setNoValue(noValue.length);
+        const yesValue1 = data.filter((i) => i.adv_DIR3 === "Full Code");
+        const noValue1 = data.filter((i) => i.adv_DIR3 === "DNR");
+        setYesValue1(yesValue1.length);
+        setNoValue1(noValue1.length);
+
         const yesValue2 = data.filter((i) => i.adv_DIR5 === "Yes");
         const noValue2 = data.filter((i) => i.adv_DIR5 === "No");
         setYesValue2(yesValue2.length);
@@ -216,21 +231,16 @@ const AssessmentBarView = () => {
         const noValue9 = data.filter((i) => i.skin_RISK_1 === "No");
         setYesValue9(yesValue9.length);
         setNoValue9(noValue9.length);
-        const yesValue11 = data.filter((i) => i.skin_RISK_5 === "Yes");
-        const noValue11 = data.filter((i) => i.skin_RISK_5 === "No");
-        setYesValue11(yesValue11.length);
-        setNoValue11(noValue11.length);
-
         const yesValue10 = data.filter((i) => i.skin_RISK_2 === "Braden");
         const noValue10 = data.filter((i) => i.skin_RISK_2 === "n/a");
         const nValue10 = data.filter((i) => i.skin_RISK_2 === null);
         setYesValue10(yesValue10.length);
         setNoValue10(noValue10.length);
         setNValue10(nValue10.length);
-        const yesValue1 = data.filter((i) => i.adv_DIR3 === "Full Code");
-        const noValue1 = data.filter((i) => i.adv_DIR3 === "DNR");
-        setYesValue1(yesValue1.length);
-        setNoValue1(noValue1.length);
+        const yesValue11 = data.filter((i) => i.skin_RISK_5 === "Yes");
+        const noValue11 = data.filter((i) => i.skin_RISK_5 === "No");
+        setYesValue11(yesValue11.length);
+        setNoValue11(noValue11.length);
 
         const skinValue1 = data.filter((i) => i.skin_RISK_3 === "n/a");
         const skinValue2 = data.filter(
@@ -246,95 +256,449 @@ const AssessmentBarView = () => {
         setSkinValue4(skinValue4.length);
         const suprapublic = data.filter((i) => i.cat2 === "Suprapublic");
         const foley = data.filter((i) => i.cat2 === "Foley");
-
         setSuprapublic(suprapublic.length);
         setFoley(foley.length);
+
+        const selectYes = selectedNames.filter((i) => i.adv_DIR1 === "Yes");
+        setSelectYes(selectYes.length);
+        const selectNo = selectedNames.filter((i) => i.adv_DIR1 === "No");
+        setSelectNo(selectNo.length);
+        const selectYes1 = selectedNames.filter(
+          (i) => i.adv_DIR3 === "Full Code"
+        );
+        setSelectYes1(selectYes1.length);
+        const selectNo1 = selectedNames.filter((i) => i.adv_DIR3 === "DNR");
+        setSelectNo1(selectNo1.length);
+        const selectYes2 = selectedNames.filter((i) => i.adv_DIR5 === "Yes");
+        setSelectYes2(selectYes2.length);
+        const selectNo2 = selectedNames.filter((i) => i.adv_DIR5 === "No");
+        setSelectNo1(selectNo2.length);
+        const selectYes3 = selectedNames.filter((i) => i.adv_DIR4 === "Yes");
+        setSelectYes3(selectYes3.length);
+        const selectNo3 = selectedNames.filter((i) => i.adv_DIR4 === "No");
+        setSelectNo3(selectNo3.length);
+        const selectYes4 = selectedNames.filter((i) => i.cat1 === "Yes");
+        setSelectYes4(selectYes4.length);
+        const selectNo4 = selectedNames.filter((i) => i.cat1 === "No");
+        setSelectNo4(selectNo4.length);
+        const selectYes5 = selectedNames.filter((i) => i.cat4 === "Yes");
+        setSelectYes5(selectYes5.length);
+        const selectNo5 = selectedNames.filter((i) => i.cat4 === "No");
+        setSelectNo5(selectNo5.length);
+        const selectYes6 = selectedNames.filter((i) => i.cat5 === "Yes");
+        setSelectYes6(selectYes6.length);
+        const selectNo6 = selectedNames.filter((i) => i.cat5 === "No");
+        setSelectNo6(selectNo6.length);
+        const selectYes7 = selectedNames.filter((i) => i.fall_RISK_1 === "Yes");
+        setSelectYes7(selectYes7.length);
+        const selectNo7 = selectedNames.filter((i) => i.fall_RISK_1 === "No");
+        setSelectNo7(selectNo7.length);
+        const selectYes8 = selectedNames.filter((i) => i.fall_RISK_2 === "Yes");
+        setSelectYes8(selectYes8.length);
+        const selectNo8 = selectedNames.filter((i) => i.fall_RISK_2 === "No");
+        setSelectNo8(selectNo8.length);
+        const selectYes9 = selectedNames.filter((i) => i.skin_RISK_1 === "Yes");
+        setSelectYes9(selectYes9.length);
+        const selectNo9 = selectedNames.filter((i) => i.skin_RISK_1 === "No");
+        setSelectNo9(selectNo9.length);
+
+        const selectYes10 = selectedNames.filter(
+          (i) => i.skin_RISK_2 === "Braden"
+        );
+        setSelectYes10(selectYes10.length);
+        const selectNo10 = selectedNames.filter((i) => i.skin_RISK_2 === "n/a");
+        setSelectNo10(selectNo10.length);
+        const selectNValue10 = selectedNames.filter(
+          (i) => i.skin_RISK_2 === null
+        );
+        setSelectNValue10(selectNValue10.length);
+        const selectYes11 = selectedNames.filter(
+          (i) => i.skin_RISK_5 === "Yes"
+        );
+        setSelectYes11(selectYes11.length);
+        const selectNo11 = selectedNames.filter((i) => i.skin_RISK_5 === "No");
+        setSelectNo11(selectNo11.length);
+
+        const selectSkinValue1 = selectedNames.filter(
+          (i) => i.skin_RISK_3 === "n/a"
+        );
+        setSelectSkinValue1(selectSkinValue1.length);
+        const selectSkinValue2 = selectedNames.filter(
+          (i) => i.skin_RISK_3 === "Very High Risk"
+        );
+        setSelectSkinValue2(selectSkinValue2.length);
+        const selectSkinValue3 = selectedNames.filter(
+          (i) => i.skin_RISK_3 === "At Risk"
+        );
+        setSelectSkinValue3(selectSkinValue3.length);
+        const selectSkinValue4 = selectedNames.filter(
+          (i) => i.skin_RISK_3 === "Moderate Risk"
+        );
+        setSelectSkinValue4(selectSkinValue4.length);
+
+        const selectSuprapublicValue = data.filter(
+          (i) => i.cat2 === "Suprapublic"
+        );
+        const selectFoleyValue = data.filter((i) => i.cat2 === "Foley");
+        setSelectSuprapublicValue(selectSuprapublicValue.length);
+        setSelectFoleyValue(selectFoleyValue.length);
+
         setIsLoading(false);
       });
   }, []);
 
-  function handleClick(id) {
-    const data = values.find((item) => item.id === id);
-    console.log(data);
+  function handleClick(info) {
+    const data = values.find((item) => item.id === info.id);
+
     setSingle(data);
   }
 
   return (
-    <div style={{ width: "100%", display: "flex", height: "100%" }}>
-      <div style={{ width: "90%", height: "100%", display: "flex" }}>
-        {chartOptions.map((options, index) => {
-          return (
-            <div
-              className="chart-container"
-              // style={{
-              //   width: "200px",
-              //   height: "200px",
-              //   margin: "40px",
-              //   padding: "10px",
-              //   border: "1px solid #b80c0c",
-              // }}
-              key={index}
-            >
-              <Chart
-                className="color"
-                chartType="PieChart"
-                data={
-                  options.title === "ADVANCED DIRECTIVE(S)"
-                    ? single
-                      ? [
-                          ["Task", "Hours per Day"],
-                          [single.adv_DIR1, "1"],
-                        ]
-                      : [
-                          ["Task", "Hours per Day"],
-                          ["Yes", yesValue],
-                          ["No", noValue],
-                        ]
-                    : options.title === "ADVANCED DIRECTIVE(S) TYPES"
-                    ? single
-                      ? [
-                          ["Task", "Hours per Day"],
-                          [single.adv_DIR3, "1"],
-                        ]
-                      : [
-                          ["Task", "Hours per Day"],
-                          ["Full Code", yesValue1],
-                          ["DNR", noValue1],
-                        ]
-                    : options.title === "ADV CARE PLAN"
-                    ? single
-                      ? [
-                          ["Task", "Hours per Day"],
-                          [single.adv_DIR5, "1"],
-                        ]
-                      : [
-                          ["Task", "Hours per Day"],
-                          ["Yes", yesValue2],
-                          ["No", noValue2],
-                        ]
-                    : options.title === "ADV DOCTORS ORDERS"
-                    ? single
-                      ? [
-                          ["Task", "Hours per Day"],
-                          [single.adv_DIR4, "1"],
-                        ]
-                      : [
-                          ["Task", "Hours per Day"],
-                          ["Yes", yesValue3],
-                          ["No", noValue3],
-                        ]
-                    : ""
-                }
-                options={options}
-              />
-              <div style={{ position: "absolute", left: "100px", top: "10px" }}>
-                <Link to={options.path}>
-                  <AppsIcon />
-                </Link>
+    // <div style={{ width: "100%", display: "flex", height: "100%" }}>
+    //   <div style={{ width: "90%", height: "100%", display: "flex" }}>
+    <div style={{ display: "flex" }}>
+      <div style={{ width: "90%" }}>
+        <div style={{ display: "flex" }} className="container">
+          {chartOptions.map((options, index) => {
+            return (
+              <div className="chart-container" key={index}>
+                <Chart
+                  className="color"
+                  chartType="PieChart"
+                  data={
+                    options.title === "ADVANCED DIRECTIVE(S)"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.adv_DIR1, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectYes],
+                            ["No", selectNo],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Yes", yesValue],
+                            ["No", noValue],
+                          ]
+                      : options.title === "ADVANCED DIRECTIVE(S) TYPES"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.adv_DIR3, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectYes1],
+                            ["No", selectNo1],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Full Code", yesValue1],
+                            ["DNR", noValue1],
+                          ]
+                      : options.title === "ADV CARE PLAN"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.adv_DIR5, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectYes2],
+                            ["No", selectNo2],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Yes", yesValue2],
+                            ["No", noValue2],
+                          ]
+                      : options.title === "ADV DOCTORS ORDERS"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.adv_DIR4, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectYes3],
+                            ["No", selectNo3],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Yes", yesValue3],
+                            ["No", noValue3],
+                          ]
+                      : ""
+                  }
+                  options={options}
+                />
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <div
+          style={{ display: "flex", marginTop: "20px" }}
+          className="container"
+        >
+          {chartOptions.map((options, index) => {
+            return (
+              <div
+                className="chart-container"
+                // style={{
+                //   width: "200px",
+                //   height: "200px",
+                //   margin: "40px",
+                //   padding: "10px",
+                //   border: "1px solid #b80c0c",
+                // }}
+                key={index}
+              >
+                <Chart
+                  className="color"
+                  chartType="PieChart"
+                  data={
+                    options.title === "ADVANCED DIRECTIVE(S)"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.cat1, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectYes4],
+                            ["No", selectNo4],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Yes", yesValue4],
+                            ["No", noValue4],
+                          ]
+                      : options.title === "ADVANCED DIRECTIVE(S) TYPES"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.cat2, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectSuprapublicValue],
+                            ["No", selectFoleyValue],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Suprapublic", suprapublic],
+                            ["Foley", foley],
+                          ]
+                      : options.title === "ADV CARE PLAN"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.cat4, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectYes5],
+                            ["No", selectNo5],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Yes", yesValue5],
+                            ["No", noValue5],
+                          ]
+                      : options.title === "ADV DOCTORS ORDERS"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.cat5, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectYes6],
+                            ["No", selectNo6],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Yes", yesValue6],
+                            ["No", noValue6],
+                          ]
+                      : ""
+                  }
+                  options={options}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div
+          style={{ display: "flex", marginTop: "20px" }}
+          className="container"
+        >
+          {chartOptions.map((options, index) => {
+            return (
+              <div className="chart-container" key={index}>
+                <Chart
+                  className="color"
+                  chartType="PieChart"
+                  data={
+                    options.title === "ADVANCED DIRECTIVE(S)"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.fall_RISK_1, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectYes7],
+                            ["No", selectNo7],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Yes", yesValue7],
+                            ["No", noValue7],
+                          ]
+                      : options.title === "ADVANCED DIRECTIVE(S) TYPES"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.fall_RISK_2, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectYes8],
+                            ["No", selectNo8],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Yes", yesValue8],
+                            ["No", noValue8],
+                          ]
+                      : ""
+                  }
+                  options={options}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div
+          style={{ display: "flex", marginTop: "20px" }}
+          className="container"
+        >
+          {chartOptions.map((options, index) => {
+            return (
+              <div className="chart-container" key={index}>
+                <Chart
+                  className="color"
+                  chartType="PieChart"
+                  data={
+                    options.title === "ADVANCED DIRECTIVE(S)"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.skin_RISK_1, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectYes9],
+                            ["No", selectNo9],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Yes", yesValue9],
+                            ["No", noValue9],
+                          ]
+                      : options.title === "ADVANCED DIRECTIVE(S) TYPES"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.skin_RISK_2, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Braden", selectYes10],
+                            ["nla", selectNo10],
+                            ["0", selectNValue10],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Braden", yesValue10],
+                            ["n/a", noValue10],
+                            ["0", nValue10],
+                          ]
+                      : options.title === "ADV CARE PLAN"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.skin_RISK_3, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["0", selectSkinValue1],
+                            ["Very High Risk", selectSkinValue2],
+                            ["At Risk", selectSkinValue3],
+                            ["Moderate Risk", selectSkinValue4],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["0", skinValue1],
+                            ["Very High Risk", skinValue2],
+                            ["At Risk", skinValue3],
+                            ["Moderate Risk", skinValue4],
+                          ]
+                      : options.title === "ADV DOCTORS ORDERS"
+                      ? single
+                        ? [
+                            ["Task", "Hours per Day"],
+                            [single.skin_RISK_5, "1"],
+                          ]
+                        : isMultiSelect && selectedNames.length > 0
+                        ? [
+                            ["Task", "Hours per Day"],
+
+                            ["Yes", selectYes11],
+                            ["No", selectNo11],
+                          ]
+                        : [
+                            ["Task", "Hours per Day"],
+                            ["Yes", yesValue11],
+                            ["No", noValue11],
+                          ]
+                      : ""
+                  }
+                  options={options}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
       <div style={{ width: "10%", height: "100%" }}>
         <div style={{ height: "100px" }}></div>
@@ -346,11 +710,11 @@ const AssessmentBarView = () => {
             justifyContent: "end",
           }}
         >
-          {/* <GradingIcon
+          <GradingIcon
             onClick={() => {
               setIsMultiSelect(!isMultiSelect);
             }}
-          /> */}
+          />
           <FilterAltIcon
             onClick={() => {
               setSingle();
@@ -373,28 +737,30 @@ const AssessmentBarView = () => {
                       width: "100px",
                       height: "30px",
                       fontSize: "9px",
+                      backgroundColor: "blue",
+                      color: "#222",
                     }}
-                    // onClick={() => {
-                    //   if (!isMultiSelect) {
-                    //     handleClick(item);
-                    //   } else {
-                    //     setSingle();
-                    //     if (
-                    //       selectedNames.length > 0 &&
-                    //       selectedNames.some(
-                    //         (selectedItem) => selectedItem.id === item.id
-                    //       )
-                    //     ) {
-                    //       setSelectedNames((prev) =>
-                    //         prev.filter(
-                    //           (selectedItem) => selectedItem.id !== item.id
-                    //         )
-                    //       );
-                    //     } else {
-                    //       setSelectedNames((prev) => [...prev, item]);
-                    //     }
-                    //   }
-                    // }}
+                    onClick={() => {
+                      if (!isMultiSelect) {
+                        handleClick(item);
+                      } else {
+                        setSingle();
+                        if (
+                          selectedNames.length > 0 &&
+                          selectedNames.some(
+                            (selectedItem) => selectedItem.id === item.id
+                          )
+                        ) {
+                          setSelectedNames((prev) =>
+                            prev.filter(
+                              (selectedItem) => selectedItem.id !== item.id
+                            )
+                          );
+                        } else {
+                          setSelectedNames((prev) => [...prev, item]);
+                        }
+                      }
+                    }}
                   >
                     {item.patientname}
                   </button>

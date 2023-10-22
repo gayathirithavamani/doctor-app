@@ -7,6 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import { Link, useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
+import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 
 function DashboardView() {
   const [isLoading, setIsLoading] = useState(true);
@@ -82,22 +83,6 @@ function DashboardView() {
       });
   }, []);
 
-  // const options = {
-  //   title: null,
-  //   is3D: true,
-  //   legend: { position: "bottom", alignment: "center" },
-  //   pieSliceText: "value",
-  //   fontSize: 9,
-  //   chartArea: { width: 250, height: 150 },
-  //   pieHole: 0.25,
-  //   pieStartAngle: 0,
-  //   animation: {
-  //     startup: true,
-  //     duration: 2000,
-  //     easing: "out",
-  //   },
-  // };
-
   const options = {
     title: "PNEUMOC0CCAL",
 
@@ -149,16 +134,16 @@ function DashboardView() {
             ])
           }
           options={options}
-          width={"100%"}
-          height={"400px"}
+          // width={"100%"}
+          // height={"400px"}
           margin-top={"30px"}
         />
 
         <PieChartIcon
           style={{
             position: "relative",
-            right: "45px",
-            top: "17px",
+            right: "50px",
+            top: "5px",
             color: "yellow",
             cursor: "pointer",
           }}
@@ -194,42 +179,24 @@ function DashboardView() {
           Refused
         </span>
       </div>
-      <div style={{ width: "65%", height: "50%", overflow: "scroll" }}>
-        {/* <table>
-          <tr>
-            <th>PATIENT NAME</th>
-            {yesValueShow && <th>Yes</th>}
-            {noValueShow && <th>No</th>}
-            {refusedValueShow && <th>Refused</th>}
-          </tr>
-
-          {tableResult.map((item) => (
-            <tr key={item.id}>
-              <td>{item.patientname}</td>
-              {yesValueShow && (
-                <td>
-                  {item.imm_PNEUMO_Y === "Yes" ? <CheckIcon /> : <CloseIcon />}
-                </td>
-              )}
-              {noValueShow && (
-                <td>
-                  {item.imm_PNEUMO_Y === "No" ? <CheckIcon /> : <CloseIcon />}
-                </td>
-              )}
-              {refusedValueShow && (
-                <td>
-                  {item.imm_PNEUMO_Y === "Refused" ? (
-                    <CheckIcon />
-                  ) : (
-                    <CloseIcon />
-                  )}
-                </td>
-              )}
-            </tr>
-          ))}
-        </table> */}
+      <div
+        style={{
+          width: "65%",
+          height: "50%",
+          overflow: "auto",
+          maxHeight: "400px",
+        }}
+      >
         <table className="custom-table">
-          <thead>
+          <thead
+            style={{
+              position: "sticky",
+              top: "0",
+              background: "blue",
+              color: "black",
+              textAlign: "center",
+            }}
+          >
             <tr>
               <th>PATIENT NAME</th>
               {yesValueShow && <th>Yes</th>}
@@ -244,23 +211,27 @@ function DashboardView() {
                 {yesValueShow && (
                   <td>
                     {item.imm_PNEUMO_Y === "Yes" ? (
-                      <CheckIcon />
+                      <CheckIcon class="custom-check-icon" />
                     ) : (
-                      <CloseIcon />
+                      <CloseIcon class="custom-check-icon" />
                     )}
                   </td>
                 )}
                 {noValueShow && (
                   <td>
-                    {item.imm_PNEUMO_Y === "No" ? <CheckIcon /> : <CloseIcon />}
+                    {item.imm_PNEUMO_Y === "No" ? (
+                      <CheckIcon class="custom-check-icon" />
+                    ) : (
+                      <CloseIcon class="custom-check-icon" />
+                    )}
                   </td>
                 )}
                 {refusedValueShow && (
                   <td>
                     {item.imm_PNEUMO_Y === "Refused" ? (
-                      <CheckIcon />
+                      <CheckIcon class="custom-check-icon" />
                     ) : (
-                      <CloseIcon />
+                      <CloseIcon class="custom-check-icon" />
                     )}
                   </td>
                 )}

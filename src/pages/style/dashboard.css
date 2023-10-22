@@ -36,19 +36,19 @@
   background: green;
   color: #fff !important;
   width: 40px;
-  height: 20px;
+  height: 30px;
 }
 .noLable {
   background: red;
   color: #fff !important;
   width: 40px;
-  height: 20px;
+  height: 30px;
 }
 .refLable {
   background-color: rgb(204, 134, 5);
   color: #fff !important;
   width: 40px;
-  height: 20px;
+  height: 30px;
 }
 .fullLable {
   background: rgb(76, 110, 160);
@@ -200,4 +200,11 @@ td {
 
 .custom-table tr:nth-child(even) {
   background-color: #f2f2f2; /* Alternate row background color */
+}
+
+.custom-check-icon {
+  color: blue !important;
+
+  width: 25px; /* Set the desired width */
+  height: 25px;
 }

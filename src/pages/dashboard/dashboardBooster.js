@@ -5,7 +5,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import "../style/dashboard.css";
 import { Row, Col, Card } from "antd";
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
 let data2 = [
   ["Task", "Hours per Day"],
@@ -16,19 +16,30 @@ let data2 = [
 ];
 
 const options1 = {
-  title: null,
+  title: "COVID BOOSTER",
   is3D: false,
-  legend: { position: "bottom", alignment: "center" },
+  legend: {
+    position: "right",
+    maxLines: 1,
+    textStyle: {
+      color: "white",
+    },
+  },
   pieSliceText: "value",
   fontSize: 14,
-  chartArea: { width: 400, height: 300 },
+  chartArea: { width: 250, height: 150 },
   pieHole: 0.25,
   pieStartAngle: 0,
+  titleTextStyle: {
+    fontSize: 16,
+    color: "white",
+  },
   animation: {
     startup: true,
     duration: 2000,
     easing: "out",
   },
+  backgroundColor: "#222",
 };
 
 function DashboardBooster() {
@@ -111,113 +122,134 @@ function DashboardBooster() {
 
     // console.log(data);
   }, []);
-
+  const navigate = useNavigate();
   return (
-    <div>
-      <h1>welcome to grid</h1>
-      <Row gutter={28}>
-        <>
-          <Col xxl={6} lg={6} xs={12}>
-            <div className="chart-container" style={{ display: "flex" }}>
-              <Chart
-                chartType="PieChart"
-                data={
-                  (data2 = [
-                    ["Task", "Hours per Day"],
-                    ["Yes", yesValue4],
-                    ["No", noValue4],
-                    ["Refused", refusedValue4],
-                  ])
-                }
-                options={options1}
-                width={"100%"}
-                height={"400px"}
-                margin-top={"30px"}
-              />
-              <Link to="/dashboard">
-                <PieChartIcon
-                  style={{ position: "relative", right: "45px", top: "17px" }}
-                />
-              </Link>
-              <div className="lable-container">
-                <span
-                  onClick={() => tableDataClick("data")}
-                  className="chart-lable yesLable"
-                >
-                  <DateRangeIcon />
-                </span>
-                <span
-                  onClick={() => tableDataClick("Yes")}
-                  className="chart-lable yesLable"
-                >
-                  Yes
-                </span>
-                <span
-                  onClick={() => tableDataClick("No")}
-                  className="chart-lable noLable"
-                >
-                  No
-                </span>
-                <span
-                  onClick={() => tableDataClick("Refused")}
-                  className="chart-lable refLable"
-                >
-                  Refused
-                </span>
-              </div>
-            </div>
-          </Col>
+    <div style={{ width: "100%", display: "flex", height: "100%" }}>
+      <div
+        className="chart-container"
+        style={{ width: "30%", height: "100px" }}
+      >
+        <Chart
+          chartType="PieChart"
+          data={
+            (data2 = [
+              ["Task", "Hours per Day"],
+              ["Yes", yesValue4],
+              ["No", noValue4],
+              ["Refused", refusedValue4],
+            ])
+          }
+          options={options1}
+          width={"100%"}
+          height={"400px"}
+          margin-top={"30px"}
+        />
+        <PieChartIcon
+          style={{
+            position: "relative",
+            right: "150px",
+            top: "5px",
+            color: "yellow",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            navigate("/dashboard");
+          }}
+        />
+        <div
+          className="lable-container"
+          style={{ width: "5%", height: "100px" }}
+        >
+          <span
+            onClick={() => tableDataClick("data")}
+            className="chart-lable fullLable"
+          >
+            <DateRangeIcon />
+          </span>
+          <span
+            onClick={() => tableDataClick("Yes")}
+            className="chart-lable yesLable"
+          >
+            Yes
+          </span>
+          <span
+            onClick={() => tableDataClick("No")}
+            className="chart-lable noLable"
+          >
+            No
+          </span>
+          <span
+            onClick={() => tableDataClick("Refused")}
+            className="chart-lable refLable"
+          >
+            Refused
+          </span>
+        </div>
+      </div>
 
-          <div className="tableWrapper table-responsive ">
-            <table>
-              <thead>
-                <tr>
-                  <th>PATIENT NAME</th>
-                  {yesValueShow ? <th>Yes</th> : null}
-                  {noValueShow ? <th>No</th> : null}
-                  {refusedValueShow ? <th>Refused</th> : null}
-                </tr>
-              </thead>
-              <tbody>
-                {tableResult.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.patientname}</td>
-                    {yesValueShow && (
-                      <td>
-                        {item.imm_COVID_Y3 === "Yes" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
+      <div
+        style={{
+          width: "65%",
+          height: "50%",
+          overflow: "auto",
+          maxHeight: "400px",
+        }}
+      >
+        <table className="custom-table">
+          <thead
+            style={{
+              position: "sticky",
+              top: "0",
+              background: "blue",
+              color: "black",
+              textAlign: "center",
+            }}
+          >
+            <tr>
+              <th>PATIENT NAME</th>
+              {yesValueShow ? <th>Yes</th> : null}
+              {noValueShow ? <th>No</th> : null}
+              {refusedValueShow ? <th>Refused</th> : null}
+            </tr>
+          </thead>
+          <tbody>
+            {tableResult.map((item) => (
+              <tr key={item.id}>
+                <td>{item.patientname}</td>
+                {yesValueShow && (
+                  <td>
+                    {item.imm_COVID_Y3 === "Yes" ? (
+                      <CheckIcon class="custom-check-icon" />
+                    ) : (
+                      <CloseIcon class="custom-check-icon" />
                     )}
-                    {noValueShow && (
-                      <td>
-                        {item.imm_COVID_Y3 === "No" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
+                  </td>
+                )}
+                {noValueShow && (
+                  <td>
+                    {item.imm_COVID_Y3 === "No" ? (
+                      <CheckIcon class="custom-check-icon" />
+                    ) : (
+                      <CloseIcon class="custom-check-icon" />
                     )}
-                    {refusedValueShow && (
-                      <td>
-                        {item.imm_COVID_Y3 === "Refused" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
+                  </td>
+                )}
+                {refusedValueShow && (
+                  <td>
+                    {item.imm_COVID_Y3 === "Refused" ? (
+                      <CheckIcon class="custom-check-icon" />
+                    ) : (
+                      <CloseIcon class="custom-check-icon" />
                     )}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-          {/* ) : null} */}
-        </>
-      </Row>
+      {/* ) : null} */}
     </div>
   );
 }

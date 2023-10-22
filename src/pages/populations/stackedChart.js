@@ -74,7 +74,6 @@ const HighchartsComponent = (props) => {
             fontSize: "7px",
             color: "white",
           },
-          
         },
       },
     },
@@ -270,13 +269,13 @@ const HighchartsComponent = (props) => {
           <div style={{ display: "flex" }}>
             <div style={tableContainerStyle}>
               <div style={{ overflowY: "auto", maxHeight: "400px" }}>
-                <table style={tableStyle}>
+                <table style={tableStyle} className="custom-table">
                   <thead
                     style={{
                       position: "sticky",
                       top: "0",
                       backgroundColor: "darkblue",
-                      color: "white",
+                      color: "#222",
                       textAlign: "center",
                     }}
                   >

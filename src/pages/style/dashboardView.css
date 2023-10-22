@@ -1,16 +1,16 @@
-/* .color svg rect {
+.container [id^="reactgooglegraph-"]  > .color svg rect {
   border: 1px solid red;
   fill: #222 !important;
 
-  width: 250px !important ;
+  width: 300px !important ;
   height: 800px !important;
 }
-[id^="reactgooglegraph-"] {
+.container [id^="reactgooglegraph-"] {
   margin: 0 5px !important;
-  width: 340px !important;
+  width: 300px !important;
   height: 250px !important;
 }
-.chart-container {
+/* .chart-container {
   display: flex;
   justify-content: center;
 }

@@ -7,24 +7,31 @@ import { Link, useNavigate } from "react-router-dom";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AppsIcon from "@mui/icons-material/Apps";
 import GradingIcon from "@mui/icons-material/Grading";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [yesValue, setYesValue] = useState();
   const [noValue, setNoValue] = useState();
   const [refusedValue, setRefusedValue] = useState();
+  const [blankValue, setBlankValue] = useState();
   const [yesValue1, setYesValue1] = useState();
   const [noValue1, setNoValue1] = useState();
   const [refusedValue1, setRefusedValue1] = useState();
+  const [blankValue1, setBlankValue1] = useState();
   const [yesValue2, setYesValue2] = useState();
   const [noValue2, setNoValue2] = useState();
   const [refusedValue2, setRefusedValue2] = useState();
+  const [blankValue2, setBlankValue2] = useState();
   const [yesValue3, setYesValue3] = useState();
   const [noValue3, setNoValue3] = useState();
   const [refusedValue3, setRefusedValue3] = useState();
+  const [blankValue3, setBlankValue3] = useState();
   const [yesValue4, setYesValue4] = useState();
   const [noValue4, setNoValue4] = useState();
   const [refusedValue4, setRefusedValue4] = useState();
+  const [blankValue4, setBlankValue4] = useState();
   const [values, setValues] = useState([]);
   const [single, setSingle] = useState();
 
@@ -144,7 +151,8 @@ const Dashboard = () => {
         const noValue = data.filter((i) => i.imm_PNEUMO_Y === "No");
 
         const refusedValue = data.filter((i) => i.imm_PNEUMO_Y === "Refused");
-
+        const blankValue = data.filter((i) => i.imm_PNEUMO_Y === null);
+        setBlankValue(blankValue.length);
         setYesValue(yesValue.length);
         setNoValue(noValue.length);
         setRefusedValue(refusedValue.length);
@@ -152,6 +160,8 @@ const Dashboard = () => {
         const yesValue1 = data.filter((i) => i.imm_FLU_Y === "Yes");
         const noValue1 = data.filter((i) => i.imm_FLU_Y === "No");
         const refusedValue1 = data.filter((i) => i.imm_FLU_Y === "Refused");
+        const blankValue1 = data.filter((i) => i.imm_FLU_Y === null);
+        setBlankValue1(blankValue1.length);
         setYesValue1(yesValue1.length);
         setNoValue1(noValue1.length);
         setRefusedValue1(refusedValue1.length);
@@ -159,6 +169,8 @@ const Dashboard = () => {
         const yesValue2 = data.filter((i) => i.imm_COVID_Y === "Yes");
         const noValue2 = data.filter((i) => i.imm_COVID_Y === "No");
         const refusedValue2 = data.filter((i) => i.imm_COVID_Y === "Refused");
+        const blankValue2 = data.filter((i) => i.imm_COVID_Y === null);
+        setBlankValue2(blankValue2.length);
         setYesValue2(yesValue2.length);
         setNoValue2(noValue2.length);
         setRefusedValue2(refusedValue2.length);
@@ -166,6 +178,8 @@ const Dashboard = () => {
         const yesValue3 = data.filter((i) => i.imm_COVID_Y2 === "Yes");
         const noValue3 = data.filter((i) => i.imm_COVID_Y2 === "No");
         const refusedValue3 = data.filter((i) => i.imm_COVID_Y2 === "Refused");
+        const blankValue3 = data.filter((i) => i.imm_COVID_Y2 === null);
+        setBlankValue3(blankValue3.length);
         setYesValue3(yesValue3.length);
         setNoValue3(noValue3.length);
         setRefusedValue3(refusedValue3.length);
@@ -173,6 +187,8 @@ const Dashboard = () => {
         const yesValue4 = data.filter((i) => i.imm_COVID_Y3 === "Yes");
         const noValue4 = data.filter((i) => i.imm_COVID_Y3 === "No");
         const refusedValue4 = data.filter((i) => i.imm_COVID_Y3 === "Refused");
+        const blankValue4 = data.filter((i) => i.imm_COVID_Y3 === null);
+        setBlankValue2(blankValue4.length);
         setYesValue4(yesValue4.length);
         setNoValue4(noValue4.length);
         setRefusedValue4(refusedValue4.length);
@@ -288,6 +304,7 @@ const Dashboard = () => {
                             ["Yes", yesValue],
                             ["No", noValue],
                             ["Refused", refusedValue],
+                            ["(Blank)", blankValue],
                           ]
                       : single
                       ? [
@@ -307,6 +324,7 @@ const Dashboard = () => {
                           ["Yes", yesValue1],
                           ["No", noValue1],
                           ["Refused", refusedValue1],
+                          ["(Blank)", blankValue1],
                         ]
                   }
                   options={options}
@@ -349,6 +367,7 @@ const Dashboard = () => {
                             ["Yes", yesValue2],
                             ["No", noValue2],
                             ["Refused", refusedValue2],
+                            ["(Blank)", blankValue2],
                           ]
                       : option.title === "COVID VACCINE 2"
                       ? single
@@ -368,6 +387,7 @@ const Dashboard = () => {
                             ["Yes", yesValue3],
                             ["No", noValue3],
                             ["Refused", refusedValue3],
+                            ["(Blank)", blankValue3],
                           ]
                       : single
                       ? [
@@ -386,6 +406,7 @@ const Dashboard = () => {
                           ["Yes", yesValue4],
                           ["No", noValue4],
                           ["Refused", refusedValue4],
+                          ["(Blank)", blankValue4],
                         ]
                   }
                   options={option}
@@ -439,6 +460,8 @@ const Dashboard = () => {
                       width: "100px",
                       height: "30px",
                       fontSize: "9px",
+                      backgroundColor: "blue",
+                      color: "#222",
                     }}
                     onClick={() => {
                       if (!isMultiSelect) {
