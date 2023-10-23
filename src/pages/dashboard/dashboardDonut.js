@@ -13,7 +13,7 @@ function DashboardView() {
   const [yesValue, setYesValue] = useState();
   const [noValue, setNoValue] = useState();
   const [refusedValue, setRefusedValue] = useState();
-
+  const [blankValue, setBlankValue] = useState();
   const [tableDataShow, setTableDataShow] = useState(false);
   const [clickChartValue, setClickChartValue] = useState("");
   const [result, setResult] = useState([]);
@@ -68,6 +68,8 @@ function DashboardView() {
         const yesValue = data.filter((i) => i.imm_FLU_Y === "Yes");
         const noValue = data.filter((i) => i.imm_FLU_Y === "No");
         const refusedValue = data.filter((i) => i.imm_FLU_Y === "Refused");
+        const blankValue = data.filter((i) => i.imm_FLU_Y === null);
+        setBlankValue(blankValue.length);
         setTableResult(data);
         setYesValue(yesValue.length);
         setNoValue(noValue.length);
@@ -135,6 +137,7 @@ function DashboardView() {
               ["Yes", yesValue],
               ["No", noValue],
               ["Refused", refusedValue],
+              ["(blank)", blankValue],
             ])
           }
           options={options}

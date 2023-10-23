@@ -48,7 +48,7 @@ function DashboardBooster() {
   const [yesValue4, setYesValue4] = useState();
   const [noValue4, setNoValue4] = useState();
   const [refusedValue4, setRefusedValue4] = useState();
-
+  const [blankValue, setBlankValue] = useState();
   const [tableDataShow, setTableDataShow] = useState(false);
   const [clickChartValue, setClickChartValue] = useState("");
   const [result, setResult] = useState([]);
@@ -103,6 +103,8 @@ function DashboardBooster() {
         const yesValue4 = data.filter((i) => i.imm_COVID_Y3 === "Yes");
         const noValue4 = data.filter((i) => i.imm_COVID_Y3 === "No");
         const refusedValue4 = data.filter((i) => i.imm_COVID_Y3 === "Refused");
+        const blankValue = data.filter((i) => i.imm_COVID_Y3 === null);
+        setBlankValue(blankValue.length);
         setTableResult(data);
         setYesValue4(yesValue4.length);
         setNoValue4(noValue4.length);
@@ -137,6 +139,7 @@ function DashboardBooster() {
               ["Yes", yesValue4],
               ["No", noValue4],
               ["Refused", refusedValue4],
+              ["(blank)", blankValue],
             ])
           }
           options={options1}

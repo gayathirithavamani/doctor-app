@@ -11,7 +11,7 @@ import PieChartIcon from "@mui/icons-material/PieChart";
 function Skin5() {
   const [isLoading, setIsLoading] = useState(true);
   const [yesValue, setYesValue] = useState();
-
+  const [blankValue, setBlankValue] = useState();
   const [noValue, setNoValue] = useState();
 
   const [tableDataShow, setTableDataShow] = useState(false);
@@ -58,6 +58,9 @@ function Skin5() {
         setResult(data);
         const yesValue = data.filter((i) => i.skin_RISK_5 === "Yes");
         const noValue = data.filter((i) => i.skin_RISK_5 === "No");
+
+        const blankValue = data.filter((i) => i.skin_RISK_5 === null);
+        setBlankValue(blankValue.length);
 
         setTableResult(data);
         setYesValue(yesValue.length);
@@ -121,6 +124,7 @@ function Skin5() {
               ["Task", "Hours per Day"],
               ["Yes", yesValue],
               ["No", noValue],
+              ["(blank)", blankValue],
             ])
           }
           options={options}

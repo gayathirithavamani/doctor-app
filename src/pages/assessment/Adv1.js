@@ -5,12 +5,13 @@ import "../style/dashboard.css";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
 
 function Adv1() {
   const [isLoading, setIsLoading] = useState(true);
   const [yesValue, setYesValue] = useState();
+  const [blankValue, setBlankValue] = useState();
 
   const [noValue, setNoValue] = useState();
 
@@ -58,7 +59,8 @@ function Adv1() {
         setResult(data);
         const yesValue = data.filter((i) => i.adv_DIR1 === "Yes");
         const noValue = data.filter((i) => i.adv_DIR1 === "No");
-
+        const blankValue = data.filter((i) => i.adv_DIR1 === null);
+        setBlankValue(blankValue.length);
         setTableResult(data);
         setYesValue(yesValue.length);
         setNoValue(noValue.length);
@@ -121,6 +123,7 @@ function Adv1() {
               ["Task", "Hours per Day"],
               ["Yes", yesValue],
               ["No", noValue],
+              ["(blank)", blankValue],
             ])
           }
           options={options}

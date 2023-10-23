@@ -5,14 +5,13 @@ import "../style/dashboard.css";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
-
 
 function DashboardView() {
   const [isLoading, setIsLoading] = useState(true);
   const [yesValue, setYesValue] = useState();
-
+  const [blankValue, setBlankValue] = useState();
   const [noValue, setNoValue] = useState();
   const [refusedValue, setRefusedValue] = useState();
   const [tableDataShow, setTableDataShow] = useState(false);
@@ -65,6 +64,8 @@ function DashboardView() {
         const yesValue = data.filter((i) => i.imm_PNEUMO_Y === "Yes");
         const noValue = data.filter((i) => i.imm_PNEUMO_Y === "No");
         const refusedValue = data.filter((i) => i.imm_PNEUMO_Y === "Refused");
+        const blankValue = data.filter((i) => i.imm_PNEUMO_Y === null);
+        setBlankValue(blankValue.length);
         setTableResult(data);
         setYesValue(yesValue.length);
         setNoValue(noValue.length);
@@ -131,6 +132,7 @@ function DashboardView() {
               ["Yes", yesValue],
               ["No", noValue],
               ["Refused", refusedValue],
+              ["(blank)", blankValue],
             ])
           }
           options={options}

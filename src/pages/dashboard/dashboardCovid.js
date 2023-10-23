@@ -49,7 +49,7 @@ function DashboardCovid() {
   const [yesValue2, setYesValue2] = useState();
   const [noValue2, setNoValue2] = useState();
   const [refusedValue2, setRefusedValue2] = useState();
-
+  const [blankValue, setBlankValue] = useState();
   const [tableDataShow, setTableDataShow] = useState(false);
   const [clickChartValue, setClickChartValue] = useState("");
   const [result, setResult] = useState([]);
@@ -109,6 +109,8 @@ function DashboardCovid() {
         const yesValue2 = data.filter((i) => i.imm_COVID_Y === "Yes");
         const noValue2 = data.filter((i) => i.imm_COVID_Y === "No");
         const refusedValue2 = data.filter((i) => i.imm_COVID_Y === "Refused");
+        const blankValue = data.filter((i) => i.imm_COVID_Y === null);
+        setBlankValue(blankValue.length);
         setTableResult(data);
         setYesValue2(yesValue2.length);
         setNoValue2(noValue2.length);
@@ -143,6 +145,7 @@ function DashboardCovid() {
               ["Yes", yesValue2],
               ["No", noValue2],
               ["Refused", refusedValue2],
+              ["(blank)", blankValue],
             ])
           }
           options={options1}

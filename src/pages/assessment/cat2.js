@@ -10,7 +10,7 @@ import PieChartIcon from "@mui/icons-material/PieChart";
 function Cat2() {
   const [isLoading, setIsLoading] = useState(true);
   const [yesValue, setYesValue] = useState();
-
+  const [blankValue, setBlankValue] = useState();
   const [noValue, setNoValue] = useState();
 
   const [tableDataShow, setTableDataShow] = useState(false);
@@ -57,7 +57,8 @@ function Cat2() {
         setResult(data);
         const yesValue = data.filter((i) => i.cat2 === "Suprapublic");
         const noValue = data.filter((i) => i.cat2 === "Foley");
-
+        const blankValue = data.filter((i) => i.cat2 === null);
+        setBlankValue(blankValue.length);
         setTableResult(data);
         setYesValue(yesValue.length);
         setNoValue(noValue.length);
@@ -120,6 +121,7 @@ function Cat2() {
               ["Task", "Hours per Day"],
               ["Suprapublic", yesValue],
               ["Foley", noValue],
+              ["(blank)", blankValue],
             ])
           }
           options={options}

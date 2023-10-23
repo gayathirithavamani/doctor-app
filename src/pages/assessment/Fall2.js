@@ -11,7 +11,7 @@ import PieChartIcon from "@mui/icons-material/PieChart";
 function Fall2() {
   const [isLoading, setIsLoading] = useState(true);
   const [yesValue, setYesValue] = useState();
-
+  const [blankValue, setBlankValue] = useState();
   const [noValue, setNoValue] = useState();
 
   const [tableDataShow, setTableDataShow] = useState(false);
@@ -58,7 +58,8 @@ function Fall2() {
         setResult(data);
         const yesValue = data.filter((i) => i.fall_RISK_2 === "Yes");
         const noValue = data.filter((i) => i.fall_RISK_2 === "No");
-
+        const blankValue = data.filter((i) => i.fall_RISK_2 === null);
+        setBlankValue(blankValue.length);
         setTableResult(data);
         setYesValue(yesValue.length);
         setNoValue(noValue.length);
@@ -121,6 +122,7 @@ function Fall2() {
               ["Task", "Hours per Day"],
               ["Yes", yesValue],
               ["No", noValue],
+              ["(blank)", blankValue],
             ])
           }
           options={options}

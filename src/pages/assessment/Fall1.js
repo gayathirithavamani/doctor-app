@@ -12,6 +12,8 @@ function Fall1() {
   const [isLoading, setIsLoading] = useState(true);
   const [yesValue, setYesValue] = useState();
 
+  const [blankValue, setBlankValue] = useState();
+
   const [noValue, setNoValue] = useState();
 
   const [tableDataShow, setTableDataShow] = useState(false);
@@ -58,7 +60,8 @@ function Fall1() {
         setResult(data);
         const yesValue = data.filter((i) => i.fall_RISK_1 === "Yes");
         const noValue = data.filter((i) => i.fall_RISK_1 === "No");
-
+        const blankValue = data.filter((i) => i.fall_RISK_1 === null);
+        setBlankValue(blankValue.length);
         setTableResult(data);
         setYesValue(yesValue.length);
         setNoValue(noValue.length);
@@ -121,6 +124,8 @@ function Fall1() {
               ["Task", "Hours per Day"],
               ["Yes", yesValue],
               ["No", noValue],
+
+              ["(blank)", blankValue],
             ])
           }
           options={options}
