@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HomeRoutes } from "../../routes/index";
 // import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import {
   DesktopOutlined,
@@ -11,7 +12,6 @@ import {
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { Chart } from "react-google-charts";
-import { Link } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -46,6 +46,9 @@ function Navbar({ formattedDate }) {
 const items = [
   getItem("Pie Chart", "1", <PieChartOutlined />),
   getItem("User", "sub1", <UserOutlined />, [
+    // getItem("POPULATION", "population", <Link to="/percentageView" />),
+    // getItem("IMMUNIZATION", "4", <Link to="/dashboard" />),
+    // getItem("ASSESSMENT", "5", <Link to="/assessmentView" />),
     getItem("POPULATION", "population"),
     getItem("IMMUNIZATION", "4"),
     getItem("ASSESSMENT", "5"),
@@ -54,16 +57,7 @@ const items = [
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(true);
-  // const navigate = useNavigate();
 
-  // const onClick = function (title) {
-  //   console.log(title.key);
-
-  //   // Check if the clicked item is "Population" and navigate to the /population route
-  //   if (title.key === "population") {
-  //     navigate.push("/population");
-  //   }
-  // };
   const {
     token: { colorBgContainer },
   } = theme.useToken();

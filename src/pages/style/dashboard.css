@@ -208,3 +208,16 @@ td {
   width: 25px; /* Set the desired width */
   height: 25px;
 }
+
+/* loader-styles.css */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Customize the loader styles here */
+.spinner {
+  /* Your styles for the spinner */
+}

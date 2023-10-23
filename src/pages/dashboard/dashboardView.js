@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-google-charts";
 import "../style/dashboard.css";
-import { Row, Col, Card } from "antd";
+
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
-import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
+
 
 function DashboardView() {
   const [isLoading, setIsLoading] = useState(true);

@@ -3,12 +3,13 @@ import { Chart } from "react-google-charts";
 import { Row, Col, Skeleton, Card } from "antd";
 import { PieChartOutlined } from "@ant-design/icons";
 import "../style/dashboard.css";
+
 import { Link, useNavigate } from "react-router-dom";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AppsIcon from "@mui/icons-material/Apps";
 import GradingIcon from "@mui/icons-material/Grading";
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
+
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);

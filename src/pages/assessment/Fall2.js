@@ -5,9 +5,8 @@ import { Row, Col, Card } from "antd";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import { Link } from "react-router-dom";
-
-import AlbumIcon from "@mui/icons-material/Album";
+import { useNavigate } from "react-router-dom";
+import PieChartIcon from "@mui/icons-material/PieChart";
 
 function Fall2() {
   const [isLoading, setIsLoading] = useState(true);
@@ -77,19 +76,30 @@ function Fall2() {
   }, []);
 
   const options = {
-    title: null,
+    title: "FALL RISK CARE PLAN",
     is3D: true,
-    legend: { position: "bottom", alignment: "center" },
+    legend: {
+      position: "right",
+      maxLines: 1,
+      textStyle: {
+        color: "white",
+      },
+    },
     pieSliceText: "value",
     fontSize: 10,
-    chartArea: { width: 400, height: 300 },
+    chartArea: { width: 250, height: 150 },
     pieHole: 0.25,
     pieStartAngle: 0,
+    titleTextStyle: {
+      fontSize: 16,
+      color: "white",
+    },
     animation: {
       startup: true,
       duration: 2000,
       easing: "out",
     },
+    backgroundColor: "#222",
   };
   let data = [
     ["Task", "Hours per Day"],
@@ -97,91 +107,111 @@ function Fall2() {
     ["No", 2],
     ["Refused", 2],
   ];
-
+  const navigate = useNavigate();
   return (
-    <div>
-      <h1>welcome to grid</h1>
-      <Row gutter={28}>
-        <>
-          <Col xxl={6} lg={6} xs={12}>
-            <div className="chart-container">
-              <Chart
-                chartType="PieChart"
-                data={
-                  (data = [
-                    ["Task", "Hours per Day"],
-                    ["Yes", yesValue],
-                    ["No", noValue],
-                  ])
-                }
-                options={options}
-                width={"100%"}
-                height={"400px"}
-                margin-top={"30px"}
-              />
-              <div className="lable-container">
-                <span
-                  onClick={() => tableDataClick("data")}
-                  className="chart-lable yesLable"
-                >
-                  <DateRangeIcon />
-                </span>
-                <span
-                  onClick={() => tableDataClick("Yes")}
-                  className="chart-lable yesLable"
-                >
-                  Yes
-                </span>
+    <div style={{ width: "100%", display: "flex", height: "100%" }}>
+      <div
+        className="chart-container"
+        style={{ width: "30%", height: "100px" }}
+      >
+        <Chart
+          chartType="PieChart"
+          data={
+            (data = [
+              ["Task", "Hours per Day"],
+              ["Yes", yesValue],
+              ["No", noValue],
+            ])
+          }
+          options={options}
+          margin-top={"30px"}
+        />
+        <PieChartIcon
+          style={{
+            position: "relative",
+            right: "50px",
+            top: "5px",
+            color: "yellow",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            navigate("/assessmentView");
+          }}
+        />
+      </div>
+      <div className="lable-container" style={{ width: "5%", height: "100px" }}>
+        <span
+          onClick={() => tableDataClick("data")}
+          className="chart-lable fullLable"
+        >
+          <DateRangeIcon />
+        </span>
+        <span
+          onClick={() => tableDataClick("Yes")}
+          className="chart-lable yesLable"
+        >
+          Yes
+        </span>
 
-                <span
-                  onClick={() => tableDataClick("No")}
-                  className="chart-lable noLable"
-                >
-                  No
-                </span>
-              </div>
-            </div>
-            {/* </Card> */}
-          </Col>
+        <span
+          onClick={() => tableDataClick("No")}
+          className="chart-lable noLable"
+        >
+          No
+        </span>
+      </div>
 
-          <div className="tableWrapper table-responsive">
-            <table className="smaller-table">
-              <thead>
-                <tr>
-                  <th>PATIENT NAME</th>
-                  {yesValueShow && <th>Yes</th>}
-                  {noValueShow && <th>No</th>}
-                </tr>
-              </thead>
-              <tbody>
-                {tableResult.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.patientname}</td>
-                    {yesValueShow ? (
-                      <td>
-                        {item.fall_RISK_2 === "Yes" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
-                    ) : null}
-                    {noValueShow ? (
-                      <td>
-                        {item.fall_RISK_2 === "No" ? (
-                          <CheckIcon />
-                        ) : (
-                          <CloseIcon />
-                        )}
-                      </td>
-                    ) : null}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </>
-      </Row>
+      <div
+        style={{
+          width: "65%",
+          height: "50%",
+          overflow: "auto",
+          maxHeight: "400px",
+        }}
+      >
+        <table className="custom-table">
+          <thead
+            style={{
+              position: "sticky",
+              top: "0",
+              background: "blue",
+              color: "black",
+              textAlign: "center",
+            }}
+          >
+            <tr>
+              <th>PATIENT NAME</th>
+              {yesValueShow && <th>Yes</th>}
+              {noValueShow && <th>No</th>}
+            </tr>
+          </thead>
+          <tbody>
+            {tableResult.map((item) => (
+              <tr key={item.id}>
+                <td>{item.patientname}</td>
+                {yesValueShow ? (
+                  <td>
+                    {item.fall_RISK_2 === "Yes" ? (
+                      <CheckIcon class="custom-check-icon" />
+                    ) : (
+                      <CloseIcon class="custom-check-icon" />
+                    )}
+                  </td>
+                ) : null}
+                {noValueShow ? (
+                  <td>
+                    {item.fall_RISK_2 === "No" ? (
+                      <CheckIcon class="custom-check-icon" />
+                    ) : (
+                      <CloseIcon class="custom-check-icon" />
+                    )}
+                  </td>
+                ) : null}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

@@ -114,46 +114,50 @@ const AssessmentBarView = () => {
       id: 4,
       name: "ADV DOCTORS ORDERS",
     },
-    // {
-    //   id: 5,
-    //   name: "CATHETER",
-    // },
-    // {
-    //   id: 6,
-    //   name: "CATHETER TYPES",
-    // },
-    // {
-    //   id: 7,
-    //   name: "CATHETER CARE PLAN",
-    // },
-    // {
-    //   id: 8,
-    //   name: "CATHETER INDICATION",
-    // },
-    // {
-    //   id: 9,
-    //   name: "FALL RISK ASSESSMENT",
-    // },
-    // {
-    //   id: 10,
-    //   name: "FALL RISK CARE PLAN",
-    // },
-    // {
-    //   id: 11,
-    //   name: "SKIN RISK ASSESSMENT",
-    // },
-    // {
-    //   id: 12,
-    //   name: "SKIN RISK CATEGORY",
-    // },
-    // {
-    //   id: 13,
-    //   name: "SKIN RISK SCORE",
-    // },
-    // {
-    //   id: 14,
-    //   name: "SKIN RISK CARE PLAN",
-    // },
+    
+  ];
+  const chartName1 = [
+    {
+      id: 5,
+      name: "CATHETER",
+    },
+    {
+      id: 6,
+      name: "CATHETER TYPES",
+    },
+    {
+      id: 7,
+      name: "CATHETER CARE PLAN",
+    },
+    {
+      id: 8,
+      name: "CATHETER INDICATION",
+    },
+  ];
+  const chartName2 = [
+    {
+      id: 9,
+      name: "FALL RISK ASSESSMENT",
+    },
+    {
+      id: 10,
+      name: "FALL RISK CARE PLAN",
+    },
+  ];
+  const chartName3 = [
+    { id: 11, name: "SKIN RISK ASSESSMENT" },
+    {
+      id: 12,
+      name: "SKIN RISK CATEGORY",
+    },
+    {
+      id: 13,
+      name: "SKIN RISK SCORE",
+    },
+    {
+      id: 14,
+      name: "SKIN RISK CARE PLAN",
+    },
   ];
 
   const chartOptions = chartName.map((item) => ({
