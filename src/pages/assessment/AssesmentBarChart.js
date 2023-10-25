@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
-import { Row, Col, Skeleton, Card } from "antd";
-import { PieChartOutlined } from "@ant-design/icons";
+
 import "../style/dashboardView.css";
 import { Link } from "react-router-dom";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AppsIcon from "@mui/icons-material/Apps";
 import GradingIcon from "@mui/icons-material/Grading";
-
-// let data = [
-//   ["Task", "Hours per Day"],
-//   ["Yes", 11],
-//   ["No", 2],
-//   ["Refused", 2],
-// ];
+import { Spin } from "antd";
 
 const AssessmentBarView = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +51,7 @@ const AssessmentBarView = () => {
   const [selectYes1, setSelectYes1] = useState();
   const [selectNo1, setSelectNo1] = useState();
 
+  
   const [selectYes2, setSelectYes2] = useState();
   const [selectNo2, setSelectNo2] = useState();
 
@@ -109,43 +103,50 @@ const AssessmentBarView = () => {
     {
       id: 3,
       name: "ADV CARE PLAN",
+      path: "/adv1",
     },
     {
       id: 4,
       name: "ADV DOCTORS ORDERS",
+      path: "/adv2",
     },
-    
   ];
   const chartName1 = [
     {
       id: 5,
       name: "CATHETER",
+      path: "/cat1",
     },
     {
       id: 6,
       name: "CATHETER TYPES",
+      path: "/cat2",
     },
     {
       id: 7,
       name: "CATHETER CARE PLAN",
+      path: "/cat3",
     },
     {
       id: 8,
       name: "CATHETER INDICATION",
+      path: "/cat4",
     },
   ];
   const chartName2 = [
     {
       id: 9,
       name: "FALL RISK ASSESSMENT",
+      path: "/fall1",
     },
     {
       id: 10,
       name: "FALL RISK CARE PLAN",
+      path: "/fall2",
     },
   ];
   const chartName3 = [
-    { id: 11, name: "SKIN RISK ASSESSMENT" },
+    { id: 11, name: "SKIN RISK ASSESSMENT", path: "/skin1" },
     {
       id: 12,
       name: "SKIN RISK CATEGORY",
@@ -157,10 +158,89 @@ const AssessmentBarView = () => {
     {
       id: 14,
       name: "SKIN RISK CARE PLAN",
+      path: "/skin4",
     },
   ];
 
   const chartOptions = chartName.map((item) => ({
+    title: item.name,
+    path: item.path,
+    is3D: true,
+    legend: {
+      position: "right",
+      maxLines: 1,
+      textStyle: {
+        color: "white",
+      },
+    },
+    pieSliceText: "value",
+    fontSize: 9,
+    chartArea: { width: 250, height: 150 },
+    pieHole: 0.2,
+    pieStartAngle: 0,
+    titleTextStyle: {
+      fontSize: 16,
+      color: "white",
+    },
+    animation: {
+      startup: true,
+      duration: 2000,
+      easing: "out",
+    },
+  }));
+  const chartOptions1 = chartName1.map((item) => ({
+    title: item.name,
+    path: item.path,
+    is3D: true,
+    legend: {
+      position: "right",
+      maxLines: 1,
+      textStyle: {
+        color: "white",
+      },
+    },
+    pieSliceText: "value",
+    fontSize: 9,
+    chartArea: { width: 250, height: 150 },
+    pieHole: 0.2,
+    pieStartAngle: 0,
+    titleTextStyle: {
+      fontSize: 16,
+      color: "white",
+    },
+    animation: {
+      startup: true,
+      duration: 2000,
+      easing: "out",
+    },
+  }));
+  const chartOptions2 = chartName2.map((item) => ({
+    title: item.name,
+    path: item.path,
+    is3D: true,
+    legend: {
+      position: "right",
+      maxLines: 1,
+      textStyle: {
+        color: "white",
+      },
+    },
+    pieSliceText: "value",
+    fontSize: 9,
+    chartArea: { width: 250, height: 150 },
+    pieHole: 0.2,
+    pieStartAngle: 0,
+    titleTextStyle: {
+      fontSize: 16,
+      color: "white",
+    },
+    animation: {
+      startup: true,
+      duration: 2000,
+      easing: "out",
+    },
+  }));
+  const chartOptions3 = chartName3.map((item) => ({
     title: item.name,
     path: item.path,
     is3D: true,
@@ -191,7 +271,6 @@ const AssessmentBarView = () => {
     fetch("http://localhost:9090/findall ")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setValues(data);
 
         const yesValue = data.filter((i) => i.adv_DIR1 === "Yes");
@@ -276,7 +355,7 @@ const AssessmentBarView = () => {
         const selectYes2 = selectedNames.filter((i) => i.adv_DIR5 === "Yes");
         setSelectYes2(selectYes2.length);
         const selectNo2 = selectedNames.filter((i) => i.adv_DIR5 === "No");
-        setSelectNo1(selectNo2.length);
+        setSelectNo2(selectNo2.length);
         const selectYes3 = selectedNames.filter((i) => i.adv_DIR4 === "Yes");
         setSelectYes3(selectYes3.length);
         const selectNo3 = selectedNames.filter((i) => i.adv_DIR4 === "No");
@@ -349,7 +428,7 @@ const AssessmentBarView = () => {
 
         setIsLoading(false);
       });
-  }, []);
+  }, [selectedNames]);
 
   function handleClick(info) {
     const data = values.find((item) => item.id === info.id);
@@ -358,422 +437,499 @@ const AssessmentBarView = () => {
   }
 
   return (
-    // <div style={{ width: "100%", display: "flex", height: "100%" }}>
-    //   <div style={{ width: "90%", height: "100%", display: "flex" }}>
     <div style={{ display: "flex" }}>
-      <div style={{ width: "90%" }}>
-        <div style={{ display: "flex" }} className="container">
-          {chartOptions.map((options, index) => {
-            return (
-              <div className="chart-container" key={index}>
-                <Chart
-                  className="color"
-                  chartType="PieChart"
-                  data={
-                    options.title === "ADVANCED DIRECTIVE(S)"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.adv_DIR1, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes],
-                            ["No", selectNo],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue],
-                            ["No", noValue],
-                          ]
-                      : options.title === "ADVANCED DIRECTIVE(S) TYPES"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.adv_DIR3, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes1],
-                            ["No", selectNo1],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Full Code", yesValue1],
-                            ["DNR", noValue1],
-                          ]
-                      : options.title === "ADV CARE PLAN"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.adv_DIR5, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes2],
-                            ["No", selectNo2],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue2],
-                            ["No", noValue2],
-                          ]
-                      : options.title === "ADV DOCTORS ORDERS"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.adv_DIR4, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes3],
-                            ["No", selectNo3],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue3],
-                            ["No", noValue3],
-                          ]
-                      : ""
-                  }
-                  options={options}
-                />
-              </div>
-            );
-          })}
-        </div>
-        <div
-          style={{ display: "flex", marginTop: "20px" }}
-          className="container"
-        >
-          {chartOptions.map((options, index) => {
-            return (
-              <div
-                className="chart-container"
-                // style={{
-                //   width: "200px",
-                //   height: "200px",
-                //   margin: "40px",
-                //   padding: "10px",
-                //   border: "1px solid #b80c0c",
-                // }}
-                key={index}
-              >
-                <Chart
-                  className="color"
-                  chartType="PieChart"
-                  data={
-                    options.title === "ADVANCED DIRECTIVE(S)"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.cat1, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes4],
-                            ["No", selectNo4],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue4],
-                            ["No", noValue4],
-                          ]
-                      : options.title === "ADVANCED DIRECTIVE(S) TYPES"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.cat2, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectSuprapublicValue],
-                            ["No", selectFoleyValue],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Suprapublic", suprapublic],
-                            ["Foley", foley],
-                          ]
-                      : options.title === "ADV CARE PLAN"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.cat4, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes5],
-                            ["No", selectNo5],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue5],
-                            ["No", noValue5],
-                          ]
-                      : options.title === "ADV DOCTORS ORDERS"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.cat5, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes6],
-                            ["No", selectNo6],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue6],
-                            ["No", noValue6],
-                          ]
-                      : ""
-                  }
-                  options={options}
-                />
-              </div>
-            );
-          })}
-        </div>
-        <div
-          style={{ display: "flex", marginTop: "20px" }}
-          className="container"
-        >
-          {chartOptions.map((options, index) => {
-            return (
-              <div className="chart-container" key={index}>
-                <Chart
-                  className="color"
-                  chartType="PieChart"
-                  data={
-                    options.title === "ADVANCED DIRECTIVE(S)"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.fall_RISK_1, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes7],
-                            ["No", selectNo7],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue7],
-                            ["No", noValue7],
-                          ]
-                      : options.title === "ADVANCED DIRECTIVE(S) TYPES"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.fall_RISK_2, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes8],
-                            ["No", selectNo8],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue8],
-                            ["No", noValue8],
-                          ]
-                      : ""
-                  }
-                  options={options}
-                />
-              </div>
-            );
-          })}
-        </div>
-        <div
-          style={{ display: "flex", marginTop: "20px" }}
-          className="container"
-        >
-          {chartOptions.map((options, index) => {
-            return (
-              <div className="chart-container" key={index}>
-                <Chart
-                  className="color"
-                  chartType="PieChart"
-                  data={
-                    options.title === "ADVANCED DIRECTIVE(S)"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.skin_RISK_1, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes9],
-                            ["No", selectNo9],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue9],
-                            ["No", noValue9],
-                          ]
-                      : options.title === "ADVANCED DIRECTIVE(S) TYPES"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.skin_RISK_2, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Braden", selectYes10],
-                            ["nla", selectNo10],
-                            ["0", selectNValue10],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Braden", yesValue10],
-                            ["n/a", noValue10],
-                            ["0", nValue10],
-                          ]
-                      : options.title === "ADV CARE PLAN"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.skin_RISK_3, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["0", selectSkinValue1],
-                            ["Very High Risk", selectSkinValue2],
-                            ["At Risk", selectSkinValue3],
-                            ["Moderate Risk", selectSkinValue4],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["0", skinValue1],
-                            ["Very High Risk", skinValue2],
-                            ["At Risk", skinValue3],
-                            ["Moderate Risk", skinValue4],
-                          ]
-                      : options.title === "ADV DOCTORS ORDERS"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.skin_RISK_5, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes11],
-                            ["No", selectNo11],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue11],
-                            ["No", noValue11],
-                          ]
-                      : ""
-                  }
-                  options={options}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <div style={{ width: "10%", height: "100%" }}>
-        <div style={{ height: "100px" }}></div>
-        <div
+      {isLoading ? (
+        <Spin
+          size="large"
           style={{
-            width: "100%",
-            alignItems: "end",
-            display: "flex",
-            justifyContent: "end",
+            width: "30%",
+
+            margin: "auto",
+            justifyContent: "center",
+            alignItems: "center",
           }}
-        >
-          <GradingIcon
-            onClick={() => {
-              setIsMultiSelect(!isMultiSelect);
-            }}
-          />
-          <FilterAltIcon
-            onClick={() => {
-              setSingle();
-            }}
-          />
-        </div>
-        <div style={{ height: "280px", overflowY: "scroll" }}>
-          {values.map((item) => {
-            return (
-              <div
-                key={item.id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <li style={{ listStyleType: "none" }}>
-                  <button
-                    style={{
-                      width: "100px",
-                      height: "30px",
-                      fontSize: "9px",
-                      backgroundColor: "blue",
-                      color: "#222",
-                    }}
-                    onClick={() => {
-                      if (!isMultiSelect) {
-                        handleClick(item);
-                      } else {
-                        setSingle();
-                        if (
-                          selectedNames.length > 0 &&
-                          selectedNames.some(
-                            (selectedItem) => selectedItem.id === item.id
-                          )
-                        ) {
-                          setSelectedNames((prev) =>
-                            prev.filter(
-                              (selectedItem) => selectedItem.id !== item.id
-                            )
-                          );
-                        } else {
-                          setSelectedNames((prev) => [...prev, item]);
-                        }
+        />
+      ) : (
+        // <Spin indicator={antIcon} />
+        <>
+          <div style={{ width: "90%" }}>
+            <div style={{ display: "flex" }} className="container">
+              {chartOptions.map((options, index) => {
+                return (
+                  <div className="chart-container" key={index}>
+                    <Chart
+                      className="color"
+                      chartType="PieChart"
+                      data={
+                        options.title === "ADVANCED DIRECTIVE(S)"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.adv_DIR1, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes],
+                                ["No", selectNo],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue],
+                                ["No", noValue],
+                              ]
+                          : options.title === "ADVANCED DIRECTIVE(S) TYPES"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.adv_DIR3, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes1],
+                                ["No", selectNo1],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Full Code", yesValue1],
+                                ["DNR", noValue1],
+                              ]
+                          : options.title === "ADV CARE PLAN"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.adv_DIR5, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes2],
+                                ["No", selectNo2],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue2],
+                                ["No", noValue2],
+                              ]
+                          : options.title === "ADV DOCTORS ORDERS"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.adv_DIR4, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes3],
+                                ["No", selectNo3],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue3],
+                                ["No", noValue3],
+                              ]
+                          : ""
                       }
+                      options={options}
+                    />
+                    {options.path && (
+                      <Link to={options.path}>
+                        <AppsIcon
+                          style={{
+                            position: "absolute",
+                            left: "270px",
+                            top: "17px",
+                          }}
+                        />
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <div
+              style={{ display: "flex", marginTop: "20px" }}
+              className="container"
+            >
+              {chartOptions1.map((options, index) => {
+                return (
+                  <div
+                    className="chart-container"
+                    // style={{
+                    //   width: "200px",
+                    //   height: "200px",
+                    //   margin: "40px",
+                    //   padding: "10px",
+                    //   border: "1px solid #b80c0c",
+                    // }}
+                    key={index}
+                  >
+                    <Chart
+                      className="color"
+                      chartType="PieChart"
+                      data={
+                        options.title === "CATHETER"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.cat1, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes4],
+                                ["No", selectNo4],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue4],
+                                ["No", noValue4],
+                              ]
+                          : options.title === "CATHETER TYPES"
+                          ? //  &&
+                            //   single &&
+                            //   single.cat2 !== undefined
+                            single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.cat2, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectSuprapublicValue],
+                                ["No", selectFoleyValue],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Suprapublic", suprapublic],
+                                ["Foley", foley],
+                              ]
+                          : options.title === "CATHETER CARE PLAN"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.cat4, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes5],
+                                ["No", selectNo5],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue5],
+                                ["No", noValue5],
+                              ]
+                          : options.title === "CATHETER INDICATION"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.cat5, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes6],
+                                ["No", selectNo6],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue6],
+                                ["No", noValue6],
+                              ]
+                          : ""
+                      }
+                      options={options}
+                    />
+                    {/* {(options.path 
+                    
+                    && single && single.cat1 !== undefined) ||
+                      (single && single.cat2 !== undefined) ||
+                      (single && single.cat4 !== undefined) ||
+                      (single.cat5 !== undefined && (
+                        <Link to={options.path}>
+                          <AppsIcon
+                            style={{
+                              position: "absolute",
+                              left: "270px",
+                              top: "17px",
+                            }}
+                          />
+                        </Link>
+                      ))} */}
+                    {options.path && (
+                      <Link to={options.path}>
+                        <AppsIcon
+                          style={{
+                            position: "absolute",
+                            left: "270px",
+                            top: "17px",
+                          }}
+                        />
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <div
+              style={{ display: "flex", marginTop: "20px" }}
+              className="container"
+            >
+              {chartOptions2.map((options, index) => {
+                return (
+                  <div className="chart-container" key={index}>
+                    <Chart
+                      className="color"
+                      chartType="PieChart"
+                      data={
+                        options.title === "FALL RISK ASSESSMENT"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.fall_RISK_1, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes7],
+                                ["No", selectNo7],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue7],
+                                ["No", noValue7],
+                              ]
+                          : options.title === "FALL RISK CARE PLAN"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.fall_RISK_2, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes8],
+                                ["No", selectNo8],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue8],
+                                ["No", noValue8],
+                              ]
+                          : ""
+                      }
+                      options={options}
+                    />
+                    {options.path && (
+                      <Link to={options.path}>
+                        <AppsIcon
+                          style={{
+                            position: "absolute",
+                            left: "270px",
+                            top: "17px",
+                          }}
+                        />
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <div
+              style={{ display: "flex", marginTop: "20px" }}
+              className="container"
+            >
+              {chartOptions3.map((options, index) => {
+                return (
+                  <div className="chart-container" key={index}>
+                    <Chart
+                      className="color"
+                      chartType="PieChart"
+                      data={
+                        options.title === "SKIN RISK ASSESSMENT"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.skin_RISK_1, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes9],
+                                ["No", selectNo9],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue9],
+                                ["No", noValue9],
+                              ]
+                          : options.title === "SKIN RISK CATEGORY"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.skin_RISK_2, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Braden", selectYes10],
+                                ["nla", selectNo10],
+                                ["0", selectNValue10],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Braden", yesValue10],
+                                ["n/a", noValue10],
+                                ["0", nValue10],
+                              ]
+                          : options.title === "SKIN RISK SCORE"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.skin_RISK_3, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["0", selectSkinValue1],
+                                ["Very High Risk", selectSkinValue2],
+                                ["At Risk", selectSkinValue3],
+                                ["Moderate Risk", selectSkinValue4],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["0", skinValue1],
+                                ["Very High Risk", skinValue2],
+                                ["At Risk", skinValue3],
+                                ["Moderate Risk", skinValue4],
+                              ]
+                          : options.title === "SKIN RISK CARE PLAN"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.skin_RISK_5, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes11],
+                                ["No", selectNo11],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue11],
+                                ["No", noValue11],
+                              ]
+                          : ""
+                      }
+                      options={options}
+                    />
+                    {options.path && (
+                      <Link to={options.path}>
+                        <AppsIcon
+                          style={{
+                            position: "absolute",
+                            left: "270px",
+                            top: "17px",
+                          }}
+                        />
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div style={{ width: "10%", height: "100%" }}>
+            <div style={{ height: "100px" }}></div>
+            <div
+              style={{
+                width: "100%",
+                alignItems: "end",
+                display: "flex",
+                justifyContent: "end",
+              }}
+            >
+              <GradingIcon
+                onClick={() => {
+                  setIsMultiSelect(!isMultiSelect);
+                }}
+              />
+              <FilterAltIcon
+                onClick={() => {
+                  setSingle();
+                }}
+              />
+            </div>
+            <div style={{ height: "280px", overflowY: "scroll" }}>
+              {values.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    {item.patientname}
-                  </button>
-                </li>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+                    <li style={{ listStyleType: "none" }}>
+                      <button
+                        style={{
+                          width: "100px",
+                          height: "30px",
+                          fontSize: "10px",
+                          backgroundColor: "blue",
+                          color: "white",
+                        }}
+                        onClick={() => {
+                          if (!isMultiSelect) {
+                            handleClick(item);
+                          } else {
+                            setSingle();
+                            if (
+                              selectedNames.length > 0 &&
+                              selectedNames.some(
+                                (selectedItem) => selectedItem.id === item.id
+                              )
+                            ) {
+                              setSelectedNames((prev) =>
+                                prev.filter(
+                                  (selectedItem) => selectedItem.id !== item.id
+                                )
+                              );
+                            } else {
+                              setSelectedNames((prev) => [...prev, item]);
+                            }
+                          }
+                        }}
+                      >
+                        {item.patientname}
+                      </button>
+                    </li>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

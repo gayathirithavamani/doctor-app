@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import { Spin } from "antd";
 
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -71,7 +72,7 @@ const HighchartsComponent = (props) => {
         dataLabels: {
           enabled: true,
           style: {
-            fontSize: "7px",
+            fontSize: "9px",
             color: "white",
           },
         },
@@ -160,7 +161,7 @@ const HighchartsComponent = (props) => {
           const bulletPoints = splitCaregapsIntoBulletPoints(item.caregaps);
 
           bulletPoints.forEach((point) => {
-            console.log(`• ${point}`);
+            // console.log(`• ${point}`);
           });
 
           // console.log(bulletPoints);
@@ -227,7 +228,7 @@ const HighchartsComponent = (props) => {
       });
   }, []);
   const path = window.location.pathname;
-  console.log(path);
+  // console.log(path);
 
   const navigate = useNavigate();
 
@@ -241,96 +242,114 @@ const HighchartsComponent = (props) => {
 
   return (
     <div>
-      <div style={{ display: "flex" }}>
-        {/* Chart */}
+      {isLoading ? (
+        <Spin
+          size="large"
+          style={{
+            width: "30%",
 
-        <div className="outer " style={{ display: "flex" }}>
-          <div className="chart-container">
-            <HighchartsReact highcharts={Highcharts} options={options} />
-          </div>
-          <div style={{ position: "relative", top: "10px", right: "30px" }}>
-            <TableRowsIcon
-              style={{ color: "yellow", cursor: "pointer" }}
-              onClick={handleNavigate}
-            />
-          </div>
+            margin: "auto",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        />
+      ) : (
+        // <Spin indicator={antIcon} />
+        <>
+          <div style={{ display: "flex" }}>
+            {/* Chart */}
 
-          {/* <Link
+            <div className="outer " style={{ display: "flex" }}>
+              <div className="chart-container">
+                <HighchartsReact highcharts={Highcharts} options={options} />
+              </div>
+              <div style={{ position: "relative", top: "10px", right: "30px" }}>
+                <TableRowsIcon
+                  style={{ color: "yellow", cursor: "pointer" }}
+                  onClick={handleNavigate}
+                />
+              </div>
+
+              {/* <Link
             to={path === "/percentageView" ? "/stackedView" : "/percentageView"}
           >
             <div style={{ position: "relative", top: "10px", right: "30px" }}>
               <AddchartIcon />
             </div>
           </Link> */}
-        </div>
-
-        {/* Table */}
-        {props.tableView && (
-          <div style={{ display: "flex" }}>
-            <div style={tableContainerStyle}>
-              <div style={{ overflowY: "auto", maxHeight: "400px" }}>
-                <table style={tableStyle} className="custom-table">
-                  <thead
-                    style={{
-                      position: "sticky",
-                      top: "0",
-                      backgroundColor: "darkblue",
-                      color: "#222",
-                      textAlign: "center",
-                    }}
-                  >
-                    <tr>
-                      <th>DX-List</th>
-                      <th>Patient name</th>
-                      <th>CareGapSn</th>
-                      <th>0</th>
-                      <th>Worsened</th>
-                      <th>NoChange</th>
-                      <th>Improved</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tableResult.map((item) => (
-                      <tr key={item.id}>
-                        <td>{item.diagnos_LIST}</td>
-                        <td>{item.patientname}</td>
-                        <td>
-                          <ul>
-                            {/* Map bulletPoints for each item and display them as list items */}
-                            {splitCaregapsIntoBulletPoints(item.caregaps).map(
-                              (point, index) => (
-                                <li key={index}>{point}</li>
-                              )
-                            )}
-                          </ul>
-                        </td>
-                        <td>
-                          {item.patient_CONDITION_DIAG_1 === "0" ? "✔️" : "❌"}
-                        </td>
-                        <td>
-                          {item.patient_CONDITION_DIAG_1 === "Worsened"
-                            ? "✔️"
-                            : "❌"}
-                        </td>
-                        <td>
-                          {item.patient_CONDITION_DIAG_1 === "No change"
-                            ? "✔️"
-                            : "❌"}
-                        </td>
-                        <td>
-                          {item.patient_CONDITION_DIAG_1 === "Improved"
-                            ? "✔️"
-                            : "❌"}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
             </div>
+
+            {/* Table */}
+            {props.tableView && (
+              <div style={{ display: "flex" }}>
+                <div style={tableContainerStyle}>
+                  <div style={{ overflowY: "auto", maxHeight: "400px" }}>
+                    <table style={tableStyle} className="custom-table">
+                      <thead
+                        style={{
+                          position: "sticky",
+                          top: "0",
+                          backgroundColor: "darkblue",
+                          color: "#222",
+                          textAlign: "center",
+                        }}
+                      >
+                        <tr>
+                          <th>DX-List</th>
+                          <th>Patient name</th>
+                          <th>CareGapSn</th>
+                          <th>0</th>
+                          <th>Worsened</th>
+                          <th>NoChange</th>
+                          <th>Improved</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {tableResult.map((item) => (
+                          <tr key={item.id}>
+                            <td>{item.diagnos_LIST}</td>
+                            <td>{item.patientname}</td>
+                            <td>
+                              <ul>
+                                {/* Map bulletPoints for each item and display them as list items */}
+                                {splitCaregapsIntoBulletPoints(
+                                  item.caregaps
+                                ).map((point, index) => (
+                                  <li key={index}>{point}</li>
+                                ))}
+                              </ul>
+                            </td>
+                            <td>
+                              {item.patient_CONDITION_DIAG_1 === "0"
+                                ? "✔️"
+                                : "❌"}
+                            </td>
+                            <td>
+                              {item.patient_CONDITION_DIAG_1 === "Worsened"
+                                ? "✔️"
+                                : "❌"}
+                            </td>
+                            <td>
+                              {item.patient_CONDITION_DIAG_1 === "No change"
+                                ? "✔️"
+                                : "❌"}
+                            </td>
+                            <td>
+                              {item.patient_CONDITION_DIAG_1 === "Improved"
+                                ? "✔️"
+                                : "❌"}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      )}
     </div>
   );
 };

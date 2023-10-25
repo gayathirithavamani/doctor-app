@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-
+import { Spin } from "antd";
 const customColors = [
   "#4f81c5",
   "#4f81c5",
@@ -114,11 +114,27 @@ function App() {
 
   return (
     <div className="App">
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        containerProps={{ style: { width: "800px", height: "600px" } }}
-      />
+      {isLoading ? (
+        <Spin
+          size="large"
+          style={{
+            width: "30%",
+
+            margin: "auto",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        />
+      ) : (
+        // <Spin indicator={antIcon} />
+        <>
+          <HighchartsReact
+            highcharts={Highcharts}
+            options={options}
+            containerProps={{ style: { width: "800px", height: "600px" } }}
+          />
+        </>
+      )}
     </div>
   );
 }

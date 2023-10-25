@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HomeRoutes } from "../../routes/index";
-// import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
 import {
   DesktopOutlined,
   FileOutlined,
@@ -12,12 +10,12 @@ import {
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { Chart } from "react-google-charts";
+import { useNavigate } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
+
 function getItem(label, key, icon, children) {
   return {
-    // label,
-    // path,
     key,
     icon,
     children,
@@ -29,38 +27,87 @@ function Navbar({ formattedDate }) {
   return (
     <Header
       style={{
-        backgroundColor: "#222", // Set the background color
-        height: "60px", // Set the height
+        backgroundColor: "#222",
+        height: "60px",
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center", // Center items vertically and horizontally
+        justifyContent: "space-between", // Move text to the right side
+        alignItems: "center", // Center items vertically
+        padding: "0 20px", // Add padding to separate the text from the edges
       }}
     >
-      <h1 style={{ color: "white" }}>
+      <div style={{ color: "white", fontSize: "25px" }}>{formattedDate}</div>
+      <h1 style={{ color: "white", fontSize: "25px", margin: "0" }}>
         ADVANCED REHAB & HEALTHCARE OF LIVE OAK
       </h1>
-      <div style={{ marginLeft: "20px", color: "white" }}>{formattedDate}</div>
     </Header>
   );
 }
+
 const items = [
   getItem("Pie Chart", "1", <PieChartOutlined />),
   getItem("User", "sub1", <UserOutlined />, [
-    // getItem("POPULATION", "population", <Link to="/percentageView" />),
-    // getItem("IMMUNIZATION", "4", <Link to="/dashboard" />),
-    // getItem("ASSESSMENT", "5", <Link to="/assessmentView" />),
     getItem("POPULATION", "population"),
-    getItem("IMMUNIZATION", "4"),
-    getItem("ASSESSMENT", "5"),
+    getItem("IMMUNIZATION", "immunization"),
+    getItem("ASSESSMENT", "assessment"),
   ]),
 ];
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(true);
+  const [formattedDate, setFormattedDate] = useState(""); // State for formattedDate
+  const navigate = useNavigate();
+  useEffect(() => {
+    fetch("http://localhost:9090/findall")
+      .then((response) => response.json())
+      .then((data) => {
+        // ... Your data retrieval logic ...
+
+        const billingDate = data.length > 0 && data[0].billing_DATE;
+        const formattedDate = formatDate(billingDate);
+        setFormattedDate(formattedDate); // Set the state
+
+        
+      });
+  }, []);
+
+  function formatDate(inputDate) {
+    const date = new Date(inputDate);
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const year = date.getFullYear().toString().substr(-2);
+    const month = monthNames[date.getMonth()];
+
+    return month + "-" + year;
+  }
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  function handleClick(e) {
+    // setCurrent(e.key);
+    navigate(
+      e === "population"
+        ? "/percentageView"
+        : e === "assessment"
+        ? "/assessmentView"
+        : "/"
+    );
+   
+  }
+
   return (
     <Layout
       style={{
@@ -77,22 +124,24 @@ const MainLayout = () => {
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
-          // onClick={onClick}
           defaultSelectedKeys={["1"]}
           mode="inline"
           items={items}
+          onClick={(e) => handleClick(e.key)}
           style={{ backgroundColor: "rgb(34, 34, 34)" }}
         />
+        {/* <Menu onClick={handleClick} mode="vertical" selectedKeys={[current]}>
+          <Link to="/dashboard">
+            <Menu.Item key="/dashboard">Dashboard</Menu.Item>
+          </Link>
+          <Link to="/add-recipe">
+            <Menu.Item key="/add-recipe">Add Recipes</Menu.Item>
+          </Link>
+        </Menu> */}
       </Sider>
 
       <Layout>
-        {/* <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-          }}
-        /> */}
-        <Navbar /> {/* Add the Navbar component here */}
+        {formattedDate && <Navbar formattedDate={formattedDate} />}
         <Content>
           <Content style={{ margin: "10px 10px 0", height: "100%" }}>
             <div
@@ -103,15 +152,9 @@ const MainLayout = () => {
             </div>
           </Content>
         </Content>
-        {/* <Footer
-          style={{
-            textAlign: 'center',
-          }}
-        >
-          Ant Design ©2023 Created by Ant UED
-        </Footer> */}
       </Layout>
     </Layout>
   );
 };
+
 export default MainLayout;

@@ -7,6 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import { useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
+import { Spin } from "antd";
 
 function Cat4() {
   const [isLoading, setIsLoading] = useState(true);
@@ -111,112 +112,131 @@ function Cat4() {
   const navigate = useNavigate();
   return (
     <div style={{ width: "100%", display: "flex", height: "100%" }}>
-      <div
-        className="chart-container"
-        style={{ width: "30%", height: "100px" }}
-      >
-        <Chart
-          chartType="PieChart"
-          data={
-            (data = [
-              ["Task", "Hours per Day"],
-              ["Yes", yesValue],
-              ["No", noValue],
-              ["(blank)", blankValue],
-            ])
-          }
-          options={options}
-          // width={"100%"}
-          // height={"400px"}
-          margin-top={"30px"}
-        />
-        <PieChartIcon
+      {isLoading ? (
+        <Spin
+          size="large"
           style={{
-            position: "relative",
-            right: "50px",
-            top: "5px",
-            color: "yellow",
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            navigate("/assessmentView");
+            width: "30%",
+
+            margin: "auto",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         />
-      </div>
+      ) : (
+        // <Spin indicator={antIcon} />
+        <>
+          <div
+            className="chart-container"
+            style={{ width: "30%", height: "100px" }}
+          >
+            <Chart
+              chartType="PieChart"
+              data={
+                (data = [
+                  ["Task", "Hours per Day"],
+                  ["Yes", yesValue],
+                  ["No", noValue],
+                  ["(blank)", blankValue],
+                ])
+              }
+              options={options}
+              // width={"100%"}
+              // height={"400px"}
+              margin-top={"30px"}
+            />
+            <PieChartIcon
+              style={{
+                position: "relative",
+                right: "50px",
+                top: "5px",
+                color: "yellow",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                navigate("/assessmentView");
+              }}
+            />
+          </div>
 
-      <div className="lable-container" style={{ width: "5%", height: "100px" }}>
-        <span
-          onClick={() => tableDataClick("data")}
-          className="chart-lable fullLable"
-        >
-          <DateRangeIcon />
-        </span>
-        <span
-          onClick={() => tableDataClick("Yes")}
-          className="chart-lable yesLable"
-        >
-          Yes
-        </span>
+          <div
+            className="lable-container"
+            style={{ width: "5%", height: "100px" }}
+          >
+            <span
+              onClick={() => tableDataClick("data")}
+              className="chart-lable fullLable"
+            >
+              <DateRangeIcon />
+            </span>
+            <span
+              onClick={() => tableDataClick("Yes")}
+              className="chart-lable yesLable"
+            >
+              Yes
+            </span>
 
-        <span
-          onClick={() => tableDataClick("No")}
-          className="chart-lable noLable"
-        >
-          No
-        </span>
-      </div>
+            <span
+              onClick={() => tableDataClick("No")}
+              className="chart-lable noLable"
+            >
+              No
+            </span>
+          </div>
 
-      <div
-        style={{
-          width: "65%",
-          height: "50%",
-          overflow: "auto",
-          maxHeight: "400px",
-        }}
-      >
-        <table className="custom-table">
-          <thead
+          <div
             style={{
-              position: "sticky",
-              top: "0",
-              background: "blue",
-              color: "black",
-              textAlign: "center",
+              width: "65%",
+              height: "50%",
+              overflow: "auto",
+              maxHeight: "400px",
             }}
           >
-            <tr>
-              <th>PATIENT NAME</th>
-              {yesValueShow && <th>Yes</th>}
-              {noValueShow && <th>No</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {tableResult.map((item) => (
-              <tr key={item.id}>
-                <td>{item.patientname}</td>
-                {yesValueShow ? (
-                  <td>
-                    {item.cat5 === "Yes" ? (
-                      <CheckIcon class="custom-check-icon" />
-                    ) : (
-                      <CloseIcon class="custom-check-icon" />
-                    )}
-                  </td>
-                ) : null}
-                {noValueShow ? (
-                  <td>
-                    {item.cat5 === "No" ? (
-                      <CheckIcon class="custom-check-icon" />
-                    ) : (
-                      <CloseIcon class="custom-check-icon" />
-                    )}
-                  </td>
-                ) : null}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            <table className="custom-table">
+              <thead
+                style={{
+                  position: "sticky",
+                  top: "0",
+                  background: "blue",
+                  color: "black",
+                  textAlign: "center",
+                }}
+              >
+                <tr>
+                  <th>PATIENT NAME</th>
+                  {yesValueShow && <th>Yes</th>}
+                  {noValueShow && <th>No</th>}
+                </tr>
+              </thead>
+              <tbody>
+                {tableResult.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.patientname}</td>
+                    {yesValueShow ? (
+                      <td>
+                        {item.cat5 === "Yes" ? (
+                          <CheckIcon class="custom-check-icon" />
+                        ) : (
+                          <CloseIcon class="custom-check-icon" />
+                        )}
+                      </td>
+                    ) : null}
+                    {noValueShow ? (
+                      <td>
+                        {item.cat5 === "No" ? (
+                          <CheckIcon class="custom-check-icon" />
+                        ) : (
+                          <CloseIcon class="custom-check-icon" />
+                        )}
+                      </td>
+                    ) : null}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
     </div>
   );
 }

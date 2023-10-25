@@ -1,8 +1,8 @@
 import React from "react";
 import {
   BrowserRouter as Router,
-  Route,
   Routes,
+  Route,
   Navigate,
   Link,
 } from "react-router-dom";
@@ -33,7 +33,7 @@ import Cat2 from "../pages/assessment/cat2";
 
 const HomeRoutes = () => {
   return (
-    <Router>
+    // <Router>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
 
@@ -61,7 +61,7 @@ const HomeRoutes = () => {
         <Route path="/skin1" element={<Skin1 />} />
         <Route path="/skin4" element={<Skin5 />} />
       </Routes>
-    </Router>
+    // </Router>
   );
 };
 

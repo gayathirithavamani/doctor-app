@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
-import { Row, Col, Skeleton, Card } from "antd";
+
 import { PieChartOutlined } from "@ant-design/icons";
 import "../style/dashboard.css";
-
 import { Link, useNavigate } from "react-router-dom";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AppsIcon from "@mui/icons-material/Apps";
 import GradingIcon from "@mui/icons-material/Grading";
-
-
+import { Spin } from "antd";
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -240,35 +238,9 @@ const Dashboard = () => {
         );
         setSelectRefused4(selectRefused4.length);
 
-        function formatDate(inputDate) {
-          const date = new Date(inputDate);
-          const monthNames = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ];
-          const year = date.getFullYear().toString().substr(-2); // Get the last two digits of the year
-          const month = monthNames[date.getMonth()];
-
-          return month + "-" + year;
-        }
-
-        const billingDate = data.length > 0 && data[0].billing_DATE;
-        const formattedDate = formatDate(billingDate);
-        console.log(formattedDate); // Output: "Aug-23"
-
         setIsLoading(false);
       });
-  }, []);
+  }, [selectedNames]);
 
   function handleClick(info) {
     const data = values.find((item) => item.id === info.id);
@@ -276,224 +248,254 @@ const Dashboard = () => {
   }
 
   return (
-    <div style={{ width: "100%", display: "flex", height: "100%" }}>
-      <div style={{ width: "90%", height: "100px" }}>
-        <div style={{ display: "flex", width: "80%" }}>
-          {chartOptions.map((options, index) => {
-            return (
-              <div className="chart-container" key={index}>
-                <Chart
-                  className="color"
-                  chartType="PieChart"
-                  data={
-                    options.title === "PNEUMOCOCCAL"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.imm_PNEUMO_Y, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-
-                            ["Yes", selectYes],
-                            ["No", selectNo],
-                            ["Refused", selectRefused],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue],
-                            ["No", noValue],
-                            ["Refused", refusedValue],
-                            ["(Blank)", blankValue],
-                          ]
-                      : single
-                      ? [
-                          ["Task", "Hours per Day"],
-                          [single.imm_FLU_Y, "1"],
-                        ]
-                      : isMultiSelect && selectedNames.length > 0
-                      ? [
-                          ["Task", "Hours per Day"],
-
-                          ["Yes", selectYes1],
-                          ["No", selectNo1],
-                          ["Refused", selectRefused1],
-                        ]
-                      : [
-                          ["Task", "Hours per Day"],
-                          ["Yes", yesValue1],
-                          ["No", noValue1],
-                          ["Refused", refusedValue1],
-                          ["(Blank)", blankValue1],
-                        ]
-                  }
-                  options={options}
-                />
-                <div
-                  style={{ position: "absolute", left: "300px", top: "10px" }}
-                >
-                  <Link to={options.path}>
-                    <AppsIcon />
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div style={{ display: "flex", marginTop: "10px" }}>
-          {options1.map((option, index) => {
-            return (
-              <div className="chart-container" key={index}>
-                <Chart
-                  className="color"
-                  chartType="PieChart"
-                  data={
-                    option.title === "COVID VACCINE 1"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.imm_COVID_Y, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-                            ["Yes", selectYes2],
-                            ["No", selectNo2],
-                            ["Refused", selectRefused2],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue2],
-                            ["No", noValue2],
-                            ["Refused", refusedValue2],
-                            ["(Blank)", blankValue2],
-                          ]
-                      : option.title === "COVID VACCINE 2"
-                      ? single
-                        ? [
-                            ["Task", "Hours per Day"],
-                            [single.imm_COVID_Y2, "1"],
-                          ]
-                        : isMultiSelect && selectedNames.length > 0
-                        ? [
-                            ["Task", "Hours per Day"],
-                            ["Yes", selectYes3],
-                            ["No", selectNo3],
-                            ["Refused", selectRefused3],
-                          ]
-                        : [
-                            ["Task", "Hours per Day"],
-                            ["Yes", yesValue3],
-                            ["No", noValue3],
-                            ["Refused", refusedValue3],
-                            ["(Blank)", blankValue3],
-                          ]
-                      : single
-                      ? [
-                          ["Task", "Hours per Day"],
-                          [single.imm_COVID_Y3, "1"],
-                        ]
-                      : isMultiSelect && selectedNames.length > 0
-                      ? [
-                          ["Task", "Hours per Day"],
-                          ["Yes", selectYes4],
-                          ["No", selectNo4],
-                          ["Refused", selectRefused4],
-                        ]
-                      : [
-                          ["Task", "Hours per Day"],
-                          ["Yes", yesValue4],
-                          ["No", noValue4],
-                          ["Refused", refusedValue4],
-                          ["(Blank)", blankValue4],
-                        ]
-                  }
-                  options={option}
-                />
-                <div
-                  style={{ position: "absolute", left: "300px", top: "10px" }}
-                >
-                  <Link to={option.path}>
-                    <AppsIcon />
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <div style={{ width: "10%", height: "100%" }}>
-        <div style={{ height: "100px" }}></div>
-        <div
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        height: "100%",
+      }}
+    >
+      {isLoading ? (
+        <Spin
+          size="large"
           style={{
-            width: "100%",
-            alignItems: "end",
-            display: "flex",
-            justifyContent: "end",
+            width: "30%",
+
+            margin: "auto",
+            justifyContent: "center",
+            alignItems: "center",
           }}
-        >
-          <GradingIcon
-            onClick={() => {
-              setIsMultiSelect(!isMultiSelect);
-            }}
-          />
-          <FilterAltIcon
-            onClick={() => {
-              setSingle();
-            }}
-          />
-        </div>
-        <div style={{ height: "280px", overflowY: "scroll" }}>
-          {values.map((item) => {
-            return (
-              <div
-                key={item.id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <li style={{ listStyleType: "none" }}>
-                  <button
-                    style={{
-                      width: "100px",
-                      height: "30px",
-                      fontSize: "9px",
-                      backgroundColor: "blue",
-                      color: "#222",
-                    }}
-                    onClick={() => {
-                      if (!isMultiSelect) {
-                        handleClick(item);
-                      } else {
-                        setSingle();
-                        if (
-                          selectedNames.length > 0 &&
-                          selectedNames.some(
-                            (selectedItem) => selectedItem.id === item.id
-                          )
-                        ) {
-                          setSelectedNames((prev) =>
-                            prev.filter(
-                              (selectedItem) => selectedItem.id !== item.id
-                            )
-                          );
-                        } else {
-                          setSelectedNames((prev) => [...prev, item]);
-                        }
+        />
+      ) : (
+        // <Spin indicator={antIcon} />
+        <>
+          <div style={{ width: "90%", height: "100px" }}>
+            <div style={{ display: "flex", width: "80%" }}>
+              {chartOptions.map((options, index) => {
+                return (
+                  <div className="chart-container" key={index}>
+                    <Chart
+                      className="color"
+                      chartType="PieChart"
+                      data={
+                        options.title === "PNEUMOCOCCAL"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.imm_PNEUMO_Y, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes],
+                                ["No", selectNo],
+                                ["Refused", selectRefused],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue],
+                                ["No", noValue],
+                                ["Refused", refusedValue],
+                                ["(Blank)", blankValue],
+                              ]
+                          : single
+                          ? [
+                              ["Task", "Hours per Day"],
+                              [single.imm_FLU_Y, "1"],
+                            ]
+                          : isMultiSelect && selectedNames.length > 0
+                          ? [
+                              ["Task", "Hours per Day"],
+
+                              ["Yes", selectYes1],
+                              ["No", selectNo1],
+                              ["Refused", selectRefused1],
+                            ]
+                          : [
+                              ["Task", "Hours per Day"],
+                              ["Yes", yesValue1],
+                              ["No", noValue1],
+                              ["Refused", refusedValue1],
+                              ["(Blank)", blankValue1],
+                            ]
                       }
+                      options={options}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: "300px",
+                        top: "10px",
+                      }}
+                    >
+                      <Link to={options.path}>
+                        <AppsIcon />
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div style={{ display: "flex", marginTop: "10px" }}>
+              {options1.map((option, index) => {
+                return (
+                  <div className="chart-container" key={index}>
+                    <Chart
+                      className="color"
+                      chartType="PieChart"
+                      data={
+                        option.title === "COVID VACCINE 1"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.imm_COVID_Y, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+                                ["Yes", selectYes2],
+                                ["No", selectNo2],
+                                ["Refused", selectRefused2],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue2],
+                                ["No", noValue2],
+                                ["Refused", refusedValue2],
+                                ["(Blank)", blankValue2],
+                              ]
+                          : option.title === "COVID VACCINE 2"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.imm_COVID_Y2, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+                                ["Yes", selectYes3],
+                                ["No", selectNo3],
+                                ["Refused", selectRefused3],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue3],
+                                ["No", noValue3],
+                                ["Refused", refusedValue3],
+                                ["(Blank)", blankValue3],
+                              ]
+                          : single
+                          ? [
+                              ["Task", "Hours per Day"],
+                              [single.imm_COVID_Y3, "1"],
+                            ]
+                          : isMultiSelect && selectedNames.length > 0
+                          ? [
+                              ["Task", "Hours per Day"],
+                              ["Yes", selectYes4],
+                              ["No", selectNo4],
+                              ["Refused", selectRefused4],
+                            ]
+                          : [
+                              ["Task", "Hours per Day"],
+                              ["Yes", yesValue4],
+                              ["No", noValue4],
+                              ["Refused", refusedValue4],
+                              ["(Blank)", blankValue4],
+                            ]
+                      }
+                      options={option}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: "300px",
+                        top: "10px",
+                      }}
+                    >
+                      <Link to={option.path}>
+                        <AppsIcon />
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div style={{ width: "10%", height: "100%" }}>
+            <div style={{ height: "100px" }}></div>
+            <div
+              style={{
+                width: "100%",
+                alignItems: "end",
+                display: "flex",
+                justifyContent: "end",
+              }}
+            >
+              <GradingIcon
+                onClick={() => {
+                  setIsMultiSelect(!isMultiSelect);
+                }}
+              />
+              <FilterAltIcon
+                onClick={() => {
+                  setSingle();
+                }}
+              />
+            </div>
+            <div style={{ height: "280px", overflowY: "scroll" }}>
+              {values.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    {item.patientname}
-                  </button>
-                </li>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+                    <li style={{ listStyleType: "none" }}>
+                      <button
+                        style={{
+                          width: "100px",
+                          height: "30px",
+                          fontSize: "9px",
+                          backgroundColor: "blue",
+                          color: "#fff",
+                        }}
+                        onClick={() => {
+                          if (!isMultiSelect) {
+                            handleClick(item);
+                          } else {
+                            setSingle();
+                            if (
+                              selectedNames.length > 0 &&
+                              selectedNames.some(
+                                (selectedItem) => selectedItem.id === item.id
+                              )
+                            ) {
+                              setSelectedNames((prev) =>
+                                prev.filter(
+                                  (selectedItem) => selectedItem.id !== item.id
+                                )
+                              );
+                            } else {
+                              setSelectedNames((prev) => [...prev, item]);
+                            }
+                          }
+                        }}
+                      >
+                        {item.patientname}
+                      </button>
+                    </li>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

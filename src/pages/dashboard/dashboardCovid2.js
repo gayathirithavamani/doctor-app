@@ -7,6 +7,7 @@ import { Row, Col, Card } from "antd";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import { Link, useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
+import { Spin } from "antd";
 let data2 = [
   ["Task", "Hours per Day"],
   ["Yes", 11],
@@ -46,7 +47,7 @@ function DashboardCovid2() {
   const [yesValue3, setYesValue3] = useState();
   const [noValue3, setNoValue3] = useState();
   const [refusedValue3, setRefusedValue3] = useState();
-const [blankValue, setBlankValue] = useState();
+  const [blankValue, setBlankValue] = useState();
   const [tableDataShow, setTableDataShow] = useState(false);
   const [clickChartValue, setClickChartValue] = useState("");
   const [result, setResult] = useState([]);
@@ -90,8 +91,8 @@ const [blankValue, setBlankValue] = useState();
         setResult(data);
         const yesValue3 = data.filter((i) => i.imm_COVID_Y2 === "Yes");
         const noValue3 = data.filter((i) => i.imm_COVID_Y2 === "No");
-const blankValue = data.filter((i) => i.imm_COVID_Y2 === null);
-setBlankValue(blankValue.length);
+        const blankValue = data.filter((i) => i.imm_COVID_Y2 === null);
+        setBlankValue(blankValue.length);
         setTableResult(data);
         setYesValue3(yesValue3.length);
         setNoValue3(noValue3.length);
@@ -110,112 +111,131 @@ setBlankValue(blankValue.length);
   const navigate = useNavigate();
   return (
     <div style={{ width: "100%", display: "flex", height: "100%" }}>
-      <div
-        className="chart-container"
-        style={{ width: "30%", height: "100px" }}
-      >
-        <Chart
-          chartType="PieChart"
-          data={
-            (data2 = [
-              ["Task", "Hours per Day"],
-              ["Yes", yesValue3],
-              ["No", noValue3],
-              ["(blank)", blankValue],
-            ])
-          }
-          options={options1}
-          // width={"100%"}
-          // height={"400px"}
-          margin-top={"30px"}
-        />
-
-        <PieChartIcon
+      {isLoading ? (
+        <Spin
+          size="large"
           style={{
-            position: "relative",
-            right: "150px",
-            top: "5px",
-            color: "yellow",
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            navigate("/dashboard");
+            width: "30%",
+
+            margin: "auto",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         />
-      </div>
+      ) : (
+        // <Spin indicator={antIcon} />
+        <>
+          <div
+            className="chart-container"
+            style={{ width: "30%", height: "100px" }}
+          >
+            <Chart
+              chartType="PieChart"
+              data={
+                (data2 = [
+                  ["Task", "Hours per Day"],
+                  ["Yes", yesValue3],
+                  ["No", noValue3],
+                  ["(blank)", blankValue],
+                ])
+              }
+              options={options1}
+              // width={"100%"}
+              // height={"400px"}
+              margin-top={"30px"}
+            />
 
-      <div className="lable-container" style={{ width: "5%", height: "100px" }}>
-        <span
-          onClick={() => tableDataClick("data")}
-          className="chart-lable fullLable"
-        >
-          <DateRangeIcon />
-        </span>
-        <span
-          onClick={() => tableDataClick("Yes")}
-          className="chart-lable yesLable"
-        >
-          Yes
-        </span>
-        <span
-          onClick={() => tableDataClick("No")}
-          className="chart-lable noLable"
-        >
-          No
-        </span>
-      </div>
+            <PieChartIcon
+              style={{
+                position: "relative",
+                right: "150px",
+                top: "5px",
+                color: "yellow",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                navigate("/dashboard");
+              }}
+            />
+          </div>
 
-      <div
-        style={{
-          width: "65%",
-          height: "50%",
-          overflow: "auto",
-          maxHeight: "400px",
-        }}
-      >
-        <table className="custom-table">
-          <thead
+          <div
+            className="lable-container"
+            style={{ width: "5%", height: "100px" }}
+          >
+            <span
+              onClick={() => tableDataClick("data")}
+              className="chart-lable fullLable"
+            >
+              <DateRangeIcon />
+            </span>
+            <span
+              onClick={() => tableDataClick("Yes")}
+              className="chart-lable yesLable"
+            >
+              Yes
+            </span>
+            <span
+              onClick={() => tableDataClick("No")}
+              className="chart-lable noLable"
+            >
+              No
+            </span>
+          </div>
+
+          <div
             style={{
-              position: "sticky",
-              top: "0",
-              background: "blue",
-              color: "black",
-              textAlign: "center",
+              width: "65%",
+              height: "50%",
+              overflow: "auto",
+              maxHeight: "400px",
             }}
           >
-            <tr>
-              <th>PATIENT NAME</th>
-              {yesValueShow ? <th>Yes</th> : null}
-              {noValueShow ? <th>No</th> : null}
-            </tr>
-          </thead>
-          <tbody>
-            {tableResult.map((item) => (
-              <tr key={item.id}>
-                <td>{item.patientname}</td>
-                {yesValueShow && (
-                  <td>
-                    {item.imm_COVID_Y2 === "Yes" ? (
-                      <CheckIcon class="custom-check-icon" />
-                    ) : (
-                      <CloseIcon class="custom-check-icon" />
+            <table className="custom-table">
+              <thead
+                style={{
+                  position: "sticky",
+                  top: "0",
+                  background: "blue",
+                  color: "black",
+                  textAlign: "center",
+                }}
+              >
+                <tr>
+                  <th>PATIENT NAME</th>
+                  {yesValueShow ? <th>Yes</th> : null}
+                  {noValueShow ? <th>No</th> : null}
+                </tr>
+              </thead>
+              <tbody>
+                {tableResult.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.patientname}</td>
+                    {yesValueShow && (
+                      <td>
+                        {item.imm_COVID_Y2 === "Yes" ? (
+                          <CheckIcon class="custom-check-icon" />
+                        ) : (
+                          <CloseIcon class="custom-check-icon" />
+                        )}
+                      </td>
                     )}
-                  </td>
-                )}
-                {noValueShow && (
-                  <td>
-                    {item.imm_COVID_Y2 === "No" ? (
-                      <CheckIcon class="custom-check-icon" />
-                    ) : (
-                      <CloseIcon class="custom-check-icon" />
+                    {noValueShow && (
+                      <td>
+                        {item.imm_COVID_Y2 === "No" ? (
+                          <CheckIcon class="custom-check-icon" />
+                        ) : (
+                          <CloseIcon class="custom-check-icon" />
+                        )}
+                      </td>
                     )}
-                  </td>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
     </div>
   );
 }
