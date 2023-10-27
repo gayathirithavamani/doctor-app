@@ -87,7 +87,7 @@ function Percentage() {
           }}
         />
       ) : (
-        // <Spin indicator={antIcon} />
+      
         <>
           <div style={{ width: "40%", height: "40%" }}>
             <div className="background" style={{ marginBottom: "20px" }}>

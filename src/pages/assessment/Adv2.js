@@ -213,20 +213,24 @@ function Adv2() {
                     <td>{item.patientname}</td>
                     {yesValueShow ? (
                       <td>
-                        {item.adv_DIR4 === "Yes" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {
+                          item.adv_DIR4 === "Yes"
+                            ? // <CheckIcon class="custom-check-icon" />
+                              "✔️"
+                            : "❌"
+                          // <CloseIcon class="custom-check-icon" />
+                        }
                       </td>
                     ) : null}
                     {noValueShow ? (
                       <td>
-                        {item.adv_DIR4 === "No" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {
+                          item.adv_DIR4 === "No"
+                            ? // <CheckIcon class="custom-check-icon" />
+                              "✔️"
+                            : "❌"
+                          // <CloseIcon class="custom-check-icon" />
+                        }
                       </td>
                     ) : null}
                   </tr>

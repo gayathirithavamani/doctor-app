@@ -76,7 +76,7 @@ const Dashboard = () => {
       },
     },
     pieSliceText: "value",
-    fontSize: 9,
+    fontSize: 11,
     chartArea: { width: 250, height: 150 },
     pieHole: 0.2,
     pieStartAngle: 0,

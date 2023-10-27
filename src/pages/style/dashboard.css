@@ -209,15 +209,25 @@ td {
   height: 25px;
 }
 
-/* loader-styles.css */
-.loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+/* Add this to your CSS file or component */
+.custom-text {
+  background: linear-gradient(to right, #ff5733, #e8505b); /* Gradient color */
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: bold;
+  display: inline; /* Ensures the inline nature of the text */
 }
 
-/* Customize the loader styles here */
-.spinner {
-  /* Your styles for the spinner */
+.double-color-text {
+  color: #0dbb47; /* First color for "OF LIVE OAK" */
+  font-weight: bold;
 }
+
+.multicolor-gradient-text {
+  background: linear-gradient(45deg, #FF5733, #FFBD33, #33FF57, #337DFF);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 36px; /* Adjust the font size as needed */
+  font-weight: bold;
+}
+

@@ -213,20 +213,25 @@ function DashboardCovid2() {
                     <td>{item.patientname}</td>
                     {yesValueShow && (
                       <td>
-                        {item.imm_COVID_Y2 === "Yes" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {
+                          item.imm_COVID_Y2 === "Yes"
+                            ? // <CheckIcon class="custom-check-icon" />
+                              "✔️"
+                            : "❌"
+                          // <CloseIcon class="custom-check-icon" />
+                        }
                       </td>
                     )}
                     {noValueShow && (
                       <td>
-                        {item.imm_COVID_Y2 === "No" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {
+                          item.imm_COVID_Y2 === "No"
+                            ? "✔️"
+                            : // <CheckIcon class="custom-check-icon" />
+
+                              "❌"
+                          // <CloseIcon class="custom-check-icon" />
+                        }
                       </td>
                     )}
                   </tr>

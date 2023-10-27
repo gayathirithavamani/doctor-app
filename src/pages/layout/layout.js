@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { HomeRoutes } from "../../routes/index";
 import { Link } from "react-router-dom";
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { PieChartOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { Chart } from "react-google-charts";
 import { useNavigate } from "react-router-dom";
-
+import "../style/dashboard.css";
+import HClogo from "./HClogo.png";
 const { Header, Content, Footer, Sider } = Layout;
 
 function getItem(label, key, icon, children) {
@@ -36,15 +31,19 @@ function Navbar({ formattedDate }) {
       }}
     >
       <div style={{ color: "white", fontSize: "25px" }}>{formattedDate}</div>
-      <h1 style={{ color: "white", fontSize: "25px", margin: "0" }}>
+      {/* <h1 style={{ color: "white", fontSize: "25px", margin: "0" }}>
         ADVANCED REHAB & HEALTHCARE OF LIVE OAK
+      </h1> */}
+      <h1 style={{ color: "white", fontSize: "25px", margin: "0" }}>
+        <span className="custom-text">ADVANCED REHAB & HEALTHCARE</span>{" "}
+        <span className="double-color-text">OF LIVE OAK</span>
       </h1>
     </Header>
   );
 }
 
 const items = [
-  getItem("Pie Chart", "1", <PieChartOutlined />),
+  // getItem("Pie Chart", "1", <PieChartOutlined />),
   getItem("User", "sub1", <UserOutlined />, [
     getItem("POPULATION", "population"),
     getItem("IMMUNIZATION", "immunization"),
@@ -65,8 +64,6 @@ const MainLayout = () => {
         const billingDate = data.length > 0 && data[0].billing_DATE;
         const formattedDate = formatDate(billingDate);
         setFormattedDate(formattedDate); // Set the state
-
-        
       });
   }, []);
 
@@ -105,13 +102,12 @@ const MainLayout = () => {
         ? "/assessmentView"
         : "/"
     );
-   
   }
 
   return (
     <Layout
       style={{
-        minHeight: "100vh",
+        height: "100vh",
         backgroundColor: "rgb(34, 34, 34)",
       }}
     >
@@ -130,14 +126,20 @@ const MainLayout = () => {
           onClick={(e) => handleClick(e.key)}
           style={{ backgroundColor: "rgb(34, 34, 34)" }}
         />
-        {/* <Menu onClick={handleClick} mode="vertical" selectedKeys={[current]}>
-          <Link to="/dashboard">
-            <Menu.Item key="/dashboard">Dashboard</Menu.Item>
-          </Link>
-          <Link to="/add-recipe">
-            <Menu.Item key="/add-recipe">Add Recipes</Menu.Item>
-          </Link>
-        </Menu> */}
+
+        <div
+          style={{ display: "flex", flexDirection: "column", height: "87%" }}
+        >
+          <div
+            style={{
+              flex: "1",
+              display: "flex",
+              flexDirection: "column-reverse",
+            }}
+          >
+            <img src={HClogo} alt="Your Image" width="100%" />
+          </div>
+        </div>
       </Sider>
 
       <Layout>

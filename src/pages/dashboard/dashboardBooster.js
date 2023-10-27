@@ -236,29 +236,29 @@ function DashboardBooster() {
                     <td>{item.patientname}</td>
                     {yesValueShow && (
                       <td>
-                        {item.imm_COVID_Y3 === "Yes" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {item.imm_COVID_Y3 === "Yes"
+                          ? // <CheckIcon class="custom-check-icon" />
+                            "✔️"
+                          : // <CloseIcon class="custom-check-icon" />
+                            "❌"}
                       </td>
                     )}
                     {noValueShow && (
                       <td>
-                        {item.imm_COVID_Y3 === "No" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {item.imm_COVID_Y3 === "No"
+                          ? // <CheckIcon class="custom-check-icon" />
+                            "✔️"
+                          : // <CloseIcon class="custom-check-icon" />
+                            "❌"}
                       </td>
                     )}
                     {refusedValueShow && (
                       <td>
-                        {item.imm_COVID_Y3 === "Refused" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {item.imm_COVID_Y3 === "Refused"
+                          ? // <CheckIcon class="custom-check-icon" />
+                            "✔️"
+                          : // <CloseIcon class="custom-check-icon" />
+                            "❌"}
                       </td>
                     )}
                   </tr>

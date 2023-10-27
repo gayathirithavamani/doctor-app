@@ -3,7 +3,6 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { Spin } from "antd";
 
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 
@@ -11,42 +10,41 @@ const HighchartsComponent = (props) => {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dementiaValue, setDementiaValue] = useState([]);
-  // const [stabilizedValue, setStabilizedValue] = useState([]);
+
   const [noChangeArr, setNoChangeValue] = useState();
   const [improvedArrArr, setImprovedArrValue] = useState();
   const [worsenedArrArr, setWorsenedArrValue] = useState();
   const [stabilizedArr, setStabilizedArrValue] = useState();
   const [zeroArr, setZeroArrValue] = useState();
   const [tableResult, setTableResult] = useState([]);
-  const [showChart, setShowChart] = useState(true); // Add this state variable
-  // const [toggleValue, setToggleValue] = useState();
+  const [showChart, setShowChart] = useState(true);
 
   const tableContainerStyle = {
-    width: "200%", // Set your desired width here
+    width: "200%",
   };
 
   const tableStyle = {
-    fontSize: "10px", // Set your desired font size here
+    fontSize: "10px",
   };
 
   const options = {
     chart: {
       type: "bar",
-      width: 490, // Set the width here
-      height: 350, // Set the height here
+      width: 490,
+      height: 350,
       backgroundColor: "#222",
     },
     title: {
       text: "CONDITION CARE GAP",
       style: {
-        color: "white", // Set the font color for the title text
+        color: "white",
       },
     },
     xAxis: {
       categories: dementiaValue,
       labels: {
         style: {
-          color: "white", // Set the font color for the categories
+          color: "white",
         },
       },
     },
@@ -55,7 +53,7 @@ const HighchartsComponent = (props) => {
       title: "",
       labels: {
         style: {
-          color: "white", // Set the font color for the Y-axis title
+          color: "white",
         },
       },
     },
@@ -63,7 +61,7 @@ const HighchartsComponent = (props) => {
     legend: {
       reversed: true,
       itemStyle: {
-        color: "white", // Set the font color for the legends
+        color: "white",
       },
     },
     plotOptions: {
@@ -72,7 +70,7 @@ const HighchartsComponent = (props) => {
         dataLabels: {
           enabled: true,
           style: {
-            fontSize: "9px",
+            fontSize: "11px",
             color: "white",
           },
         },
@@ -85,22 +83,18 @@ const HighchartsComponent = (props) => {
         dataLabels: {
           enabled: true,
           style: {
-            color: "white", // Set the font color for this series name
+            color: "white",
           },
         },
       },
-      // {
-      //   name: " Stabilized",
-      //   data: stabilizedArr,
 
-      // },
       {
         name: "Worsened",
         data: worsenedArrArr,
         dataLabels: {
           enabled: true,
           style: {
-            color: "white", // Set the font color for this series name
+            color: "white",
           },
         },
       },
@@ -110,7 +104,7 @@ const HighchartsComponent = (props) => {
         dataLabels: {
           enabled: true,
           style: {
-            color: "white", // Set the font color for this series name
+            color: "white",
           },
         },
       },
@@ -120,7 +114,7 @@ const HighchartsComponent = (props) => {
         nameLabels: {
           enabled: true,
           style: {
-            color: "red", // Set the font color for this series name
+            color: "red",
           },
         },
       },
@@ -130,7 +124,7 @@ const HighchartsComponent = (props) => {
         dataLabels: {
           enabled: true,
           style: {
-            color: "white", // Set the font color for this series name
+            color: "white",
           },
         },
       },
@@ -138,24 +132,23 @@ const HighchartsComponent = (props) => {
   };
 
   function splitCaregapsIntoBulletPoints(caregaps) {
-    if (!caregaps) return []; // Return an empty array if there are no caregaps
+    if (!caregaps) return [];
     return caregaps.split(",").map((caregap) => caregap.trim());
   }
 
   // Function to toggle the visibility of the chart and table
-  const toggleChartVisibility = () => {
-    setShowChart((prevShowChart) => !prevShowChart);
-  };
+  // const toggleChartVisibility = () => {
+  //   setShowChart((prevShowChart) => !prevShowChart);
+  // };
 
   useEffect(() => {
-    // You can perform any necessary side effects here
     fetch("http://localhost:9090/findall")
       .then((response) => response.json())
       .then((data) => {
         // console.log(data);
         setResult(data);
         setTableResult(data);
-        const caregap = [];
+        //  const caregap = [];
 
         data.forEach((item, index) => {
           const bulletPoints = splitCaregapsIntoBulletPoints(item.caregaps);
@@ -170,6 +163,7 @@ const HighchartsComponent = (props) => {
         const diagnosListArray = data.map((item) => item.diagnos_LIST);
         let uniqueChars = [...new Set(diagnosListArray)];
         setDementiaValue(uniqueChars);
+
         const diagnosListArray1 = data.map(
           (item) => item.patient_CONDITION_DIAG_1
         );
@@ -191,7 +185,7 @@ const HighchartsComponent = (props) => {
           const noChangeValue = data.filter(
             (i) =>
               i.diagnos_LIST === item &&
-              i.patient_CONDITION_DIAG_1 == "No change"
+              i.patient_CONDITION_DIAG_1 === "No change"
           );
 
           noChangeArr.push(noChangeValue.length);
@@ -199,21 +193,21 @@ const HighchartsComponent = (props) => {
           const imporvedValue = data.filter(
             (i) =>
               i.diagnos_LIST === item &&
-              i.patient_CONDITION_DIAG_1 == "Improved"
+              i.patient_CONDITION_DIAG_1 === "Improved"
           );
 
           improvedArr.push(imporvedValue.length);
           const worsenedValue = data.filter(
             (i) =>
               i.diagnos_LIST === item &&
-              i.patient_CONDITION_DIAG_1 == "Worsened"
+              i.patient_CONDITION_DIAG_1 === "Worsened"
           );
 
           worsenedArr.push(worsenedValue.length);
           const stabilizedValue = data.filter(
             (i) =>
               i.diagnos_LIST === item &&
-              i.patient_CONDITION_DIAG_1 == "Stabilized"
+              i.patient_CONDITION_DIAG_1 === "Stabilized"
           );
 
           stabilizedArr.push(stabilizedValue.length);

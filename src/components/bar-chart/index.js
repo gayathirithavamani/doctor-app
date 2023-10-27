@@ -12,7 +12,7 @@ const BarChart = ({ seriesData, xAxisValue, format, title }) => {
       text: title,
       style: {
         color: "white", // Set the font color for the title
-        fontSize: "9px",
+        fontSize: "10px",
       },
     },
     xAxis: {

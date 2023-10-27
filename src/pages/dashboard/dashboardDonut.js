@@ -235,29 +235,29 @@ function DashboardView() {
                     <td>{item.patientname}</td>
                     {yesValueShow ? (
                       <td>
-                        {item.imm_FLU_Y === "Yes" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {item.imm_FLU_Y === "Yes"
+                          ? // <CheckIcon class="custom-check-icon" />
+                            "✔️"
+                          : // <CloseIcon class="custom-check-icon" />
+                            "❌"}
                       </td>
                     ) : null}
                     {noValueShow ? (
                       <td>
-                        {item.imm_FLU_Y === "No" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {item.imm_FLU_Y === "No"
+                          ? "✔️"
+                          : // <CheckIcon class="custom-check-icon" />
+                            // <CloseIcon class="custom-check-icon" />
+                            "❌"}
                       </td>
                     ) : null}
                     {refusedValueShow ? (
                       <td>
-                        {item.imm_FLU_Y === "Refused" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {item.imm_FLU_Y === "Refused"
+                          ? "✔️"
+                          : // <CheckIcon class="custom-check-icon" />
+                            // <CloseIcon class="custom-check-icon" />
+                            "❌"}
                       </td>
                     ) : null}
                   </tr>

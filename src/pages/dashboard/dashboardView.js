@@ -230,29 +230,28 @@ function DashboardView() {
                     <td>{item.patientname}</td>
                     {yesValueShow && (
                       <td>
-                        {item.imm_PNEUMO_Y === "Yes" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {item.imm_PNEUMO_Y === "Yes"
+                          ? "✔️"
+                          : // <CloseIcon class="custom-check-icon" />
+                            "❌"}
                       </td>
                     )}
                     {noValueShow && (
                       <td>
-                        {item.imm_PNEUMO_Y === "No" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {item.imm_PNEUMO_Y === "No"
+                          ? // <CheckIcon class="custom-check-icon" />
+                            "✔️"
+                          : // <CloseIcon class="custom-check-icon" />
+                            "❌"}
                       </td>
                     )}
                     {refusedValueShow && (
                       <td>
-                        {item.imm_PNEUMO_Y === "Refused" ? (
-                          <CheckIcon class="custom-check-icon" />
-                        ) : (
-                          <CloseIcon class="custom-check-icon" />
-                        )}
+                        {item.imm_PNEUMO_Y === "Refused"
+                          ? // <CheckIcon class="custom-check-icon" />
+                            // <CloseIcon class="custom-check-icon" />
+                            "✔️"
+                          : "❌"}
                       </td>
                     )}
                   </tr>
