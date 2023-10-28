@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-google-charts";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
+
 import "../style/dashboard.css";
-import { Row, Col, Card } from "antd";
+
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
 import { Spin } from "antd";
 let data2 = [
@@ -46,7 +45,7 @@ function DashboardCovid2() {
 
   const [yesValue3, setYesValue3] = useState();
   const [noValue3, setNoValue3] = useState();
-  const [refusedValue3, setRefusedValue3] = useState();
+
   const [blankValue, setBlankValue] = useState();
   const [tableDataShow, setTableDataShow] = useState(false);
   const [clickChartValue, setClickChartValue] = useState("");
@@ -54,29 +53,28 @@ function DashboardCovid2() {
   const [tableResult, setTableResult] = useState([]);
   const [yesValueShow, setYesValueShow] = useState(true);
   const [noValueShow, setNoValueShow] = useState(true);
-  const [refusedValueShow, setRefusedValueShow] = useState(true);
 
   const tableDataClick = (clickValue) => {
     setClickChartValue(clickValue);
 
     setTableDataShow(true);
-    if (clickValue == "Yes") {
+    if (clickValue === "Yes") {
       setYesValueShow(true);
-      setRefusedValueShow(false);
+
       setNoValueShow(false);
     }
-    if (clickValue == "No") {
+    if (clickValue === "No") {
       setYesValueShow(false);
-      setRefusedValueShow(false);
+
       setNoValueShow(true);
     }
 
-    if (clickValue == "data") {
+    if (clickValue === "data") {
       setYesValueShow(true);
-      setRefusedValueShow(true);
+
       setNoValueShow(true);
     }
-    if (clickValue == "data") {
+    if (clickValue === "data") {
       setTableResult(result);
     } else {
       const value = result.filter((i) => i.imm_COVID_Y2 === clickValue);
@@ -123,7 +121,6 @@ function DashboardCovid2() {
           }}
         />
       ) : (
-        // <Spin indicator={antIcon} />
         <>
           <div
             className="chart-container"
@@ -140,8 +137,6 @@ function DashboardCovid2() {
                 ])
               }
               options={options1}
-              // width={"100%"}
-              // height={"400px"}
               margin-top={"30px"}
             />
 
@@ -212,27 +207,10 @@ function DashboardCovid2() {
                   <tr key={item.id}>
                     <td>{item.patientname}</td>
                     {yesValueShow && (
-                      <td>
-                        {
-                          item.imm_COVID_Y2 === "Yes"
-                            ? // <CheckIcon class="custom-check-icon" />
-                              "✔️"
-                            : "❌"
-                          // <CloseIcon class="custom-check-icon" />
-                        }
-                      </td>
+                      <td>{item.imm_COVID_Y2 === "Yes" ? "✔️" : "❌"}</td>
                     )}
                     {noValueShow && (
-                      <td>
-                        {
-                          item.imm_COVID_Y2 === "No"
-                            ? "✔️"
-                            : // <CheckIcon class="custom-check-icon" />
-
-                              "❌"
-                          // <CloseIcon class="custom-check-icon" />
-                        }
-                      </td>
+                      <td>{item.imm_COVID_Y2 === "No" ? "✔️" : "❌"}</td>
                     )}
                   </tr>
                 ))}

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-google-charts";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
+
 import "../style/dashboard.css";
-import { Row, Col, Card } from "antd";
+
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
 import { Spin } from "antd";
 let data2 = [
@@ -13,7 +12,6 @@ let data2 = [
   ["Yes", 11],
   ["No", 2],
   ["Refused", 2],
-  // CSS-style declaration
 ];
 
 const options1 = {
@@ -58,46 +56,36 @@ function DashboardCovid() {
   const [noValueShow, setNoValueShow] = useState(true);
   const [refusedValueShow, setRefusedValueShow] = useState(true);
 
-  // const tableDataClick = (clickValue) => {
-  //   setClickChartValue(clickValue);
-  //   setTableDataShow(true);
-  //   const value = result.filter((i) => i.imm_COVID_Y === clickValue);
-  //   setTableResult(value);
-  // };
   const tableDataClick = (clickValue) => {
     setClickChartValue(clickValue);
-    // console.log("hhhh", clickValue);
 
     setTableDataShow(true);
-    if (clickValue == "Yes") {
+    if (clickValue === "Yes") {
       setYesValueShow(true);
       setRefusedValueShow(false);
       setNoValueShow(false);
     }
-    if (clickValue == "No") {
+    if (clickValue === "No") {
       setYesValueShow(false);
       setRefusedValueShow(false);
       setNoValueShow(true);
     }
-    if (clickValue == "Refused") {
+    if (clickValue === "Refused") {
       setYesValueShow(false);
       setRefusedValueShow(true);
       setNoValueShow(false);
     }
-    if (clickValue == "data") {
+    if (clickValue === "data") {
       setYesValueShow(true);
       setRefusedValueShow(true);
       setNoValueShow(true);
     }
-    if (clickValue == "data") {
+    if (clickValue === "data") {
       setTableResult(result);
     } else {
       const value = result.filter((i) => i.imm_COVID_Y === clickValue);
       setTableResult(value);
     }
-
-    // const value = result.filter((i) => i.imm_PNEUMO_Y === clickValue);
-    // setTableResult(value);
   };
 
   useEffect(() => {
@@ -127,8 +115,6 @@ function DashboardCovid() {
         ];
         setIsLoading(false);
       });
-
-    // console.log(data);
   }, []);
   const navigate = useNavigate();
   return (
@@ -145,7 +131,6 @@ function DashboardCovid() {
           }}
         />
       ) : (
-        // <Spin indicator={antIcon} />
         <>
           <div
             className="chart-container"
@@ -239,37 +224,13 @@ function DashboardCovid() {
                   <tr key={item.id}>
                     <td>{item.patientname}</td>
                     {yesValueShow && (
-                      <td>
-                        {
-                          item.imm_COVID_Y === "Yes"
-                            ? "✔️"
-                            : // <CheckIcon class="custom-check-icon" />
-                              "❌"
-                          // <CloseIcon class="custom-check-icon" />
-                        }
-                      </td>
+                      <td>{item.imm_COVID_Y === "Yes" ? "✔️" : "❌"}</td>
                     )}
                     {noValueShow && (
-                      <td>
-                        {
-                          item.imm_COVID_Y === "No"
-                            ? "✔️"
-                            : // <CheckIcon class="custom-check-icon" />
-                              "❌"
-                          // <CloseIcon class="custom-check-icon" />
-                        }
-                      </td>
+                      <td>{item.imm_COVID_Y === "No" ? "✔️" : "❌"}</td>
                     )}
                     {refusedValueShow && (
-                      <td>
-                        {
-                          item.imm_COVID_Y === "Refused"
-                            ? "✔️"
-                            : // <CheckIcon class="custom-check-icon" />
-                              "❌"
-                          // <CloseIcon class="custom-check-icon" />
-                        }
-                      </td>
+                      <td>{item.imm_COVID_Y === "Refused" ? "✔️" : "❌"}</td>
                     )}
                   </tr>
                 ))}
@@ -278,7 +239,6 @@ function DashboardCovid() {
           </div>
         </>
       )}
-      {/* ) : null} */}
     </div>
   );
 }

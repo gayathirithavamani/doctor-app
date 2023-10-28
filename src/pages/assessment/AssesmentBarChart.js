@@ -51,7 +51,6 @@ const AssessmentBarView = () => {
   const [selectYes1, setSelectYes1] = useState();
   const [selectNo1, setSelectNo1] = useState();
 
-  
   const [selectYes2, setSelectYes2] = useState();
   const [selectNo2, setSelectNo2] = useState();
 
@@ -879,24 +878,34 @@ const AssessmentBarView = () => {
                 }}
               />
             </div>
-            <div style={{ height: "280px", overflowY: "scroll" }}>
+            <div
+              style={{
+                height: "280px",
+                width:"100%",
+                overflowY: "scroll",
+                // overflowX: "hidden",
+              }}
+            >
               {values.map((item) => {
                 return (
                   <div
                     key={item.id}
                     style={{
-                      display: "flex",
+                      // display: "flex",
                       alignItems: "center",
+                      width:"100%"
                     }}
                   >
                     <li style={{ listStyleType: "none" }}>
                       <button
                         style={{
-                          width: "100px",
+                          width: "100%",
                           height: "30px",
-                          fontSize: "10px",
+                          fontSize: "11px",
                           backgroundColor: "blue",
-                          color: "white",
+                          color: "#fff",
+                          textAlign: "center",
+                          justifyContent: "center",
                         }}
                         onClick={() => {
                           if (!isMultiSelect) {

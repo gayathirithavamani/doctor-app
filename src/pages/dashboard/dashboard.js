@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 
-import { PieChartOutlined } from "@ant-design/icons";
 import "../style/dashboard.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AppsIcon from "@mui/icons-material/Apps";
 import GradingIcon from "@mui/icons-material/Grading";
@@ -130,7 +129,7 @@ const Dashboard = () => {
     pieHole: 0.25,
     pieStartAngle: 0,
     titleTextStyle: {
-      fontSize: 16, // Set the desired font size for the title
+      fontSize: 16,
       color: "white",
     },
     animation: {
@@ -187,7 +186,7 @@ const Dashboard = () => {
         const noValue4 = data.filter((i) => i.imm_COVID_Y3 === "No");
         const refusedValue4 = data.filter((i) => i.imm_COVID_Y3 === "Refused");
         const blankValue4 = data.filter((i) => i.imm_COVID_Y3 === null);
-        setBlankValue2(blankValue4.length);
+        setBlankValue4(blankValue4.length);
         setYesValue4(yesValue4.length);
         setNoValue4(noValue4.length);
         setRefusedValue4(refusedValue4.length);
@@ -267,7 +266,6 @@ const Dashboard = () => {
           }}
         />
       ) : (
-        // <Spin indicator={antIcon} />
         <>
           <div style={{ width: "90%", height: "100px" }}>
             <div style={{ display: "flex", width: "80%" }}>
@@ -445,7 +443,13 @@ const Dashboard = () => {
                 }}
               />
             </div>
-            <div style={{ height: "280px", overflowY: "scroll" }}>
+            <div
+              style={{
+                height: "280px",
+                overflowY: "scroll",
+                overflowX: "hidden",
+              }}
+            >
               {values.map((item) => {
                 return (
                   <div
@@ -458,11 +462,12 @@ const Dashboard = () => {
                     <li style={{ listStyleType: "none" }}>
                       <button
                         style={{
-                          width: "100px",
+                          width: "200px",
                           height: "30px",
-                          fontSize: "9px",
+                          fontSize: "11px",
                           backgroundColor: "blue",
                           color: "#fff",
+                          textAlign: "center",
                         }}
                         onClick={() => {
                           if (!isMultiSelect) {

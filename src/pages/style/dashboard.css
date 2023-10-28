@@ -224,10 +224,17 @@ td {
 }
 
 .multicolor-gradient-text {
-  background: linear-gradient(45deg, #FF5733, #FFBD33, #33FF57, #337DFF);
+  background: linear-gradient(45deg, #ff5733, #ffbd33, #33ff57, #337dff);
   -webkit-background-clip: text;
   color: transparent;
   font-size: 36px; /* Adjust the font size as needed */
   font-weight: bold;
 }
 
+h1 {
+  font-size: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(to right, #f520e3, #072cfa);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}

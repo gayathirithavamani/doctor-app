@@ -3,8 +3,6 @@ import Chart from "react-google-charts";
 import "../style/dashboard.css";
 import { Spin } from "antd";
 
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import { useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
@@ -28,27 +26,27 @@ function DashboardView() {
 
     setTableDataShow(true);
 
-    if (clickValue == "Yes") {
+    if (clickValue === "Yes") {
       setYesValueShow(true);
       setRefusedValueShow(false);
       setNoValueShow(false);
     }
-    if (clickValue == "No") {
+    if (clickValue === "No") {
       setYesValueShow(false);
       setRefusedValueShow(false);
       setNoValueShow(true);
     }
-    if (clickValue == "Refused") {
+    if (clickValue === "Refused") {
       setYesValueShow(false);
       setRefusedValueShow(true);
       setNoValueShow(false);
     }
-    if (clickValue == "data") {
+    if (clickValue === "data") {
       setYesValueShow(true);
       setRefusedValueShow(true);
       setNoValueShow(true);
     }
-    if (clickValue == "data") {
+    if (clickValue === "data") {
       setTableResult(result);
     } else {
       const value = result.filter((i) => i.imm_PNEUMO_Y === clickValue);
@@ -110,7 +108,7 @@ function DashboardView() {
       duration: 2000,
       easing: "out",
     },
-    backgroundColor: "#222", // Replace "your-color-here" with the desired background color
+    backgroundColor: "#222",
   };
   let data = [
     ["Task", "Hours per Day"],
@@ -133,7 +131,6 @@ function DashboardView() {
           }}
         />
       ) : (
-        // <Spin indicator={antIcon} />
         <>
           <div
             className="chart-container"
@@ -151,8 +148,6 @@ function DashboardView() {
                 ])
               }
               options={options}
-              // width={"100%"}
-              // height={"400px"}
               margin-top={"30px"}
             />
 
@@ -229,30 +224,13 @@ function DashboardView() {
                   <tr key={item.id}>
                     <td>{item.patientname}</td>
                     {yesValueShow && (
-                      <td>
-                        {item.imm_PNEUMO_Y === "Yes"
-                          ? "✔️"
-                          : // <CloseIcon class="custom-check-icon" />
-                            "❌"}
-                      </td>
+                      <td>{item.imm_PNEUMO_Y === "Yes" ? "✔️" : "❌"}</td>
                     )}
                     {noValueShow && (
-                      <td>
-                        {item.imm_PNEUMO_Y === "No"
-                          ? // <CheckIcon class="custom-check-icon" />
-                            "✔️"
-                          : // <CloseIcon class="custom-check-icon" />
-                            "❌"}
-                      </td>
+                      <td>{item.imm_PNEUMO_Y === "No" ? "✔️" : "❌"}</td>
                     )}
                     {refusedValueShow && (
-                      <td>
-                        {item.imm_PNEUMO_Y === "Refused"
-                          ? // <CheckIcon class="custom-check-icon" />
-                            // <CloseIcon class="custom-check-icon" />
-                            "✔️"
-                          : "❌"}
-                      </td>
+                      <td>{item.imm_PNEUMO_Y === "Refused" ? "✔️" : "❌"}</td>
                     )}
                   </tr>
                 ))}

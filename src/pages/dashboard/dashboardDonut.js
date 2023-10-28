@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-google-charts";
 import "../style/dashboard.css";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
+
 import { Spin } from "antd";
 
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
 function DashboardView() {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,38 +25,34 @@ function DashboardView() {
 
   const tableDataClick = (clickValue) => {
     setClickChartValue(clickValue);
-    // console.log("hhhh", clickValue);
 
     setTableDataShow(true);
-    if (clickValue == "Yes") {
+    if (clickValue === "Yes") {
       setYesValueShow(true);
       setRefusedValueShow(false);
       setNoValueShow(false);
     }
-    if (clickValue == "No") {
+    if (clickValue === "No") {
       setYesValueShow(false);
       setRefusedValueShow(false);
       setNoValueShow(true);
     }
-    if (clickValue == "Refused") {
+    if (clickValue === "Refused") {
       setYesValueShow(false);
       setRefusedValueShow(true);
       setNoValueShow(false);
     }
-    if (clickValue == "data") {
+    if (clickValue === "data") {
       setYesValueShow(true);
       setRefusedValueShow(true);
       setNoValueShow(true);
     }
-    if (clickValue == "data") {
+    if (clickValue === "data") {
       setTableResult(result);
     } else {
       const value = result.filter((i) => i.imm_FLU_Y === clickValue);
       setTableResult(value);
     }
-
-    // const value = result.filter((i) => i.imm_PNEUMO_Y === clickValue);
-    // setTableResult(value);
   };
 
   useEffect(() => {
@@ -87,8 +82,6 @@ function DashboardView() {
         ];
         setIsLoading(false);
       });
-
-    // console.log(data);
   }, []);
 
   const options = {
@@ -138,7 +131,6 @@ function DashboardView() {
           }}
         />
       ) : (
-        // <Spin indicator={antIcon} />
         <>
           <div
             className="chart-container"
@@ -234,31 +226,13 @@ function DashboardView() {
                   <tr key={item.id}>
                     <td>{item.patientname}</td>
                     {yesValueShow ? (
-                      <td>
-                        {item.imm_FLU_Y === "Yes"
-                          ? // <CheckIcon class="custom-check-icon" />
-                            "✔️"
-                          : // <CloseIcon class="custom-check-icon" />
-                            "❌"}
-                      </td>
+                      <td>{item.imm_FLU_Y === "Yes" ? "✔️" : "❌"}</td>
                     ) : null}
                     {noValueShow ? (
-                      <td>
-                        {item.imm_FLU_Y === "No"
-                          ? "✔️"
-                          : // <CheckIcon class="custom-check-icon" />
-                            // <CloseIcon class="custom-check-icon" />
-                            "❌"}
-                      </td>
+                      <td>{item.imm_FLU_Y === "No" ? "✔️" : "❌"}</td>
                     ) : null}
                     {refusedValueShow ? (
-                      <td>
-                        {item.imm_FLU_Y === "Refused"
-                          ? "✔️"
-                          : // <CheckIcon class="custom-check-icon" />
-                            // <CloseIcon class="custom-check-icon" />
-                            "❌"}
-                      </td>
+                      <td>{item.imm_FLU_Y === "Refused" ? "✔️" : "❌"}</td>
                     ) : null}
                   </tr>
                 ))}
