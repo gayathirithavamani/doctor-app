@@ -30,8 +30,8 @@ const HighchartsComponent = (props) => {
   const options = {
     chart: {
       type: "bar",
-      width: 490,
-      height: 350,
+      width: 500,
+      height: 430,
       backgroundColor: "#222",
     },
     title: {

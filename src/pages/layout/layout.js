@@ -32,7 +32,17 @@ function Navbar({ formattedDate }) {
     >
       <div style={{ color: "white", fontSize: "25px" }}>{formattedDate}</div>
 
-      <h1 style={{ color: "white", fontSize: "35px", margin: "0" }}>
+      {/* <h1 style={{ color: "white", fontSize: "35px", margin: "0" }}>
+        ADVANCED REHAB & HEALTHCARE OF LIVE OAK
+      </h1> */}
+      <h1
+        style={{
+          color: "white",
+          fontSize: "35px",
+          margin: "0",
+          fontWeight: "bold",
+        }}
+      >
         ADVANCED REHAB & HEALTHCARE OF LIVE OAK
       </h1>
     </Header>
@@ -103,7 +113,7 @@ const MainLayout = () => {
   return (
     <Layout
       style={{
-        height: "100vh",
+        //height: "100vh",
         backgroundColor: "rgb(34, 34, 34)",
       }}
     >
@@ -124,11 +134,11 @@ const MainLayout = () => {
         />
 
         <div
-          style={{ display: "flex", flexDirection: "column", height: "87%" }}
+          style={{ display: "flex", flexDirection: "column", height: "100%" }}
         >
           <div
             style={{
-              flex: "1",
+              // flex: "1",
               display: "flex",
               flexDirection: "column-reverse",
             }}

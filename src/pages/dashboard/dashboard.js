@@ -115,11 +115,11 @@ const Dashboard = () => {
       position: "right",
       maxLines: 1,
       textStyle: {
-        color: "white", // Set the desired font color for the legend
+        color: "white",
       },
     },
     pieSliceText: "value",
-    fontSize: 9,
+    fontSize: 11,
     slices: {
       0: { color: "#E74C3C" },
       1: { color: "#3498DB" },
@@ -251,7 +251,7 @@ const Dashboard = () => {
       style={{
         width: "100%",
         display: "flex",
-        height: "100%",
+        height: "100vh",
       }}
     >
       {isLoading ? (
@@ -455,19 +455,21 @@ const Dashboard = () => {
                   <div
                     key={item.id}
                     style={{
-                      display: "flex",
+                      // display: "flex",
                       alignItems: "center",
+                      width: "100%",
                     }}
                   >
                     <li style={{ listStyleType: "none" }}>
                       <button
                         style={{
-                          width: "200px",
+                          width: "100%",
                           height: "30px",
                           fontSize: "11px",
                           backgroundColor: "blue",
                           color: "#fff",
                           textAlign: "center",
+                          justifyContent: "center",
                         }}
                         onClick={() => {
                           if (!isMultiSelect) {

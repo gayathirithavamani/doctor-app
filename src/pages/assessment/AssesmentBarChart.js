@@ -173,7 +173,7 @@ const AssessmentBarView = () => {
       },
     },
     pieSliceText: "value",
-    fontSize: 9,
+    fontSize: 11,
     chartArea: { width: 250, height: 150 },
     pieHole: 0.2,
     pieStartAngle: 0,
@@ -199,7 +199,7 @@ const AssessmentBarView = () => {
       },
     },
     pieSliceText: "value",
-    fontSize: 9,
+    fontSize: 11,
     chartArea: { width: 250, height: 150 },
     pieHole: 0.2,
     pieStartAngle: 0,
@@ -225,7 +225,7 @@ const AssessmentBarView = () => {
       },
     },
     pieSliceText: "value",
-    fontSize: 9,
+    fontSize: 11,
     chartArea: { width: 250, height: 150 },
     pieHole: 0.2,
     pieStartAngle: 0,
@@ -251,7 +251,7 @@ const AssessmentBarView = () => {
       },
     },
     pieSliceText: "value",
-    fontSize: 9,
+    fontSize: 11,
     chartArea: { width: 250, height: 150 },
     pieHole: 0.2,
     pieStartAngle: 0,
@@ -881,7 +881,7 @@ const AssessmentBarView = () => {
             <div
               style={{
                 height: "280px",
-                width:"100%",
+                width: "100%",
                 overflowY: "scroll",
                 // overflowX: "hidden",
               }}
@@ -893,7 +893,7 @@ const AssessmentBarView = () => {
                     style={{
                       // display: "flex",
                       alignItems: "center",
-                      width:"100%"
+                      width: "100%",
                     }}
                   >
                     <li style={{ listStyleType: "none" }}>
