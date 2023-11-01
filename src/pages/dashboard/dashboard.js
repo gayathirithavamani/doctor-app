@@ -50,6 +50,11 @@ const Dashboard = () => {
   const [selectYes4, setSelectYes4] = useState();
   const [selectNo4, setSelectNo4] = useState();
   const [selectRefused4, setSelectRefused4] = useState();
+  const [multibuttonStates, setMultiButtonStates] = useState(
+    values.map(() => false)
+  );
+
+  const [buttonStates, setButtonStates] = useState();
 
   const chartName = [
     {
@@ -252,6 +257,7 @@ const Dashboard = () => {
         width: "100%",
         display: "flex",
         height: "100vh",
+        backgroundColor: "#f2f2f2",
       }}
     >
       {isLoading ? (
@@ -439,6 +445,8 @@ const Dashboard = () => {
               />
               <FilterAltIcon
                 onClick={() => {
+                  setButtonStates();
+                  setMultiButtonStates([]);
                   setSingle();
                 }}
               />
@@ -461,7 +469,7 @@ const Dashboard = () => {
                     }}
                   >
                     <li style={{ listStyleType: "none" }}>
-                      <button
+                      {/* <button
                         style={{
                           width: "100%",
                           height: "30px",
@@ -494,7 +502,58 @@ const Dashboard = () => {
                         }}
                       >
                         {item.patientname}
-                      </button>
+                      </button> */}
+                      {values.map((item, index) => (
+                        <button
+                          key={item.id}
+                          style={{
+                            width: "100%",
+                            height: "30px",
+                            fontSize: "11px",
+                            backgroundColor:
+                              !isMultiSelect &&
+                              single &&
+                              buttonStates === item.id
+                                ? "red"
+                                : isMultiSelect && multibuttonStates[index]
+                                ? "red"
+                                : "blue",
+                            color: "#fff",
+                            textAlign: "center",
+                            justifyContent: "center",
+                          }}
+                          onClick={() => {
+                            if (!isMultiSelect) {
+                              handleClick(item);
+                              setButtonStates(item.id);
+                            } else {
+                              setSingle();
+                              if (
+                                selectedNames.length > 0 &&
+                                selectedNames.some(
+                                  (selectedItem) => selectedItem.id === item.id
+                                )
+                              ) {
+                                setSelectedNames((prev) =>
+                                  prev.filter(
+                                    (selectedItem) =>
+                                      selectedItem.id !== item.id
+                                  )
+                                );
+                              } else {
+                                setSelectedNames((prev) => [...prev, item]);
+                              }
+                              setMultiButtonStates((prevStates) => {
+                                const newStates = [...prevStates];
+                                newStates[index] = !newStates[index];
+                                return newStates;
+                              });
+                            }
+                          }}
+                        >
+                          {item.patientname}
+                        </button>
+                      ))}
                     </li>
                   </div>
                 );

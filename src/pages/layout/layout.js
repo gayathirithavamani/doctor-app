@@ -121,7 +121,7 @@ const MainLayout = () => {
         collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
-        style={{ backgroundColor: "rgb(34, 34, 34)" }}
+        style={{ backgroundColor: "rgb(34, 34, 34)",height:"100vh" }}
       >
         <div className="demo-logo-vertical" />
         <Menu

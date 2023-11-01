@@ -9,7 +9,7 @@ function Percentage() {
   const [isLoading, setIsLoading] = useState(true);
   const [dementiaValue, setDementiaValue] = useState([]);
   const [diagnosisCounts, setDiagnosisCounts] = useState([]);
-  const [percentagevalue, setPercentageValue] = useState([]);
+  const [percentageValue, setPercentageValue] = useState([]);
   const [single, setSingle] = useState();
   const [result, setResult] = useState([]);
   const [filtered, setFiltered] = useState(result);
@@ -87,7 +87,6 @@ function Percentage() {
           }}
         />
       ) : (
-      
         <>
           <div style={{ width: "40%", height: "40%" }}>
             <div className="background" style={{ marginBottom: "20px" }}>
@@ -100,7 +99,7 @@ function Percentage() {
             </div>
             <div className="background">
               <BarChart
-                seriesData={percentagevalue}
+                seriesData={percentageValue}
                 xAxisValue={dementiaValue}
                 format={"{point.y:1f}%"}
                 title={"% OF DX CONDITION"}
@@ -133,7 +132,7 @@ function Percentage() {
               </div>
             )}
           </div>
-          <div style={{ height: "895px" }}>
+          <div style={{ height: "280px" }}>
             <div>
               <div
                 style={{
@@ -149,18 +148,48 @@ function Percentage() {
               <li style={{ listStyleType: "none" }}>
                 <button
                   className="button"
-                  style={{ fontSize: "10px", color: "#222" }}
+                  style={{
+                    fontSize: "15px",
+                    color: "#fff",
+                    fontFamily: "Calibri",
+                    width: "100%",
+                    height: "30px",
+
+                    backgroundColor: "blue",
+
+                    textAlign: "center",
+                    justifyContent: "center",
+                  }}
                 >
                   f 70+
                 </button>
               </li>
               <li style={{ listStyleType: "none" }}>
-                <button className="button" style={{ fontSize: "10px" }}>
+                <button
+                  className="button"
+                  style={{
+                    fontSize: "15px",
+                    color: "#fff",
+                    fontFamily: "Calibri",
+                    width: "100%",
+                    height: "30px",
+
+                    backgroundColor: "blue",
+
+                    textAlign: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   Blank
                 </button>
               </li>
             </div>
-            <div style={{ height: "25%", overflowY: "scroll" }}>
+            <div
+              style={{
+                height: "280px",
+                overflowX: "hidden",
+              }}
+            >
               <div
                 style={{
                   width: "100%",
@@ -177,7 +206,18 @@ function Percentage() {
                 <button
                   className="button"
                   onClick={() => handleFilteredData(null)}
-                  style={{ fontSize: "10px" }}
+                  style={{
+                    fontSize: "15px",
+                    color: "#fff",
+                    fontFamily: "Calibri",
+                    width: "100%",
+                    height: "30px",
+
+                    backgroundColor: "blue",
+
+                    textAlign: "center",
+                    justifyContent: "center",
+                  }}
                 >
                   0
                 </button>
@@ -186,7 +226,18 @@ function Percentage() {
                 <button
                   className="button"
                   onClick={() => handleFilteredData("Improved")}
-                  style={{ fontSize: "10px" }}
+                  style={{
+                    fontSize: "15px",
+                    color: "#fff",
+                    fontFamily: "Calibri",
+                    width: "100%",
+                    height: "30px",
+
+                    backgroundColor: "blue",
+
+                    textAlign: "center",
+                    justifyContent: "center",
+                  }}
                 >
                   Improved
                 </button>
@@ -195,7 +246,18 @@ function Percentage() {
                 <button
                   className="button"
                   onClick={() => handleFilteredData("No change")}
-                  style={{ fontSize: "10px" }}
+                  style={{
+                    fontSize: "15px",
+                    color: "#fff",
+                    fontFamily: "Calibri",
+                    width: "100%",
+                    height: "30px",
+
+                    backgroundColor: "blue",
+
+                    textAlign: "center",
+                    justifyContent: "center",
+                  }}
                 >
                   No Change
                 </button>
@@ -204,7 +266,18 @@ function Percentage() {
                 <button
                   className="button"
                   onClick={() => handleFilteredData("Worsened")}
-                  style={{ fontSize: "10px" }}
+                  style={{
+                    fontSize: "15px",
+                    color: "#fff",
+                    fontFamily: "Calibri",
+                    width: "100%",
+                    height: "30px",
+
+                    backgroundColor: "blue",
+
+                    textAlign: "center",
+                    justifyContent: "center",
+                  }}
                 >
                   Worsened
                 </button>
@@ -226,22 +299,35 @@ function Percentage() {
                 }}
               />
             </div>
-            <div style={{ overflowY: "auto", maxHeight: "400px" }}>
+            {/* <div style={{ overflowY: "auto", maxHeight: "400px" }}> */}
+            <div
+              style={{
+                height: "280px",
+                overflowY: "scroll",
+                overflowX: "hidden",
+              }}
+            >
               {filtered.map((item) => {
                 return (
                   <div
                     key={item.id}
                     style={{
-                      display: "flex",
+                      // display: "flex",
                       alignItems: "center",
+                      width: "100%",
                     }}
                   >
                     <li style={{ listStyleType: "none" }}>
                       <button
                         style={{
-                          width: "100px",
+                          width: "140px",
                           height: "30px",
-                          fontSize: "10px",
+                          fontSize: "15px",
+                          fontFamily: "Calibri",
+                          backgroundColor: "blue",
+                          color: "#fff",
+                          textAlign: "center",
+                          justifyContent: "center",
                         }}
                         onClick={() => handleClick(item)}
                       >

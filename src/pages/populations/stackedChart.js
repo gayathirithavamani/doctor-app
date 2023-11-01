@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { Spin } from "antd";
-
+import "../style/dashboard.css";
 import { useNavigate } from "react-router-dom";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 
@@ -17,14 +17,14 @@ const HighchartsComponent = (props) => {
   const [stabilizedArr, setStabilizedArrValue] = useState();
   const [zeroArr, setZeroArrValue] = useState();
   const [tableResult, setTableResult] = useState([]);
-  const [showChart, setShowChart] = useState(true);
 
   const tableContainerStyle = {
     width: "200%",
   };
 
   const tableStyle = {
-    fontSize: "10px",
+    fontSize: "15px",
+    fontFamily: "Calibri",
   };
 
   const options = {
@@ -38,6 +38,8 @@ const HighchartsComponent = (props) => {
       text: "CONDITION CARE GAP",
       style: {
         color: "white",
+        fontFamily: "Calibri",
+        fontSize: "16px",
       },
     },
     xAxis: {
@@ -45,6 +47,8 @@ const HighchartsComponent = (props) => {
       labels: {
         style: {
           color: "white",
+          fontFamily: "Calibri",
+          fontSize: "14px",
         },
       },
     },
@@ -54,14 +58,17 @@ const HighchartsComponent = (props) => {
       labels: {
         style: {
           color: "white",
+          fontFamily: "Calibri",
+          fontSize: "14px",
         },
       },
     },
-
     legend: {
       reversed: true,
       itemStyle: {
         color: "white",
+        fontFamily: "Calibri",
+        fontSize: "14px",
       },
     },
     plotOptions: {
@@ -70,8 +77,9 @@ const HighchartsComponent = (props) => {
         dataLabels: {
           enabled: true,
           style: {
-            fontSize: "11px",
             color: "white",
+            fontFamily: "Calibri",
+            fontSize: "11px",
           },
         },
       },
@@ -84,10 +92,11 @@ const HighchartsComponent = (props) => {
           enabled: true,
           style: {
             color: "white",
+            fontFamily: "Calibri",
+            fontSize: "12px",
           },
         },
       },
-
       {
         name: "Worsened",
         data: worsenedArrArr,
@@ -95,6 +104,8 @@ const HighchartsComponent = (props) => {
           enabled: true,
           style: {
             color: "white",
+            fontFamily: "Calibri",
+            fontSize: "12px",
           },
         },
       },
@@ -105,6 +116,8 @@ const HighchartsComponent = (props) => {
           enabled: true,
           style: {
             color: "white",
+            fontFamily: "Calibri",
+            fontSize: "12px",
           },
         },
       },
@@ -115,6 +128,8 @@ const HighchartsComponent = (props) => {
           enabled: true,
           style: {
             color: "red",
+            fontFamily: "Calibri",
+            fontSize: "12px",
           },
         },
       },
@@ -125,6 +140,8 @@ const HighchartsComponent = (props) => {
           enabled: true,
           style: {
             color: "white",
+            fontFamily: "Calibri",
+            fontSize: "12px",
           },
         },
       },
@@ -136,40 +153,28 @@ const HighchartsComponent = (props) => {
     return caregaps.split(",").map((caregap) => caregap.trim());
   }
 
-  // Function to toggle the visibility of the chart and table
-  // const toggleChartVisibility = () => {
-  //   setShowChart((prevShowChart) => !prevShowChart);
-  // };
-
   useEffect(() => {
     fetch("http://localhost:9090/findall")
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         setResult(data);
         setTableResult(data);
-        //  const caregap = [];
 
         data.forEach((item, index) => {
           const bulletPoints = splitCaregapsIntoBulletPoints(item.caregaps);
 
-          bulletPoints.forEach((point) => {
-            // console.log(`• ${point}`);
-          });
-
-          // console.log(bulletPoints);
+          bulletPoints.forEach((point) => {});
         });
 
         const diagnosListArray = data.map((item) => item.diagnos_LIST);
         let uniqueChars = [...new Set(diagnosListArray)];
         setDementiaValue(uniqueChars);
 
-        const diagnosListArray1 = data.map(
-          (item) => item.patient_CONDITION_DIAG_1
-        );
-        // console.log(diagnosListArray + "hii");
+        // const diagnosListArray1 = data.map(
+        //   (item) => item.patient_CONDITION_DIAG_1
+        // );
 
-        let uniqueChars1 = [...new Set(diagnosListArray1)];
+        // let uniqueChars1 = [...new Set(diagnosListArray1)];
 
         var noChangeArr = [];
         var improvedArr = [];
@@ -226,8 +231,6 @@ const HighchartsComponent = (props) => {
 
   const navigate = useNavigate();
 
-  // Your component code
-
   const handleNavigate = () => {
     const newPath =
       path === "/percentageView" ? "/stackedView" : "/percentageView";
@@ -235,7 +238,7 @@ const HighchartsComponent = (props) => {
   };
 
   return (
-    <div>
+    <div style={{}}>
       {isLoading ? (
         <Spin
           size="large"
@@ -263,30 +266,23 @@ const HighchartsComponent = (props) => {
                   onClick={handleNavigate}
                 />
               </div>
-
-              {/* <Link
-            to={path === "/percentageView" ? "/stackedView" : "/percentageView"}
-          >
-            <div style={{ position: "relative", top: "10px", right: "30px" }}>
-              <AddchartIcon />
-            </div>
-          </Link> */}
             </div>
 
             {/* Table */}
             {props.tableView && (
               <div style={{ display: "flex" }}>
                 <div style={tableContainerStyle}>
-                  <div style={{ overflowY: "auto", maxHeight: "400px" }}>
+                  <div style={{ overflowY: "auto", maxHeight: "450px" }}>
                     <table style={tableStyle} className="custom-table">
                       <thead
-                        style={{
-                          position: "sticky",
-                          top: "0",
-                          backgroundColor: "darkblue",
-                          color: "#222",
-                          textAlign: "center",
-                        }}
+                        className="table-heading"
+                        // style={{
+                        //   position: "sticky",
+                        //   top: "0",
+                        //   backgroundColor: "#222",
+                        //   color: "#222",
+                        //   textAlign: "center",
+                        // }}
                       >
                         <tr>
                           <th>DX-List</th>

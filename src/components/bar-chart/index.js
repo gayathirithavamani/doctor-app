@@ -11,15 +11,17 @@ const BarChart = ({ seriesData, xAxisValue, format, title }) => {
     title: {
       text: title,
       style: {
-        color: "white", // Set the font color for the title
-        fontSize: "10px",
+        color: "white",
+        fontSize: "12px",
+        fontFamily: "Calibri", // Set the desired font family
       },
     },
     xAxis: {
       categories: xAxisValue,
       labels: {
         style: {
-          color: "white", // Set the font color for the X-axis labels
+          color: "white",
+          fontFamily: "Calibri", // Set the desired font family
         },
       },
     },
@@ -28,11 +30,11 @@ const BarChart = ({ seriesData, xAxisValue, format, title }) => {
       tickInterval: 5,
       labels: {
         style: {
-          color: "white", // Set the font color for the Y-axis tick labels
+          color: "white",
+          fontFamily: "Calibri", // Set the desired font family
         },
       },
     },
-
     legend: {
       enabled: false,
     },
@@ -43,6 +45,9 @@ const BarChart = ({ seriesData, xAxisValue, format, title }) => {
         dataLabels: {
           enabled: true,
           format: format,
+          style: {
+            fontFamily: "Calibri", // Set the desired font family for data labels
+          },
         },
         pointWidth: 10,
       },

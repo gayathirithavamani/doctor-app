@@ -195,7 +195,7 @@ td {
 }
 
 .custom-table th {
-  background-color: #f2f2f2; /* Header background color */
+  background-color: blue; /* Header background color */
 }
 
 .custom-table tr:nth-child(even) {
@@ -223,13 +223,13 @@ td {
   font-weight: bold;
 }
 
-.multicolor-gradient-text {
+/* .multicolor-gradient-text {
   background: linear-gradient(45deg, #ff5733, #ffbd33, #33ff57, #337dff);
   -webkit-background-clip: text;
   color: transparent;
-  font-size: 36px; /* Adjust the font size as needed */
+  font-size: 36px;
   font-weight: bold;
-}
+} */
 
 h1 {
   font-size: 40px;
@@ -237,4 +237,13 @@ h1 {
   background: linear-gradient(to right, #f520e3, #072cfa);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
+}
+
+.table-heading {
+  position: sticky;
+  top: 0;
+  background-color: #222 !important;
+  color: white;
+  text-align: center;
+  font-family: Calibri;
 }
