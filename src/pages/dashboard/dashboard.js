@@ -50,6 +50,8 @@ const Dashboard = () => {
   const [selectYes4, setSelectYes4] = useState();
   const [selectNo4, setSelectNo4] = useState();
   const [selectRefused4, setSelectRefused4] = useState();
+
+  
   const [multibuttonStates, setMultiButtonStates] = useState(
     values.map(() => false)
   );
@@ -64,6 +66,11 @@ const Dashboard = () => {
     },
     {
       id: 2,
+      name: "PREVNAR",
+      path: "/prevnarView",
+    },
+    {
+      id: 3,
       name: "INFLUENZA",
       path: "/dashboardDonut",
     },
@@ -257,7 +264,7 @@ const Dashboard = () => {
         width: "100%",
         display: "flex",
         height: "100vh",
-        backgroundColor: "#f2f2f2",
+        backgroundColor: "rgba(78,78,78)",
       }}
     >
       {isLoading ? (

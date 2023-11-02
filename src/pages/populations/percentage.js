@@ -4,6 +4,7 @@ import HighchartsComponent from "./stackedChart";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import "../style/dashboard.css";
 import { Spin } from "antd";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 
 function Percentage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -57,6 +58,11 @@ function Percentage() {
         setIsLoading(false);
       });
   }, []);
+  const paragraphStyle = {
+    fontSize: "17px",
+    fontFamily: "Calibri",
+  };
+
   const handleFilteredData = (btn) => {
     if (btn === "all") {
       setFiltered(result);
@@ -117,17 +123,26 @@ function Percentage() {
                   overflowY: "auto",
                   lineHeight: "1",
                   color: "white",
+                  fontFamily: "",
                 }}
               >
                 {single && single.patientname && (
                   <p>
-                    <strong>Patient Name:</strong> {single.patientname}
+                    <strong style={{ color: "#5DADEC", fontSize: "18px" }}>
+                      CARE GAP FOR PATIENT:
+                    </strong>{" "}
+                    {single.patientname}
                   </p>
                 )}
+
                 {single &&
                   single.caregaps &&
                   splitCaregapsIntoBulletPoints(single.caregaps).map(
-                    (point, index) => <p key={index}>• {point}</p>
+                    (point, index) => (
+                      <p key={index} style={paragraphStyle}>
+                        <RadioButtonCheckedIcon /> {point}
+                      </p>
+                    )
                   )}
               </div>
             )}
@@ -186,7 +201,7 @@ function Percentage() {
             </div>
             <div
               style={{
-                height: "280px",
+                height: "221px",
                 overflowX: "hidden",
               }}
             >

@@ -153,9 +153,9 @@ td {
 
 .description {
   height: 200px;
-  width: 490px;
+  width: 500px;
   color: white;
-  background-color: rgb(72, 9, 245);
+  background-color: #222;
 }
 
 .highcharts-legend-item
@@ -199,7 +199,7 @@ td {
 }
 
 .custom-table tr:nth-child(even) {
-  background-color: #f2f2f2; /* Alternate row background color */
+  /* background-color: #f2f2f2;  */
 }
 
 .custom-check-icon {
@@ -246,4 +246,18 @@ h1 {
   color: white;
   text-align: center;
   font-family: Calibri;
+}
+.proLayout {
+  background-color: rgb(34, 34, 34);
+}
+.ant-layout-content {
+  background-color: rgb(78, 78, 78);
+  height: auto;
+}
+.ant-layout .ant-layout-has-sider {
+  background-color: rgb(78, 78, 78);
+  height: auto;
+}
+::-webkit-scrollbar {
+  display: none;
 }

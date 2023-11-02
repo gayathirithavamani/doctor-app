@@ -6,7 +6,7 @@ const BarChart = ({ seriesData, xAxisValue, format, title }) => {
   const options = {
     chart: {
       type: "bar",
-      backgroundColor: "black",
+      backgroundColor: "#222",
     },
     title: {
       text: title,

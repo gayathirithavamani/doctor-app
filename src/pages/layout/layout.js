@@ -111,17 +111,12 @@ const MainLayout = () => {
   }
 
   return (
-    <Layout
-      style={{
-        //height: "100vh",
-        backgroundColor: "rgb(34, 34, 34)",
-      }}
-    >
+    <Layout className="proLayout">
       <Sider
         collapsible
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
-        style={{ backgroundColor: "rgb(34, 34, 34)",height:"100vh" }}
+        style={{ backgroundColor: "rgb(34, 34, 34)", height: "100vh" }}
       >
         <div className="demo-logo-vertical" />
         <Menu

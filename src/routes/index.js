@@ -34,33 +34,33 @@ import Cat2 from "../pages/assessment/cat2";
 const HomeRoutes = () => {
   return (
     // <Router>
-      <Routes>
-        <Route path="/dashboard" element={<Dashboard />} />
+    <Routes>
+      <Route path="/dashboard" element={<Dashboard />} />
 
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/dashboardView" element={<DashboardView />} />
-        <Route path="/dashboardDonut" element={<DashboardDonut />} />
-        <Route path="/dashboardCovid" element={<DashboardCovid />} />
-        <Route path="/dashboardCovid2" element={<DashboardCovid2 />} />
-        <Route path="/dashboardBooster" element={<DashboardBooster />} />
-        {/* <Route path="/populationView" element={<BarChart />} /> */}
-        <Route path="/percentageView" element={<Percentage />} />
-        <Route
-          path="/stackedView"
-          element={<HighchartsComponent tableView={true} />}
-        />
-        <Route path="/assessmentView" element={<AssessmentBarView />} />
-        <Route path="/adv1" element={<Adv1 />} />
-        <Route path="/adv2" element={<Adv2 />} />
-        <Route path="/cat1" element={<Cat1 />} />
-        <Route path="/cat2" element={<Cat2 />} />
-        <Route path="/cat3" element={<Cat3 />} />
-        <Route path="/cat4" element={<Cat4 />} />
-        <Route path="/fall1" element={<Fall1 />} />
-        <Route path="/fall2" element={<Fall2 />} />
-        <Route path="/skin1" element={<Skin1 />} />
-        <Route path="/skin4" element={<Skin5 />} />
-      </Routes>
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/dashboardView" element={<DashboardView />} />
+      <Route path="/dashboardDonut" element={<DashboardDonut />} />
+      <Route path="/dashboardCovid" element={<DashboardCovid />} />
+      <Route path="/dashboardCovid2" element={<DashboardCovid2 />} />
+      <Route path="/dashboardBooster" element={<DashboardBooster />} />
+      {/* <Route path="/populationView" element={<BarChart />} /> */}
+      <Route path="/percentageView" element={<Percentage />} />
+      <Route
+        path="/stackedView"
+        element={<HighchartsComponent tableView={true} />}
+      />
+      <Route path="/assessmentView" element={<AssessmentBarView />} />
+      <Route path="/adv1" element={<Adv1 />} />
+      <Route path="/adv2" element={<Adv2 />} />
+      <Route path="/cat1" element={<Cat1 />} />
+      <Route path="/cat2" element={<Cat2 />} />
+      <Route path="/cat3" element={<Cat3 />} />
+      <Route path="/cat4" element={<Cat4 />} />
+      <Route path="/fall1" element={<Fall1 />} />
+      <Route path="/fall2" element={<Fall2 />} />
+      <Route path="/skin1" element={<Skin1 />} />
+      <Route path="/skin4" element={<Skin5 />} />
+    </Routes>
     // </Router>
   );
 };
