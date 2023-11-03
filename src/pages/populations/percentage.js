@@ -139,7 +139,10 @@ function Percentage() {
                   single.caregaps &&
                   splitCaregapsIntoBulletPoints(single.caregaps).map(
                     (point, index) => (
-                      <p key={index} style={paragraphStyle}>
+                      <p
+                        key={index}
+                        style={{ ...paragraphStyle, justifyContent: "start" }}
+                      >
                         <RadioButtonCheckedIcon /> {point}
                       </p>
                     )

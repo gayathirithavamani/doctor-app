@@ -7,7 +7,7 @@ import DateRangeIcon from "@mui/icons-material/DateRange";
 import { useNavigate } from "react-router-dom";
 import PieChartIcon from "@mui/icons-material/PieChart";
 
-function DashboardView() {
+function PrevnarView() {
   const [isLoading, setIsLoading] = useState(true);
   const [yesValue, setYesValue] = useState();
   const [blankValue, setBlankValue] = useState();
@@ -49,7 +49,7 @@ function DashboardView() {
     if (clickValue === "data") {
       setTableResult(result);
     } else {
-      const value = result.filter((i) => i.imm_PNEUMO_Y === clickValue);
+      const value = result.filter((i) => i.imm_PREVNAR_Y === clickValue);
       setTableResult(value);
     }
   };
@@ -60,10 +60,10 @@ function DashboardView() {
       .then((data) => {
         console.log(data);
         setResult(data);
-        const yesValue = data.filter((i) => i.imm_PNEUMO_Y === "Yes");
-        const noValue = data.filter((i) => i.imm_PNEUMO_Y === "No");
-        const refusedValue = data.filter((i) => i.imm_PNEUMO_Y === "Refused");
-        const blankValue = data.filter((i) => i.imm_PNEUMO_Y === null);
+        const yesValue = data.filter((i) => i.imm_PREVNAR_Y === "Yes");
+        const noValue = data.filter((i) => i.imm_PREVNAR_Y === "No");
+        const refusedValue = data.filter((i) => i.imm_PREVNAR_Y === "Refused");
+        const blankValue = data.filter((i) => i.imm_PREVNAR_Y === null);
         setBlankValue(blankValue.length);
         setTableResult(data);
         setYesValue(yesValue.length);
@@ -84,7 +84,7 @@ function DashboardView() {
   }, []);
 
   const options = {
-    title: "PNEUMOC0CCAL",
+    title: "PREVNAR",
 
     is3D: true,
     legend: {
@@ -220,17 +220,37 @@ function DashboardView() {
                 </tr>
               </thead>
               <tbody>
-                {tableResult.map((item) => (
+                {/* {tableResult.map((item) => (
                   <tr key={item.id}>
                     <td>{item.patientname}</td>
                     {yesValueShow && (
-                      <td>{item.imm_PNEUMO_Y === "Yes" ? "✔️" : "❌"}</td>
+                      <td>{item.imm_PREVNAR_Y === "Yes" ? "✔️" : "❌"}</td>
                     )}
                     {noValueShow && (
-                      <td>{item.imm_PNEUMO_Y === "No" ? "✔️" : "❌"}</td>
+                      <td>{item.imm_PREVNAR_Y === "No" ? "✔️" : "❌"}</td>
                     )}
                     {refusedValueShow && (
-                      <td>{item.imm_PNEUMO_Y === "Refused" ? "✔️" : "❌"}</td>
+                      <td>{item.imm_PREVNAR_Y === "Refused" ? "✔️" : "❌"}</td>
+                    )}
+                  </tr>
+                ))} */}
+                {tableResult.map((item) => (
+                  <tr key={item.id}>
+                    <td style={{ color: "white" }}>{item.patientname}</td>
+                    {yesValueShow && (
+                      <td style={{ color: "white" }}>
+                        {item.imm_PREVNAR_Y === "Yes" ? "✔️" : "❌"}
+                      </td>
+                    )}
+                    {noValueShow && (
+                      <td style={{ color: "white" }}>
+                        {item.imm_PREVNAR_Y === "No" ? "✔️" : "❌"}
+                      </td>
+                    )}
+                    {refusedValueShow && (
+                      <td style={{ color: "white" }}>
+                        {item.imm_PREVNAR_Y === "Refused" ? "✔️" : "❌"}
+                      </td>
                     )}
                   </tr>
                 ))}
@@ -242,4 +262,4 @@ function DashboardView() {
     </div>
   );
 }
-export default DashboardView;
+export default PrevnarView;

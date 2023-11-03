@@ -10,9 +10,13 @@ import { Spin } from "antd";
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [yesValue0, setYesValue0] = useState();
+  const [noValue0, setNoValue0] = useState();
+  const [refusedValue0, setRefusedValue0] = useState();
   const [yesValue, setYesValue] = useState();
   const [noValue, setNoValue] = useState();
   const [refusedValue, setRefusedValue] = useState();
+  const [blankValue0, setBlankValue0] = useState();
   const [blankValue, setBlankValue] = useState();
   const [yesValue1, setYesValue1] = useState();
   const [noValue1, setNoValue1] = useState();
@@ -35,6 +39,9 @@ const Dashboard = () => {
 
   const [selectedNames, setSelectedNames] = useState([]);
   const [isMultiSelect, setIsMultiSelect] = useState(false);
+  const [selectYes0, setSelectYes0] = useState();
+  const [selectNo0, setSelectNo0] = useState();
+  const [selectRefused0, setSelectRefused0] = useState();
   const [selectYes, setSelectYes] = useState();
   const [selectNo, setSelectNo] = useState();
   const [selectRefused, setSelectRefused] = useState();
@@ -51,7 +58,6 @@ const Dashboard = () => {
   const [selectNo4, setSelectNo4] = useState();
   const [selectRefused4, setSelectRefused4] = useState();
 
-  
   const [multibuttonStates, setMultiButtonStates] = useState(
     values.map(() => false)
   );
@@ -156,10 +162,17 @@ const Dashboard = () => {
       .then((response) => response.json())
       .then((data) => {
         setValues(data);
+
+        const yesValue0 = data.filter((i) => i.imm_PREVNAR_Y === "Yes");
+        const noValue0 = data.filter((i) => i.imm_PREVNAR_Y === "No");
+        const refusedValue0 = data.filter((i) => i.imm_PREVNAR_Y === "Refused");
+        const blankValue0 = data.filter((i) => i.imm_PREVNAR_Y === null);
+        setBlankValue0(blankValue0.length);
+        setYesValue0(yesValue0.length);
+        setNoValue0(noValue0.length);
+        setRefusedValue0(refusedValue0.length);
         const yesValue = data.filter((i) => i.imm_PNEUMO_Y === "Yes");
-
         const noValue = data.filter((i) => i.imm_PNEUMO_Y === "No");
-
         const refusedValue = data.filter((i) => i.imm_PNEUMO_Y === "Refused");
         const blankValue = data.filter((i) => i.imm_PNEUMO_Y === null);
         setBlankValue(blankValue.length);
@@ -202,6 +215,17 @@ const Dashboard = () => {
         setYesValue4(yesValue4.length);
         setNoValue4(noValue4.length);
         setRefusedValue4(refusedValue4.length);
+
+        const selectYes0 = selectedNames.filter(
+          (i) => i.imm_PREVNAR_Y === "Yes"
+        );
+        setSelectYes0(selectYes0.length);
+        const selectNo0 = selectedNames.filter((i) => i.imm_PREVNAR_Y === "No");
+        setSelectNo0(selectNo0.length);
+        const selectRefused0 = selectedNames.filter(
+          (i) => i.imm_PREVNAR_Y === "Refused"
+        );
+        setSelectRefused0(selectRefused0.length);
 
         const selectYes = selectedNames.filter((i) => i.imm_PNEUMO_Y === "Yes");
         setSelectYes(selectYes.length);
@@ -309,6 +333,27 @@ const Dashboard = () => {
                                 ["No", noValue],
                                 ["Refused", refusedValue],
                                 ["(Blank)", blankValue],
+                              ]
+                          : options.title === "PREVNAR"
+                          ? single
+                            ? [
+                                ["Task", "Hours per Day"],
+                                [single.imm_PREVNAR_Y, "1"],
+                              ]
+                            : isMultiSelect && selectedNames.length > 0
+                            ? [
+                                ["Task", "Hours per Day"],
+
+                                ["Yes", selectYes0],
+                                ["No", selectNo0],
+                                ["Refused", selectRefused0],
+                              ]
+                            : [
+                                ["Task", "Hours per Day"],
+                                ["Yes", yesValue0],
+                                ["No", noValue0],
+                                ["Refused", refusedValue0],
+                                ["(Blank)", blankValue0],
                               ]
                           : single
                           ? [

@@ -30,6 +30,7 @@ import Skin1 from "../pages/assessment/Skin1";
 import Skin2 from "../pages/assessment/Skin4";
 import Skin5 from "../pages/assessment/Skin4";
 import Cat2 from "../pages/assessment/cat2";
+import PrevnarView from "../pages/dashboard/prevnarView";
 
 const HomeRoutes = () => {
   return (
@@ -39,6 +40,7 @@ const HomeRoutes = () => {
 
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route path="/dashboardView" element={<DashboardView />} />
+      <Route path="/prevnarView" element={<PrevnarView />} />
       <Route path="/dashboardDonut" element={<DashboardDonut />} />
       <Route path="/dashboardCovid" element={<DashboardCovid />} />
       <Route path="/dashboardCovid2" element={<DashboardCovid2 />} />

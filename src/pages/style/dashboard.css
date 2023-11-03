@@ -4,17 +4,6 @@
 }
 
 .chart-lable {
-  /* padding: 5px;
-  text-align: center;
-  color: #131212;
-  align-items: center;
-  border-radius: 40px;
-  margin: 5px;
-  cursor: pointer;
-  height: 20px;
-  width: 32px;
-  font-size: 9px;
-  justify-content: center; */
   padding: 5px;
   text-align: center;
   color: #131212;
@@ -192,6 +181,9 @@ td {
   border: 1px solid #000;
   padding: 8px;
   text-align: center;
+}
+.custom-table td {
+  color: white;
 }
 
 .custom-table th {

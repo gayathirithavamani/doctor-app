@@ -210,7 +210,7 @@ function DashboardView() {
                   position: "sticky",
                   top: "0",
                   background: "blue",
-                  color: "black",
+                  color: "#fff",
                   textAlign: "center",
                 }}
               >
