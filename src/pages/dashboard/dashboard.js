@@ -162,7 +162,6 @@ const Dashboard = () => {
       .then((response) => response.json())
       .then((data) => {
         setValues(data);
-
         const yesValue0 = data.filter((i) => i.imm_PREVNAR_Y === "Yes");
         const noValue0 = data.filter((i) => i.imm_PREVNAR_Y === "No");
         const refusedValue0 = data.filter((i) => i.imm_PREVNAR_Y === "Refused");
@@ -510,7 +509,7 @@ const Dashboard = () => {
                 overflowX: "hidden",
               }}
             >
-              {values.map((item) => {
+              {values.map((item,index) => {
                 return (
                   <div
                     key={item.id}
@@ -555,7 +554,7 @@ const Dashboard = () => {
                       >
                         {item.patientname}
                       </button> */}
-                      {values.map((item, index) => (
+                      
                         <button
                           key={item.id}
                           style={{
@@ -605,7 +604,7 @@ const Dashboard = () => {
                         >
                           {item.patientname}
                         </button>
-                      ))}
+                    
                     </li>
                   </div>
                 );

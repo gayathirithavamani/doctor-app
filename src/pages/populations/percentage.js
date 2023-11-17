@@ -26,6 +26,11 @@ function Percentage() {
       .then((data) => {
         setResult(data);
         setFiltered(data);
+
+        const ageValue = data.filter((i) => i.patientage >= 70);
+
+        console.log("Patients aged 70 and above:", ageValue);
+
         var listArray = [];
         data.map((item) => {
           const existingItemIndex = listArray.findIndex(

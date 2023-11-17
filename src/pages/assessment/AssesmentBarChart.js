@@ -890,26 +890,33 @@ const AssessmentBarView = () => {
                 height: "280px",
                 width: "100%",
                 overflowY: "scroll",
-                // overflowX: "hidden",
+               
               }}
             >
-              {values.map((item) => {
+              {values.map((item, index) => {
                 return (
                   <div
                     key={item.id}
                     style={{
-                      // display: "flex",
+                   
                       alignItems: "center",
                       width: "100%",
                     }}
                   >
                     <li style={{ listStyleType: "none" }}>
-                      {/* <button
+                    
+                      <button
+                        key={item.id}
                         style={{
                           width: "100%",
                           height: "30px",
                           fontSize: "11px",
-                          backgroundColor: "blue",
+                          backgroundColor:
+                            !isMultiSelect && single && buttonStates === item.id
+                              ? "red"
+                              : isMultiSelect && multibuttonStates[index]
+                              ? "red"
+                              : "blue",
                           color: "#fff",
                           textAlign: "center",
                           justifyContent: "center",
@@ -917,6 +924,7 @@ const AssessmentBarView = () => {
                         onClick={() => {
                           if (!isMultiSelect) {
                             handleClick(item);
+                            setButtonStates(item.id);
                           } else {
                             setSingle();
                             if (
@@ -933,62 +941,16 @@ const AssessmentBarView = () => {
                             } else {
                               setSelectedNames((prev) => [...prev, item]);
                             }
+                            setMultiButtonStates((prevStates) => {
+                              const newStates = [...prevStates];
+                              newStates[index] = !newStates[index];
+                              return newStates;
+                            });
                           }
                         }}
                       >
                         {item.patientname}
-                      </button> */}
-                      {values.map((item, index) => (
-                        <button
-                          key={item.id}
-                          style={{
-                            width: "100%",
-                            height: "30px",
-                            fontSize: "11px",
-                            backgroundColor:
-                              !isMultiSelect &&
-                              single &&
-                              buttonStates === item.id
-                                ? "red"
-                                : isMultiSelect && multibuttonStates[index]
-                                ? "red"
-                                : "blue",
-                            color: "#fff",
-                            textAlign: "center",
-                            justifyContent: "center",
-                          }}
-                          onClick={() => {
-                            if (!isMultiSelect) {
-                              handleClick(item);
-                              setButtonStates(item.id);
-                            } else {
-                              setSingle();
-                              if (
-                                selectedNames.length > 0 &&
-                                selectedNames.some(
-                                  (selectedItem) => selectedItem.id === item.id
-                                )
-                              ) {
-                                setSelectedNames((prev) =>
-                                  prev.filter(
-                                    (selectedItem) =>
-                                      selectedItem.id !== item.id
-                                  )
-                                );
-                              } else {
-                                setSelectedNames((prev) => [...prev, item]);
-                              }
-                              setMultiButtonStates((prevStates) => {
-                                const newStates = [...prevStates];
-                                newStates[index] = !newStates[index];
-                                return newStates;
-                              });
-                            }
-                          }}
-                        >
-                          {item.patientname}
-                        </button>
-                      ))}
+                      </button>
                     </li>
                   </div>
                 );
